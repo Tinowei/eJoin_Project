@@ -1,0 +1,175 @@
+﻿@using Web.ViewModels.MemberViewModel
+
+@model MyProfileViewModel
+@{
+    ViewData["Title"] = "關於自己";
+}
+
+<!-- 目錄+內容 -->
+<div class="content">
+
+    <!-- 目錄 -->
+    <div class="menu" >
+        <ul class="main-menu">
+            <li class="currentPage"><a asp-controller="Member" asp-action="MyProfile" class="menu-aboutMe">關於自己</a></li>
+            
+            <li><a  asp-controller="Member" asp-action="MyTicket" class="menu-myTicket">我的票券</a></li>
+            
+            <li><a  asp-controller="Member" asp-action="MyEvent" class="menu-myActivities">我的活動</a></li>
+            
+            <li><a  asp-controller="Member" asp-action="MyAccount" class="menu-changePassword">變更密碼</a></li>
+        </ul>
+    </div>
+
+    <!-- 內容 --> 
+    <div class="all">
+        <!-- 照片與名字&主要內容 -->
+        <div class="photoNameAndMainContent">
+            <!-- 關於自己 -->
+
+            <div class="aboutMe">
+                <div class="h2AndBrowse">
+                    <h2>關於自己</h2>
+                        <a asp-controller="Member" asp-action="Index" asp-route-memberId="@Model.MemberId" class="browse">
+                            <svg xmlns="http://www.w3.org/2000/svg"  fill="#fff" width="14" height="14" viewBox="0 0 512 512"><path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg>
+                            個人頁面
+                        </a>
+                    
+                </div>
+                <p class="note">以下資訊將用於活動推薦及報名使用。</p><br>
+                <!-- 上傳背景+頭像 -->
+                <div class="upload-section">
+                    <!-- 上傳背景圖 -->
+                    <div class="upload-container">
+                        <div class="upload-preview">
+                            <div class="backgroundImgOuter">
+                                @* <img src=@Model.BackgroundUrl alt=""> *@
+                                <img class="backgroundUrl" id="bgPreviewImg" src="@Model.BackgroundUrl" alt="Image preview">
+                                @* <img class="backgroundUrl" id="bgPreviewImg"   src="~/images/cardUploadImg.png" alt=""> *@
+                            </div>
+                            <form id="uploadForm" enctype="multipart/form-data">
+                                <!-- 隱藏的文件輸入元素，與上傳按鈕的標籤相關聯 -->
+                                <input type="file" id="bgImageFile" name="file" accept="image/jpeg, image/png, image/webp,image/jpg" style="display: none;" data-default="@Model.BackgroundUrl">
+                                <label for="bgImageFile" class="upload-label" style="border: none;">
+                                    <svg fill="#fff" width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" >
+                                        <path d="m11.093 15.43-3.039-3.04c.543-.956 1.335-1.903 2.375-2.838 1.341-1.208 3.708-3.25 7.1-6.126a1.795 1.795 0 0 1 2.53 2.53c-2.88 3.398-4.921 5.765-6.125 7.1-.935 1.037-1.882 1.828-2.841 2.373Zm-4.416-1.587 2.965 2.964-1.366 1.906L3 20.508l1.771-5.3 1.906-1.365Z" fill="current"></path>
+                                        </svg>
+                                        上傳
+                                    </label>
+                            </form>
+                            
+                            @* <label for="bgImg" class="upload-label"> *@
+                            @*     <svg fill="#fff" width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" > *@
+                            @*         <path d="m11.093 15.43-3.039-3.04c.543-.956 1.335-1.903 2.375-2.838 1.341-1.208 3.708-3.25 7.1-6.126a1.795 1.795 0 0 1 2.53 2.53c-2.88 3.398-4.921 5.765-6.125 7.1-.935 1.037-1.882 1.828-2.841 2.373Zm-4.416-1.587 2.965 2.964-1.366 1.906L3 20.508l1.771-5.3 1.906-1.365Z" fill="current"></path> *@
+                            @*         </svg> *@
+                            @*     上傳 *@
+                            @*     </label> *@
+                        </div>
+                        <input id="bgImg" type="file" accept="image/jpeg, image/png, image/webp,image/jpg" class="upload-input">
+                        <div class="upload-note">
+                            <p>圖片大小建議：封面-700×300，頭像-200×200</p>
+                        </div>
+                    </div>
+                    <!-- 上傳頭像 -->
+                    <div class="avatar-container">
+                        <div class="avatar-preview">
+                     <img class="avatarUrl" id="avatarPreviewImg"   src="@Model.AvatarUrl" alt=""> 
+                         @* <img class="avatarUrl" id="avatarPreviewImg"   src="~/images/profilePicture.png" alt=""> *@
+                            <label for="avatarImageFile" class="avatar-label">
+                                <svg fill="#fff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="transform: rotate(-90deg);">
+                                    <path d="M18 12h2.793a.5.5 0 0 1 .353.854l-3.792 3.792a.5.5 0 0 1-.708 0l-3.792-3.792a.5.5 0 0 1 .353-.854H16c0-3.31-2.69-6-6-6s-6 2.69-6 6a6.006 6.006 0 0 0 5.5 5.98c.275.022.5.244.5.52v1a.477.477 0 0 1-.5.485A7.998 7.998 0 0 1 2 12c0-4.42 3.58-8 8-8s8 3.58 8 8Z" fill="current"></path>
+                                </svg>
+                                更新
+                            </label>
+                        </div>
+                        <input type="file" id="avatarImageFile" accept="image/*" class="upload-input" data-default="@Model.AvatarUrl">
+                    </div>
+                </div>
+                
+                <label>帳號/Email<span class="noChange"> &nbsp; ※不可變更 &nbsp; </span><a href="" target="_blank" class="bindGoogle">綁定Google</a></label><br>
+                
+                <input class="accountEmail" type="email" disabled placeholder="@Model.Email">
+
+                <label>姓名<span class="requiredSymbols">*</span></label>
+                <input  class="realName" type="text" maxlength="50" placeholder="請輸入您的名字(最大長度為50字元，可輸入大小寫英文與中文，文字之間可含空白)" value="@Model.Name">
+
+                <label>顯示名稱<span class="requiredSymbols">*</span></label>
+                <input class="displayName" type="text" maxlength="100" placeholder="您希望怎麼被稱呼(最大長度為100字元，可輸入大小寫英文與中文，文字之間可含空白)" value="@Model.DisplayName">
+
+                <label>手機號碼<span class="requiredSymbols">*</span></label>
+                <input class="phone" type="tel" maxlength="12" placeholder="請輸入您的手機號碼(長度為10~12字元，需要以09開頭，可輸入數字與減號，例如：09xxxxxxxx、09xx-xxx-xxx、09xx-xxxxxx)" value="@Model.Phone">
+
+                <label>個人簡介</label><br>
+                <textarea class="textarea" name="" id="" maxlength="255" cols="40" rows="10" placeholder="請輸入您的個人介紹(最大長度為250字元)"  style="resize:vertical;height: 115px;">@Model.PersonalIntroduction</textarea>
+                <div class="textareaCount">0 / 255</div>
+
+                <label>生日</label>
+                <input class="birthday" type="date" placeholder="請選擇您的生日" value="@Model.Birthday?.ToString("yyyy-MM-dd")">
+
+                <label>性別</label><br>
+                <button value=1 name="yourSex" class="yourSex @(Model.Gender == Gender.Male ? "blue-background" : "")">男</button>
+                <button value=2 name="yourSex" class="yourSex @(Model.Gender == Gender.Female ? "blue-background" : "")">女</button>
+                <button value=3 name="yourSex" class="yourSex @(Model.Gender == Gender.Other ? "blue-background" : "")">其它</button><br>
+
+
+                <label>感情狀態</label><br>
+                <button value=1 name="yourRelationship" class="yourRelationship @(Model.EmotionalState == RelationshipStatus.Single ? "blue-background" : "")">單身</button>
+                <button value=2 name="yourRelationship" class="yourRelationship @(Model.EmotionalState == RelationshipStatus.StableRelationship ? "blue-background" : "")">穩定交往</button>
+                <button value=3 name="yourRelationship" class="yourRelationship @(Model.EmotionalState == RelationshipStatus.Married ? "blue-background" : "")">已婚</button><br>
+
+                <label>現居地</label><br>
+                <span>
+                    <select asp-for="City" class="city">
+                        <option value="" disabled="">請選擇縣市</option>
+                        <option value="台北市" selected="@((Model.City == "台北市") ? "selected" : null)">台北市</option>
+                        <option value="新北市" selected="@((Model.City == "新北市") ? "selected" : null)">新北市</option>
+                        <option value="基隆市" selected="@((Model.City == "基隆市") ? "selected" : null)">基隆市</option>
+                        <option value="桃園市" selected="@((Model.City == "桃園市") ? "selected" : null)">桃園市</option>
+                        <option value="新竹縣" selected="@((Model.City == "新竹縣") ? "selected" : null)">新竹縣</option>
+                        <option value="新竹市" selected="@((Model.City == "新竹市") ? "selected" : null)">新竹市</option>
+                        <option value="苗栗縣" selected="@((Model.City == "苗栗縣") ? "selected" : null)">苗栗縣</option>
+                        <option value="台中市" selected="@((Model.City == "台中市") ? "selected" : null)">台中市</option>
+                        <option value="彰化縣" selected="@((Model.City == "彰化縣") ? "selected" : null)">彰化縣</option>
+                        <option value="雲林縣" selected="@((Model.City == "雲林縣") ? "selected" : null)">雲林縣</option>
+                        <option value="嘉義縣" selected="@((Model.City == "嘉義縣") ? "selected" : null)">嘉義縣</option>
+                        <option value="嘉義市" selected="@((Model.City == "嘉義市") ? "selected" : null)">嘉義市</option>
+                        <option value="台南市" selected="@((Model.City == "台南市") ? "selected" : null)">台南市</option>
+                        <option value="高雄市" selected="@((Model.City == "高雄市") ? "selected" : null)">高雄市</option>
+                        <option value="屏東縣" selected="@((Model.City == "屏東縣") ? "selected" : null)">屏東縣</option>
+                        <option value="台東縣" selected="@((Model.City == "台東縣") ? "selected" : null)">台東縣</option>
+                        <option value="花蓮縣" selected="@((Model.City == "花蓮縣") ? "selected" : null)">花蓮縣</option>
+                        <option value="宜蘭縣" selected="@((Model.City == "宜蘭縣") ? "selected" : null)">宜蘭縣</option>
+                        <option value="南投縣" selected="@((Model.City == "南投縣") ? "selected" : null)">南投縣</option>
+                        <option value="澎湖縣" selected="@((Model.City == "澎湖縣") ? "selected" : null)">澎湖縣</option>
+                        <option value="連江縣" selected="@((Model.City == "連江縣") ? "selected" : null)">連江縣</option>
+                        <option value="金門縣" selected="@((Model.City == "金門縣") ? "selected" : null)">金門縣</option>
+                    </select>
+                    <input class="address" type="text" maxlength="255" placeholder="請輸入詳細地址(最大長度為200字元)" value="@Model.DetailAddress">
+                </span>
+            </div> 
+            <div class="button-list">
+                <input type="button" value="捨棄變更" class="button button1">
+                <input type="submit" id="saveChanges" value="儲存變更" class="button button2">
+            </div>
+        </div>        
+    </div>
+    <!-- 回頂端 -->
+    <a href="#" class="top">
+    <?xml version="1.0" ?><svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg"><title/><path d="M82.6074,62.1072,52.6057,26.1052a6.2028,6.2028,0,0,0-9.2114,0L13.3926,62.1072a5.999,5.999,0,1,0,9.2114,7.6879L48,39.3246,73.396,69.7951a5.999,5.999,0,1,0,9.2114-7.6879Z"/></svg>
+</a>
+</div>
+
+@section topCSS {
+
+    <link rel="stylesheet" href="~/css/Member/MyProfile.css" asp-append-version="true" />
+}
+
+@section endJS {
+
+    <script src="~/js/Member/MyProfile.js" asp-append-version="true"></script>
+    <script src="~/js/Member/sweetalert2/sweetalert2.all.min.js" asp-append-version="true"></script>
+
+}
+
+
+

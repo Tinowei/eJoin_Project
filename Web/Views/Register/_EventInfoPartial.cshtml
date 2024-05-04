@@ -1,0 +1,29 @@
+﻿@{
+
+}
+
+
+<div class="eventInfo-container">
+    <div class="eventInfo">
+        <img src="@Model.EventPictureUrl">
+        <a href="#" class="link-to-event">@Model.EventName</a>
+        <p class="eventTime">@Model.StartTime.ToString("yyyy/MM/dd (ddd) tt HH:mm") ~ @Model.EndTime.ToString("yyyy/MM/dd (ddd) tt HH:mm")</p>
+        <p class="eventAddress">@Model.EventAddress</p>
+        <div class="ruleCard">
+            <div class="ruleTitle">
+                <i class="fa-solid fa-triangle-exclamation"></i><span>退票規則</span>
+            </div>
+            <p class="description">
+                本活動委託 eJoin 代為處理退款事宜，依退款規則辦理。如需申請退款請於「購買成功 24 小時後，並於活動票券有效開始日前 8 日」辦理，並將酌收票價 10% 退票手續費，逾期恕不受理。<a href="#">如何辦理退款</a>
+            </p>
+        </div>
+        <div class="ruleCard">
+            <div class="ruleTitle">
+                <i class="fa-solid fa-triangle-exclamation"></i><span>購票須知</span>
+            </div>
+            <p class="description">
+                請注意，你應該先報名完成一筆訂單後再報名下一筆。為保障消費者權益及杜絕非法囤票，同一使用者同時間只能報名一筆訂單，透過多開視窗同時報名、購買多筆訂單，系統將只保留最後一筆訂單，取消先前尚未報名完成之訂單，敬請理解與配合。
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+.popover {
+    font-size: 12px;
+}
+
+.icon {
+    transform: translate(2px, -2px);
+}
+
+.select-icon {
+    margin: 20px auto 50px;
+    width: 100%;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+.theme-card {
+    padding: 5px;
+    text-align: center;
+    position: relative;
+}
+
+.theme-card i {
+    display: none;
+    position: absolute;
+    top: 0;
+    outline: 2px rgb(0, 207, 0) solid;
+    left: 50%;
+    translate: -50% -100%;
+    width: 100%;
+    background-color: rgb(0, 207, 0);
+}
+
+.theme-card img {
+    width :65px;
+}
+
+.theme-card img:hover {
+    transform: scale(1.2);
+}
+
+.selected {
+    outline: 2px rgb(0, 207, 0) solid;
+}
+
+.selected i {
+    display: block;
+}

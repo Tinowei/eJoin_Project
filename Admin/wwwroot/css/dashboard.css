@@ -1,0 +1,53 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+h1 {
+    margin-bottom:15px;
+}
+
+.card-body h3 {
+    font-size:18px;
+}
+
+.card-body p {
+    font-size: 18px;
+    text-align: right;
+    margin-bottom: 0 !important;
+}
+
+.card-body p span {
+    font-size:30px;
+    font-weight:bold;
+}
+
+.vue3-easy-data-table__footer {
+    display: none !important;
+}
+
+.container {
+    max-width: 1320px;
+}
+
+.mt-4 {
+    margin-bottom: 24px !important;
+}

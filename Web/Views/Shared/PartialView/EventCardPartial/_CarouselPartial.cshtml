@@ -1,0 +1,5 @@
+﻿@model Web.ViewModels.HomeViewModel.CarouselEvent
+
+<div class="carousel-item active">
+    <a asp-controller="Home" asp-action="Event" asp-route-eventId="@Model.EventId"><img src="@Model.EventImgUrl" class="d-block w-100"></a>
+</div>

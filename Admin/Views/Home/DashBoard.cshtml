@@ -1,0 +1,107 @@
+﻿@{
+    ViewData["Title"] = "儀表板";
+}
+
+@section CSS {
+    <link href="~/css/dashboard.css" rel="stylesheet" />
+}
+
+<div id="dashBoaard" class="container-fluid px-4">
+    <div class="container">
+        <h1 class="mt-4">儀表板</h1>
+        @* <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Dashboard</li>
+        </ol> *@
+        <div class="row">
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">
+                        <h3>活動總數</h3>
+                        <p> <span>{{ dashBoardData.eventCount }}</span> /個</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-warning text-white mb-4">
+                    <div class="card-body">
+                        <h3>訂單總數</h3>
+                        <p> <span>{{ dashBoardData.orderCount }}</span> /筆</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-success text-white mb-4">
+                    <div class="card-body">
+                        <h3>會員總數</h3>
+                        <p> <span>{{ dashBoardData.memberCount }}</span> /位</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-danger text-white mb-4">
+                    <div class="card-body">
+                        <h3>今年營業額</h3>
+                        <p> <span>{{ dashBoardData.totalPrice }}</span> /元</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area me-1"></i>
+                        收益成長
+                    </div>
+                    <div class="card-body"><canvas id="myAmountGrowthChart" width="100%" height="300"></canvas></div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar me-1"></i>
+                        會員成長
+                    </div>
+                    <div class="card-body"><canvas id="myBarChart" width="100%" height="300"></canvas></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-pie me-1"></i>
+                主題分布
+            </div>
+            <div class="card-body"><canvas id ="myPieChart"></canvas></div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                TOP5熱銷活動
+            </div>
+            <div class="card-body">
+
+                <div>
+                    <easy-data-table 
+                        show-index                 
+                        buttons-pagination 
+                        alternating
+                                     :headers="top5EventsDataTableHeader"
+                                     :items="dashBoardData.top5Events"
+                                     :loading="loadingDashBoardData">
+
+                    </easy-data-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!--chart.js-->
+    <script src="~/js/Chart/chart-min.js" crossorigin="anonymous"></script>
+
+    <script src="~/js/Home/dashBoard.js"></script>
+}

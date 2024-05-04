@@ -1,0 +1,202 @@
+﻿@using Web.ViewModels.AccountViewModel
+@model LoginViewModel
+@{
+    Layout = "_EmptyLayout";
+    ViewData["Title"] = "Login";
+}
+
+@section topCSS {
+    @*
+    <link rel="stylesheet" href="~/css/PartialViw/log-in.css" asp-append-version="true" /> *@
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+            box-sizing: border-box;
+            /*outline: 1px solid slategrey;*/
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            background-color: #cceef7;
+            color: #555;
+            font-size: 10px;
+        }
+
+        .login-part {
+            padding: 15px;
+        }
+
+        form.login {
+            width: 100%;
+            height: 100vh;
+            padding: 5vh 5vh;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .one-thirds {
+            width: 50%;
+            background-color: #fff;
+            border-right: 3px solid #D2D2D2;
+            border-radius: 10%;
+        }
+
+        .two-thirds {
+            width: 100%;
+            background-color: #fff;
+            flex: 0 1 auto;
+            display: flex; /*center*/
+        }
+
+        fieldset {
+            max-width: 400px;
+            margin: auto; /*center*/
+            font-size: 20px;
+            border: 1px solid #fff;
+        }
+
+        .username ::-webkit-input-placeholder {
+            font-size: 12px;
+        }
+
+        .lgd {
+            font-size: 40px;
+            display: flex;
+           justify-content: center; 
+        }
+
+
+        legend, input {
+            padding: 5px;
+            border: 1px solid #D2D2D2;
+        }
+
+            input[type="email"] {
+                width: 100%;
+                height: 38px;
+                margin: 10px 0 5px 0;
+                padding: 10px;
+                font-size: 14px;
+                font-family: monospace;
+            }
+
+            input[type="password"] {
+                width: 100%;
+                height: 38px;
+                margin: 5px 0 5px 0;
+                padding: 10px;
+                font-size: 14px;
+            }
+
+
+
+            input[type="submit"] {
+                width: 100%;
+                margin: 10px 0 0 0;
+                background: #00A8FF;
+                color: #fff;
+                padding: 10px;
+            }
+
+        .btn {
+            margin: 0 0 10px 0;
+        }
+
+            .btn:hover {
+                opacity: 0.8;
+            }
+
+        #sign a {
+            color: #00A8FF;
+        }
+
+        #rmbr {
+            padding: 3px 10px 5px 0;
+            margin: 0;
+        }
+
+        .member_btn {
+            border-top: 1px solid #D2D2D2;
+            margin: 10px 0 10px 0;
+            padding-top: 10px;
+        }
+
+        .img_btn {
+            width: 100%;
+            display: inline-flex; /*合併在一起*/
+            flex-wrap: wrap; /*合併在一起*/
+            justify-content: center;
+        }
+
+        .signup{
+            font-size:14px;
+            font-family: Microsoft JhengHei;
+        }
+
+        .c_btn a img {
+            width: auto;
+            margin: 0;
+            padding: 0;
+            flex: 0 1 auto; /*合併在一起*/
+        }
+
+        .group-title-img {
+        }
+
+        .go {
+            margin: 0.001vh;
+        }
+    </style>
+
+}
+
+<!--login會員登入-->
+<form asp-controller="Account" asp-action="Login" method="post" class="login">
+    <div id="right" class="two-thirds">
+        <fieldset>
+            <div class="login-part">
+                <h1 class="lgd">會員登入</h1>
+                <br>
+                <p>快來登入參與超多精彩活動</p>
+                <br>
+                <p>直接輸入您的 eJoin 會員帳號密碼登入</p>
+                <!--1-->
+                <input type="email" id="username" class="username_email" placeholder="電子郵件地址" asp-for="Email" required>
+                <!--2-->
+                <input type="password" id="password" class="password1" placeholder="密碼" asp-for="Password" required>
+                <!--3-->
+                <input type="text" asp-for="ReturnUrl" hidden />
+                <input type="submit" value="登入" class="btn" id="submit" />
+                <br>
+                <!--4-->
+                <br>
+                <div id="sign">
+                    @* <a href="javascript:;" id="member_btn">忘記密碼?</a> *@
+                    <div class="signup">
+                        <span class="not-yet">還不是eJoin會員? </span>
+                        <a asp-controller="Account" asp-action="SignupView" type="button" id="register" class="member">立即註冊</a>
+                    </div>
+
+                </div>
+                <p class="member_btn">或是透過以下快速登入會員</p>
+                <div class="img_btn">
+                    @*  <div class="c_btn facebook-btn fb">
+                    <a href="javascript:;"><img src="img/facebook.png" alt=""></a>
+                    </div> *@
+                    @* <div class="c_btn google-btn go"> *@
+                        <br>
+                        <button id="googlelogin" type="button" class="btn btn-light"><a class="btn btn-light" asp-controller="Account" asp-action="GoogleLogin"><img class="group-title-img" src="~/images/GoogleIcon.svg">以Google登入</a></button>
+
+                    @* </div> *@
+                </div>
+            </div>
+            <!--</div>-->
+        </fieldset>
+    </div>
+</form>
+
+

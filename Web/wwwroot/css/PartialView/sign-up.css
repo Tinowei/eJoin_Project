@@ -1,0 +1,93 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.connect {
+    text-decoration: none;
+    font-size: 18px;
+    color: #3897c0;
+}
+
+.modal-header {
+    height: 66%;
+    padding: 60px;
+    margin-bottom: 60px;
+
+}
+
+.modal-header h3 {
+    font-size: 30px;
+    color: #5c676c;
+    position: absolute;
+    top: 11%;
+    left: 50%;
+    transform: translate(-50%, -90%);
+}
+
+    .modal-header .signup {
+        width: 85%;
+        padding-bottom: 8%;
+        margin-top: 5px;
+        font-size: 20px;
+        color: #a6afb3;
+        position: absolute;
+        top: 28%;
+        left: 50%;
+        transform: translate(-50%, -60%);
+    }
+
+#googlesignup {
+    color: #444444;
+}
+
+.modal-header .btn-close {
+    font-size: 25px;
+    color: #5c676c;
+    position: absolute;
+    top: 7%;
+    left: 85%;
+}
+
+.modal-body {
+    padding-top: 20%;
+    
+}
+
+.modal-body .connect {
+    margin: 10px;
+    color: #abb1b4;
+    margin-top: 4%;
+}
+
+.modal-body form {
+    text-align: center;
+}
+
+
+
+.modal-body form .account,
+.modal-body form .name,
+.modal-body form .phone,
+.modal-body form .password {
+    margin: 15px;
+    width: 93%;
+    border-radius: 10px;
+}
+
+.modal-body form .accept {
+    width: 100%;
+    padding-bottom: 4%;
+
+}
+
+.modal-body form .btn {
+    width: 93%;
+    font-size: 25px;
+    color: #fff;
+}
+
+.modal-footer .signup {
+    padding: 0% 4%;
+}

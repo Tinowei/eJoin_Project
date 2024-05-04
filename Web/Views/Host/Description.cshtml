@@ -1,0 +1,36 @@
+﻿@model EventInputModel
+@{
+    ViewData["Title"] = "Description";
+}
+
+<div class="overflow-auto w-100 flex-grow-1">
+    <div class="content">
+        <div class="page-title mb-4">
+            <h2>活動簡介</h2>
+            <p class="text-secondary">請充分介紹你的活動，使消費者更加了解。</p>
+        </div>
+        <form action="~/Host/TicketSetting" method="post">
+            @Html.HiddenFor(x => x.ThemeIdList)
+            @Html.HiddenFor(x => x.Img)
+            @Html.HiddenFor(x => x.Name)
+            @Html.HiddenFor(x => x.StartTime)
+            @Html.HiddenFor(x => x.EndTime)
+            @Html.HiddenFor(x => x.City)
+            @Html.HiddenFor(x => x.Address)
+            @Html.HiddenFor(x => x.AddInformation)
+            @await Html.PartialAsync("/Views/Shared/PartialView/EventEditPartial/_DescriptionPartial.cshtml")
+        </form>
+    </div>
+</div>
+
+
+@section topCSS {
+    <link rel="stylesheet" href="~/css/Host/content.css" />
+    <link rel="stylesheet" href="~/css/Host/description.css" />
+}
+
+@section endJS {
+    <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
+    <script src="~/js/Host/description.js"></script>
+    <script src="~/js/Shared/EventEdit/setCKEditor.js"></script>
+}

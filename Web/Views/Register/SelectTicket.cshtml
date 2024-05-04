@@ -1,0 +1,69 @@
+﻿@model Web.ViewModels.RegisterViewModel.SelectTicketViewModel;
+
+@{
+    ViewData["Title"] = "SelectTicket";
+}
+
+@section topCSS {
+    <link rel="stylesheet" href="~/css/Register/SelectTicket.css" asp-append-version="true" />
+}
+
+@section endJS {
+    <script src="~/js/Register/SelectTicket.js"></script>
+}
+
+<div class="content">
+    <div class="step-wrap">
+        <div class="step-bar">
+            <div class="step-container">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <span class="step-name">選擇票券</span>
+                </div>
+                <span class="arrow"><i class="fa-solid fa-angle-right"></i></span>
+            </div>
+            <div class="step-container">
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <span class="step-name">填寫資料</span>
+                </div>
+                <span class="arrow"><i class="fa-solid fa-angle-right"></i></span>
+            </div>
+            <div class="step-container">
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <span class="step-name">選擇付款</span>
+                </div>
+                <span class="arrow"><i class="fa-solid fa-angle-right"></i></span>
+            </div>
+            <div class="step-container">
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <span class="step-name">取得票券</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ticketSelect-page">
+        @await Html.PartialAsync("_EventInfoPartial")
+        
+        <div class="ticketSelect-container">
+            <h3 class="headline">請選擇票券</h3>
+            @* @await Html.PartialAsync("_TicketCardPartial") *@
+            @for(int i = 0; i < 2; i++)
+            {
+                @await Html.PartialAsync("_TicketCardPartial");
+            }
+        </div>
+    </div>
+</div>
+@* <form asp-action="SelectTicketToFillFormPage" asp-controller="Register" method="post" class="signUp-container"> *@
+@* *@
+@*     $1$ 之後會放隱藏input tag來存使用者購買的票券資訊 #1# *@
+@* @*     <input type="hidden" asp-for="@Model.TotalTickets" id="totalTickets" value="0"> *@
+@*     <input type="hidden" asp-for="@Model.TotalPrice" id="totalPrice" value="0"> *@ 
+@* *@
+@*     <p class="price">1張，共NT$ 599</p> *@
+@*     <button  type="submit" class="sign-up">立即報名</button> *@
+@* *@
+@* </form> *@

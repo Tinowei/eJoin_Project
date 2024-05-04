@@ -1,0 +1,13 @@
+﻿@{
+    Layout = Context.User.Identity.IsAuthenticated ? "_LayoutForLogin" : "_LayoutForLogout";
+}
+
+<p>登入狀態: @Context.User.Identity.IsAuthenticated </p>
+<p>Name: @Context.User.Identity.Name </p>
+<p>@Context.User.Claims.FirstOrDefault(claim => claim.Type == "UserId")</p>
+
+@* @foreach (var claim in Context.User.Claims)
+{
+    <p>Claim Type: @claim.Type</p>
+    <p>Claim Value: @claim.Value</p>
+} *@

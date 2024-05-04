@@ -1,0 +1,195 @@
+﻿@using Web.ViewModels.MemberViewModel
+@model MyEventViewModel
+
+@{
+    ViewData["Title"] = "我的活動";
+}
+
+<!-- 目錄+內容 -->
+<div class="content">
+
+    <!-- 目錄 -->
+    <div class="menu" >
+        <ul class="main-menu">
+            <li><a asp-controller="Member" asp-action="MyProfile" class="menu-aboutMe">關於自己</a></li>
+            
+            <li><a asp-controller="Member" asp-action="MyTicket" class="menu-myTicket">我的票券</a></li>
+            
+            <li class="currentPage"><a asp-controller="Member" asp-action="MyEvent" class="menu-myActivities">我的活動</a></li>
+            
+            <li><a asp-controller="Member" asp-action="MyAccount" class="menu-changePassword">變更密碼</a></li>
+
+
+        </ul>
+    </div>
+
+    <!-- 內容 --> 
+    <div class="all" id="memberMyEventDiv">
+        <!-- 照片與名字&主要內容 -->
+        <div class="photoNameAndMainContent">
+            <!-- 照片與名字 -->
+            <div class="photoAndName">
+                <img src="@Model.AvatarUrl" class="photo">
+                <p class="name">@Model.DisplayName</p>
+            </div>
+
+            <!-- 我的活動 -->
+            <div class="myActivities">
+                <!-- 我的活動-標籤連結-->
+                <span id="joined-activities" class="joined-activities-link tabLink">參加的活動</span>
+                <span id="liked-activities" class="liked-activities-link tabLink">喜歡的活動</span>
+                <span id="followed-organizers" class="followed-organizers-link tabLink">追蹤的單位</span>
+
+                <!-- 我的活動-標籤-->
+                <div class="tab">
+                    <!-- 我的活動-標籤本身-->
+                    <ul>
+                        <li><a href="#joined-activities" class="joined-activities-tab">參加的活動(@Model.ParticipateCard.Count)</a></li>
+                        <li><a href="#liked-activities" class="liked-activities-tab">喜歡的活動(@Model.LikeCard.Count)</a></li>
+                        <li><a href="#followed-organizers" class="followed-organizers-tab">追蹤的單位({{trackGrid.length}})</a></li>
+                    </ul>
+                    <!-- 我的活動-標籤內容-參加的活動-->
+                    <div class="joined-activities-content tabContent">
+                        <!-- 卡片清單 -->
+                        <div class="card-list" id="my-joined-event">
+                        @foreach (var card in Model.ParticipateCard)
+                        {
+                            @await Html.PartialAsync("PartialView/EventCardPartial/_CardPartial", card)
+                        }   
+                        </div>
+                        <!-- 切換頁碼 -->
+                        <nav aria-label="Page navigation example" class="pageNumber" >
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- 我的活動-標籤內容-喜歡的活動-->
+                    <div class="liked-activities-content tabContent">
+                        <!-- 卡片清單 -->
+                        <div class="card-list" id="my-like-event">
+                             @foreach (var card in Model.LikeCard)
+                        {
+                            @await Html.PartialAsync("PartialView/EventCardPartial/_CardPartial", card)
+                        }   
+
+                        </div>
+                        <!-- 切換頁碼 -->
+                        <nav aria-label="Page navigation example" class="pageNumber" >
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- 我的活動-標籤內容-追蹤的主辦單位-->
+                    <div class="followed-organizers-content tabContent">
+                        <!-- 格子清單 -->
+                        <div class="grid-list">
+                             <!-- 單個格子 -->
+                            <div class="grid" v-for="(item, index) in trackGrid">
+                                <div class="grid-photo">
+                                    <img :src="item.organizerAvatarUrl" alt="頭像圖壞掉">
+                                </div>
+                                <div class="grid-content">
+                                    <div class="content-title">
+                                        <a class="organizersName" :href="'/Member/index/' + item.organizerId"><h2>{{ item.organizerName }}</h2></a>
+                                    </div>
+                                    <div class="content-activitiesNumAndTrack">
+                                        <p class="totalActivitiesNumber">總活動數:{{ item.totalEvent }}</p>
+                                        <p class="trackNumber">追蹤人數:{{ item.trackNumber }}</p>
+                                        <button value="trackStatus" class="trackStatus">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                                <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                                            <span class="tracking" :style="{pointerEvents:isCallUnFollow ? 'none' : '' }" v-on:click="unFollow(item.organizerId)">取消追蹤</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>                               
+                            
+
+                        </div>
+                        <!-- 切換頁碼 -->
+                        <nav aria-label="Page navigation example" class="pageNumber" >
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+    <!-- 回頂端 -->
+<a href="#" class="top">
+    <?xml version="1.0" ?><svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg"><title/><path d="M82.6074,62.1072,52.6057,26.1052a6.2028,6.2028,0,0,0-9.2114,0L13.3926,62.1072a5.999,5.999,0,1,0,9.2114,7.6879L48,39.3246,73.396,69.7951a5.999,5.999,0,1,0,9.2114-7.6879Z"/></svg>
+</a>
+</div>
+
+<script>
+    let memberMyEventModel = @Html.Raw(Json.Serialize(Model));
+    let callRemoveLikeSuccess = function (eventId) {
+        // 找到上一層的div，並刪除整個div
+        $('#my-like-event .my-card-list[eventId="' + eventId + '"]').remove();
+
+        let likeCount = $('#my-like-event .my-card-list').length
+
+        $(".liked-activities-tab").text("喜歡的活動("+ likeCount +")");
+    }
+
+    let callAddLikeSuccess = function (eventId) {
+        if($('#my-like-event .my-card-list[eventId="' + eventId + '"]').length > 0) return
+
+        let myLikeEvent = $('#my-joined-event .my-card-list[eventId="' + eventId + '"]');
+        let copiedCard = myLikeEvent.clone(true, true)
+        $('#my-like-event').append(copiedCard);
+
+        let likeCount = $('#my-like-event .my-card-list').length
+
+        $(".liked-activities-tab").text("喜歡的活動("+ likeCount +")");
+    }
+
+</script>
+
+@section topCSS {
+
+    <link rel="stylesheet" href="~/css/Shared/_CardPartial.css" />
+    <link rel="stylesheet" href="~/css/Member/MyEvent.css" asp-append-version="true" />
+}
+
+@section endJS {
+
+    <script src="~/js/Member/MyEvent.js"></script>
+     <script src="~/js/Shared/_CardFavorite.js"></script>
+}
+

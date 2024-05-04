@@ -1,0 +1,89 @@
+﻿.eventInfo-container {
+    width: 25%;
+    /* padding: 10px; */
+    /* outline: 1px solid red; */
+}
+
+.eventInfo-container img {
+    display: block;
+    /* margin: 0 auto; */
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+}
+
+.eventInfo-container a.link-to-event {
+    text-decoration: none;
+    color: #000;
+    font-weight: bolder;
+    display: inline-block;
+    padding: 10px 0;
+    line-height: 1.5;
+}
+
+    .eventInfo-container a.link-to-event:hover {
+        color: #3675be;
+    }
+
+.eventInfo-container p.eventTime {
+    color: #aaa;
+    font-size: 14px;
+    margin-top: 20px;
+    line-height: 1.5;
+}
+
+.eventInfo-container p.eventAddress {
+    color: #aaa;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.eventInfo-container .ruleCard {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    /* outline: 1px solid blue; */
+    margin: 30px 0;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+    .eventInfo-container .ruleCard .ruleTitle {
+        font-weight: 600;
+    }
+
+.ruleCard .description {
+    margin: 0 0 5px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+    .ruleCard .description a {
+        text-decoration: none;
+        color: #3675be;
+    }
+
+
+
+@media screen and (max-width:1199px){
+    .content .eventInfo-container {
+        /* width: 100%; */
+        width: 95%;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        margin-top: 30px;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        border-radius: 20px;
+    }
+
+    .content .eventInfo-container .eventInfo img {
+        display: none;
+    }
+
+    .eventInfo-container a.link-to-event {
+        font-size: 23px;
+    }
+}

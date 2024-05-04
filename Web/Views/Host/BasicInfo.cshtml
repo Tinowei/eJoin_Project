@@ -1,0 +1,29 @@
+﻿@model EventInputModel
+@{
+    ViewData["Title"] = "BasicInfo";
+}
+
+<div class="overflow-auto w-100 flex-grow-1">
+    <div class="content">
+        <div class="page-title mb-4">
+            <h2>基本資訊</h2>
+            <p class="text-secondary">請填寫活動相關的基本資訊</p>
+        </div>
+        
+        <form action="~/Host/Description" method="post">
+            @Html.HiddenFor(x => x.Img)
+            @Html.HiddenFor(x=>x.ThemeIdList)
+            @await Html.PartialAsync("/Views/Shared/PartialView/EventEditPartial/_BasicInfoPartial.cshtml")
+        </form>
+    </div>
+</div>
+
+
+@section topCSS {
+    <link rel="stylesheet" href="~/css/Host/content.css" />
+    <link rel="stylesheet" href="~/css/Host/basicInfo.css" />
+}
+
+@section endJS {
+    <script src="~/js/Host/basicInfo.js"></script>
+}

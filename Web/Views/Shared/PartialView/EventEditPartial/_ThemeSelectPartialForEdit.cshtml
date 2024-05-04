@@ -1,0 +1,19 @@
+﻿<div class="select-theme-content nav-page">
+    <h3 class="text-center">
+        最多選兩個
+    </h3>
+    <div class="select-icon">
+        <div v-for="theme in themes"
+             :key="theme.Id"
+             class="theme-card"
+             :class="{ 'selected': theme.selected }"
+             v-on:click="toggleThemeSelection(theme)">
+            <i class="fa-solid fa-check"></i>
+            <img :src="`../..${theme.Image}`" :alt="theme.Name" />
+            <p class="theme-name">{{ theme.Name }}</p>
+        </div>
+    </div>
+    <button type="submit" :disabled="isSaveBtnDisabled" class="save-btn btn rounded-pill w-100 py-2 fw-bolder fs-5" v-on:click="submitSelection">
+        儲存
+    </button>
+</div>

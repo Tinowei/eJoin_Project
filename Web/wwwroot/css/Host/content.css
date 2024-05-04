@@ -1,0 +1,53 @@
+.content {
+    margin: 30px auto;
+    max-width: 1080px;
+    width: 90%;
+    min-width: 600px;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+    background-color: white
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+h3 {
+    margin: 5px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+h4 {
+    font-weight: 900;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    margin: 5px 0;
+}
+
+.save-btn {
+    background-color: #009ce6;
+    color: white;
+}
+
+.save-btn.off {
+    background-color: #eeeeee;
+    color: #b5bac1;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.save-btn:hover {
+    background-color: #28b7f7;
+    color: white;
+}

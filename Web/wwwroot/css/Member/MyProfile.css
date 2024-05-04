@@ -1,0 +1,462 @@
+
+        .content a{
+            text-decoration: none;
+        }
+        html,body {
+            width: 100%;
+            height: 100%;
+            font-family: "Helvetica", "Arial","LiHei Pro","黑體-繁","微軟正黑體", sans-serif;
+            /*overflow-x:visible;*/
+        }
+        body{
+           
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-top: 60px;
+            background-color: #F8FBFF;
+        }
+
+         /*↓↓↓↓↓↓header*/ 
+        header {
+            position: relative;
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(to top,#B5d7ff,#8caef7);
+            box-shadow: rgba(180, 180, 180, 0.598) 0px 3px 6px;
+            position: fixed; 
+            top: 0;
+            z-index: 45;
+        }
+        header img {
+            vertical-align: middle;
+        }
+
+        /*回頂端top箭頭*/
+        .top svg{ 
+            width: 30px;
+            height:30px;
+            fill:#ffffff;
+            position: fixed;
+            z-index: 100;
+            right: 10px;
+            bottom: 50px;
+            transition: .3s;
+            visibility: hidden;
+            border-radius: 50%;
+            padding: 5px;
+            background-color: #84848496;
+        }
+        /*回頂端top箭頭-滾動顯示事件*/
+        .top.visible svg{  
+            visibility: visible;
+        }
+        /*回頂端top箭頭-動畫*/
+        .top svg:hover{  
+            background-color: #6d9ff4;
+        }
+
+        /*目錄&內容*/
+        .content{
+            display: flex;
+            /*width: 70%;*/
+            margin: 20px auto;
+            max-width: 1080px;
+            flex-grow: 1;
+            background-color:#F8FBFF;
+        }
+
+        /*目錄*/
+        .menu{
+            width: 30%;
+/*            z-index: 50;*/
+        }
+        /*目錄-所有內容*/
+        .main-menu{
+            background-color: #fff;
+            width: 100%;
+            position: sticky;
+            top:20px;
+            box-shadow:0 0 10px 0px rgb(244, 244, 244);
+            border-radius: 10px;
+        }
+        /*目錄-線條*/
+        .main-menu hr{
+            width: 100%;
+            color: #9e9e9e;
+            margin: 0px;
+        }
+        /*目錄-所有超連結*/
+        .main-menu a{
+            font-size:18px;
+            display: block;
+            color:  #6481E0;
+            line-height: 70px;
+            padding:0px 25px;
+            font-weight: bold;
+        }
+        /*目錄-所有超連結-碰到的變化*/
+        .main-menu a:hover{
+            color: #a7c2ff;
+        }
+        /*目錄-漢堡聯動勾選框-平時隱藏*/  
+        .hb-input-item{
+            display: none;
+        }
+        /*目錄-當頁目錄換色*/
+        .currentPage a{
+            background: linear-gradient(to left, #80C3FF, #6D9FF4);
+            color: #fff;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        /*目錄-當頁目錄-碰到時不做效果*/
+        .currentPage a:hover{
+            color: #fff;
+        }
+
+        /*內容-包裹容器*/
+        .all{
+            background-color: #fff;
+            box-shadow:0 0 10px 0px rgb(244, 244, 244);
+            border-radius: 10px;
+            width:100%;
+            margin-left: 20px;
+            line-height: 1.5;
+        }
+        /*內容-主要內容*/
+        .photoNameAndMainContent{
+            width: 80%;
+            margin: 40px auto;
+        }
+        /*內容-關於自己-input框線換新樣式*/
+        .aboutMe input,.city,.textarea{
+            border-radius: 5px;
+/*            outline: none;*/
+/*            background-color: #f7fcff;*/
+            border: 1px solid #acacac;
+            line-height:25px;
+            padding: 10px 15px;
+            color: rgb(130, 130, 130);
+            font-size:14px;
+            width:100%;
+            margin-bottom: 10px;
+            height: 46px
+        }
+        /*內容-關於自己-城市下拉選單和地址並排*/
+        .aboutMe .city{
+            width: 20%;
+        }
+        .aboutMe .address{
+            width: 79%;
+        }
+        /*內容-關於自己&個人頁面按鈕*/
+        .h2AndBrowse{
+            display: flex;
+            justify-content: space-between;
+        }
+        /*內容-關於自己-h2*/
+        .aboutMe h2{
+            font-size:23px;
+            font-weight: bold;
+            color:#278aff;
+            margin: auto 0px;
+        }
+        /*內容-個人頁面按鈕*/
+        .h2AndBrowse .browse{
+            margin: 0px 0px auto;
+            font-size:16px;
+            border-radius:5px;       
+            padding: 8px 10px;
+            border: 1px solid;
+            transition: transform .2s;
+            color: #fff;
+            font-weight: bold;
+            background-color: #2ab3fc;
+        }
+        .h2AndBrowse .browse:hover{
+            transform: scale(0.95);
+        }
+        /*內容-關於自己-所有label*/
+        .aboutMe label{
+            font-size:16px;
+            line-height: 35px;
+            margin-top: 25px;
+        }
+        /*內容-關於自己-按鈕清單*/
+        .button-list{
+            text-align:center;
+            line-height: 40px;
+            width:100%;
+        }
+        /*內容-關於自己-按鈕*/
+        .button{
+            margin: 50px 5px 0px;
+            font-size:16px;
+            border-radius:5px;          
+            padding: 10px;
+            line-height: 15px;
+            border: 1px solid;
+            transition: transform .2s;
+        }
+        /*內容-關於自己-按鈕-捨棄變更*/
+        .button1{
+            background-color: #fff;
+            color:#828282;
+        }
+        /*內容-關於自己-按鈕-儲存變更*/
+        .button2{
+            background-color:#6D9FF4;
+            color:#fff;
+        }
+        /*內容-關於自己-按鈕-捨棄變更-碰到的變化*/
+        .button1:hover{
+            transform: scale(0.95);
+        }
+        /*內容-關於自己-按鈕-儲存變更-碰到的變化*/
+        .button2:hover{
+            transform: scale(0.95);
+        }
+        /*內容-關於自己-必填*號*/
+        .requiredSymbols{
+            color:red;
+        }
+        /*內容-關於自己-附註文字*/
+        .aboutMe .note {
+            background-color: rgba(193, 241, 252, 0.436);
+            display: inline-block;
+            font-size:16px;
+            margin-bottom: 60px;
+            margin-top: 20px;
+        }
+        /*內容-關於自己-性別和感情的按鈕*/
+        .yourSex,.yourRelationship{
+            color: rgb(130, 130, 130);
+            background-color: #eff2f4;
+            cursor: pointer;
+            outline: none;
+            border: none;
+            border-radius: 15px;
+            margin-right: 3px;
+            padding: 5px 15px;
+            font-size: 14px;
+            line-height: 1.5em;
+        }
+        /*內容-關於自己-性別和感情的按鈕，原本為藍色，點擊後變灰色*/
+        .yourSex.grey-background ,.yourRelationship.grey-background {
+            background-color: #eff2f4;
+        }
+         /*內容-關於自己-性別和感情的按鈕，原本為灰色，點擊後變藍色*/
+        .yourSex.blue-background ,.yourRelationship.blue-background {
+            background-color: #6481E0;
+            color: #fff;
+        }
+        .checked{
+            background-color: #6481E0;
+            color: #fff;
+        }
+        /*上傳背景&頭像*/
+        .upload-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            object-position: center;
+        }
+        /*上傳背景*/
+        .upload-container {
+            position: relative;
+            width:100%;
+            min-height:100px;
+        }
+
+        /*上傳背景-背景圖*/
+        .upload-preview img {
+            width: 100%;
+            border-radius: 5px;
+            vertical-align: bottom;
+            object-fit: cover;
+            aspect-ratio:16/9;
+            overflow: hidden;
+        }
+
+        /*上傳背景-label*/
+        .upload-preview .upload-label {
+            margin-top: 0px;
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 14px;
+            background-color: #858585;
+            padding: 5px 8px;
+            line-height: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #fff;
+            font-weight: bold;
+            transition: transform .2s;
+        }
+        .upload-preview .upload-label:hover{
+            transform: scale(0.95);
+        }
+        /*上傳背景-input*/
+        .upload-input {
+            display: none;
+        }
+        /*上傳背景-提示文字*/
+        .upload-note {
+            width: 100%;
+            font-size: 14px;
+            position: absolute;
+            right: 0px;
+            top: -20px;
+            margin-bottom: 0px;
+            color: darkgray;
+        }
+        /*上傳頭像*/
+        .avatar-container {
+            position: relative;
+            margin-top: -60px;
+            width: 120px;
+            height: 120px;
+            box-shadow: 0px 2px 5px rgba(175, 175, 175, 0.135);
+            border: solid 5px #ffffff;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        /*上傳頭像-頭像圖*/
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            vertical-align: middle;
+            transform: scale(1);
+            transition: transform .8s; 
+            aspect-ratio:1/1;
+        }
+        /*上傳頭像-label*/
+        .avatar-preview .avatar-label {
+            position: absolute;
+            display: flex;
+            font-weight: bold;
+            width: 100%;
+            height: 50%;
+            font-size: 14px;
+            align-items: center;
+            justify-content: center;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0.53%, rgba(0, 0, 0, 0.4) 98%);
+            color: #ffffff;
+            cursor: pointer;
+
+        }
+        .avatar-container:hover .avatar-preview img{
+            transform: scale(1.1);
+        }
+        /*上傳頭像-input*/
+        .avatar-input {
+            display: none;
+        }
+        /*帳號不可變更提示*/
+        .noChange{
+            color:#f00;
+            font-size:14px;
+        }
+        /*個人簡介-下方空隙拿掉*/
+        .textarea{
+            margin-bottom:0px;
+        }
+        /*個人簡介-字數倒數*/
+        .textareaCount{
+            text-align:right;
+            color:darkgray;
+            font-size:14px;            
+        }
+        /*s2視窗標題調整*/
+        .S2_title_class{
+            font-size:25px;
+        }
+        /*s2視窗文字調整*/
+        .S2_content_class{
+            font-size:20px;
+        }
+        /*錯誤紅框*/
+        .red-border {
+            border: 1px solid red !important;
+        }
+        /*google按鈕*/
+        .bindGoogle{
+            background-color:#f00;
+            color:#ffffff;
+            padding:8px 10px;
+            border-radius:5px;
+            display:none; /*先藏起來*/
+
+        }
+        /*不可變更的input框*/
+        .aboutMe .accountEmail {
+            background-color: #d7d7d7;
+        }
+        /*視窗小於768*/
+        @media screen and (max-width: 768px) {
+            .content{
+                width: 100%;
+                margin: 0px auto;
+            }
+            /*內容-包裹容器*/
+            .all{
+                box-shadow:none;
+                border-radius: 0px;
+            }
+/*            html,body{
+                overflow-x: hidden; 
+            }
+            body::-webkit-scrollbar {
+                display: none;
+            }*/
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(106, 106, 106, 0.213);
+                display: none;
+                z-index: 10;
+            }
+            /*上傳背景-提示文字*/
+            .upload-note {
+                font-size: 12px;
+            }
+            .avatar-container {
+                margin-top: -50px;
+                width: 100px;
+                height: 100px;
+            }
+            /*內容-關於自己-城市下拉選單和地址並排*/
+            .aboutMe .city{
+                width: 100%;
+            }
+            .aboutMe .address{
+                width: 100%;
+            }
+            nav.sideBar{              
+                z-index: 50;  /*目錄層級要比header、footer、內容高*/              
+                top:0;
+            }
+
+
+        }
+
+        @media screen and (max-width: 1199px) {
+            .menu 
+            {
+                display: none;
+            }
+            .all {
+                margin-left: 0px;
+            }
+        }
+
+

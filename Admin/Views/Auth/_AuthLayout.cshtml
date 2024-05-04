@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Login | eJoin後台管理</title>
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/images/logo_icon.svg" /> <!--頁籤圖示-->
+    <script src="~/js/Shared/fontawesome.js" crossorigin="anonymous"></script>   
+
+    <!-- toastr -->
+    <link rel="stylesheet" href="~/css/Auth/toaster.css">
+    
+</head>
+<body class="bg-primary">
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                @RenderBody()
+            </main>
+        </div>
+        @* <div id="layoutAuthentication_footer">
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div> *@
+    </div>
+    <!-- toastr -->
+    <script src="~/js/Shared/toastr.js"></script>
+
+    <!-- vue3 -->
+    <script src="~/js/Shared/vue.js"></script>
+
+    <!-- axios -->
+    <script src="~/js/Shared/axios.js"></script>
+    <script src="~/js/Auth/bundle.js" crossorigin="anonymous"></script>
+    <script src="~/js/request.js" asp-append-version="true"></script>
+    <script src="~/js/script.js" asp-append-version="true"></script>
+    <script src="~/js/Auth/login.js" asp-append-version="true"></script>
+</body>
+</html>

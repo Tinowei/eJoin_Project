@@ -1,0 +1,31 @@
+﻿
+
+
+
+
+
+<div class="ticketCard">
+    <div class="left">
+        <p class="ticketName">
+            <span class="name">@Model.TicketName</span>
+            <span class="unitprice">NT$ @Model.TicketPrice</span>
+            
+@*             <span>@Model.TicketPrice</span> *@
+            <!-- <span class="count">2</span> -->
+        </p>
+
+        <p class="ticketDetail ticketDetailToggle">更多資訊</p>
+
+    </div>
+    <div class="right">
+        <span class="minus"><i class="fa-solid fa-plus"></i></span>
+        <span><i class="fa-solid fa-minus"></i></span>
+    </div>
+</div>
+@* <input type="checkbox" id="detail-toggle1" class="detail-checkbox" /> *@
+<div class="showTicketDetail-card">
+    <p class="sellTime">售票時間</p>
+    <p>@Model.StartSellTime.ToString("yyyy.MM.dd (ddd) HH:mm") ~ @Model.EndSellTime.ToString("yyyy.MM.dd (ddd) HH:mm")</p>
+    <p class="vaildTime">票券有效時間</p>
+    <p>@Model.TicketValidTime.ToString("yyyy.MM.dd (ddd) HH:mm")</p>
+</div>

@@ -1,0 +1,125 @@
+﻿
+@model Web.ViewModels.RegisterViewModel.FillFormViewModel;
+
+@using Web.ViewModels.RegisterViewModel
+@using Web.ViewModels.RegisterViewModel.SharedViewModel
+@{
+    ViewData["Title"] = "參加人資訊";
+}
+
+@section topCSS{
+    <link rel="stylesheet" href="~/css//Register/FillForm.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css//Register/Shared/EventInfoContainer.css" asp-append-version="true" />
+
+}
+
+@section endJS{
+    <script>
+        let eventId = @Model.EventId;
+        let learnFrom = JSON.parse('@Html.Raw(Model.LearnFrom)');
+    </script>
+    <script src="~/js/Register/FillForm.js"></script>
+    <script src="~/js/Member/sweetalert2/sweetalert2.all.min.js"></script>
+}
+
+
+<div class="content">
+    @await Html.PartialAsync("_StepWrapPartial")
+    <div class="ticketSelect-page">
+        @* eventInfo-container之後拉出來做PartialView *@
+        @await Html.PartialAsync("_EventInfoPartial",Model)
+        <div class="registration-container">
+            <div class="headline-container">
+                <h3 class="headline">填寫參加人資訊</h3>
+                <p class="registration-desc">
+                    報名資料將用於主辦單位安排活動，活動票券相關資訊將寄至訂購人信箱，如需修改電郵地址請至
+                    <a href="#">帳號管理</a>
+                </p>
+            </div>
+            <form asp-action="FillForm" asp-controller="Register"  asp-route-EventId="@Model.EventId" method="post" class="form-page" id="fillForm">
+                <div class="field txt required">
+                    <div class="label">姓名<span class="required">*</span></div>
+                    <input name="ParticipantName"
+                           type="text" class="input" placeholder="姓名" required="" maxlength="1000" value="@Model.ParticipantName">
+                    <span class="error-message remind" style="height: 1.5rem; ">必填</span>
+
+                </div>
+
+                <div class="field txt email required">
+                    <div class="label">電子郵件<span class="required">*</span></div>
+                    <input name="ParticipantEmail"
+                           type="text" class="input" placeholder="信箱" required="" maxlength="1000" value="@Model.Email">
+                    <span class="error-message remind">必填</span>
+                    <span class="error-message remind2">請輸入正確的 Email 格式</span>
+                </div>
+
+                <div class="field txt phone required">
+                    <div class="label">行動電話<span class="required">*</span></div>
+                    <div class="phone-container">
+                        <input name="ParticipantPhone" type="text" class="input" placeholder="電話" required="" maxlength="1000" value="@Model.PhoneNumber">
+                    </div>
+                    <span class="error-message remind">必填</span>
+                    <span class="error-message remind2">請輸入正確的手機號碼格式</span>
+                </div>
+
+                <div class="field event-source optional">
+                    <div class="label">活動資訊來源<span class="required">*</span></div>
+
+                   @*  @foreach (var option in Model.HowToKnowOptions)
+                    {
+                        <div class="checkbox-label">
+                            <input name="howtoknow" class="form-check-input" type="checkbox" value="@option" id="@option">
+                            <label class="form-check-label" for="@option">
+                                @option
+                            </label>
+                        </div>
+                    } *@
+                    <div class="checkbox-label source">
+                        <input name="type" class="form-check-input" type="checkbox" value="1" id="Check1">
+                        <label class="form-check-label" for="Check1" data-number="1">
+                            eJoin
+                        </label>
+                    </div>
+                    <div class="checkbox-label source">
+                        <input name="type" class="form-check-input" type="checkbox" value="2" id="Check2">
+                        <label class="form-check-label" for="Check2" data-number="2">
+                            外部廣告
+                        </label>
+                    </div>
+                    @* <div class="checkbox-label">
+                        <input name="howtoknow" class="form-check-input" type="checkbox" value="@(Model.Host.UserName)介紹" id="Check3">
+                        <label class="form-check-label" for="Check3">
+                            @(Model.Host.UserName)介紹
+                        </label>
+                    </div> *@
+                    <div class="checkbox-label source">
+                        <input name="type" class="form-check-input" type="checkbox" value="3" id="Check3">
+                        <label class="form-check-label" for="Check3" data-number="3">
+                            其他
+                        </label>
+                    </div>
+                    <span class="error-message">必填</span>
+                </div>
+                <div class="agree">
+                    <div class="checkbox-label">
+                        <input class="form-check-input" type="checkbox" value="" id="agree-btn">
+                        <label class="form-check-label" for="agree-btn">
+                            <span>
+                                我已閱讀並同意 eJoin
+                                <a href="#"> 票券訂購暨使用須知</a> 、
+                                退票規則及購票須知條款
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <input type="hidden" name="Id" id="Id-input" value="@Model.CartId"/>
+                <input type="hidden" name="LearnedFrom" id="learnedFrom-input" />
+                <div class="button-group">
+                    <button  class="restart-btn" type="button">重新報名</button>
+                    <button type="submit" class="next-btn" >下一步</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

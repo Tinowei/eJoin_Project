@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewData["Title"] = "會員管理";
+}
+
+
+
+<div style="max-width:1320px;" class="container-fluid px-4">   
+@*     <h1 class="mt-4">Tables</h1> *@
+@*     <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/Dashboard/Index">Dashboard</a></li>
+        <li class="breadcrumb-item active">Tables</li>
+    </ol> *@
+
+    <div class="container">
+        <h1 class="mt-4" style="margin-bottom:24px;">會員管理</h1>
+
+        <div id="app" class="">
+@*         <div>       
+            <input type="search" id="keywordSearch" v-model="searchKeyword" placeholder="請輸入關鍵字" />
+            <button type="button" v-on:click="search">搜尋</button>
+        </div> *@
+       
+        <div class="col-3">
+            <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="keywordSearch" v-model="searchKeyword" placeholder="請輸入關鍵字">
+                    <span class="input-group-text" v-on:click="search">Search</span>
+            </div>
+        </div>
+
+
+            <div class="col-12 d-flex ">
+@*                 <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#create-modal">
+                    新增
+                    <i class="fa-solid fa-circle-plus"></i>
+                </button> *@
+            </div>
+
+            <easy-data-table @* v-model:server-options="serverOptions" *@ @* v-model:items-selected="itemsSelected" *@ show-index
+                             buttons-pagination @* :server-items-length="serverItemsLength" *@ alternating :headers="headers"
+                             :items="items" @* :loading="loading" *@>
+                <!-- 使用 slot render 選項自訂 "operation" 欄位的內容 -->
+                <template #item-operation="item">
+                    <div class="operation-wrapper">
+@*                         <button v-on:click="handleEdit(item)" class="btn btn-primary me-2" data-bs-toggle="modal"
+                                data-bs-target="#edit-modal">
+                            Edit
+                        </button>
+
+                        <button v-on:click="handleDelete(item)" class="btn btn-danger">
+                            Delete
+                        </button> *@
+                    </div>
+                </template>
+            </easy-data-table>
+
+
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/Member/member.js" asp-append-version="true"></script>
+    
+}

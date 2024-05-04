@@ -1,0 +1,504 @@
+
+        a{
+            text-decoration: none;
+        }
+        html,body {
+            width: 100%;
+            height: 100%;
+            font-family: "Helvetica", "Arial","LiHei Pro","黑體-繁","微軟正黑體", sans-serif;
+            overflow-x:visible;
+        }
+        body{/*上方預留導覽列的寬度*/
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-top: 60px;/*預留空間*/
+            background-color: #F8FBFF;
+        }
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        header {
+            position: relative;
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(to top,#B5d7ff,#8caef7);
+            box-shadow: rgba(180, 180, 180, 0.598) 0px 3px 6px;
+            position: fixed; 
+            top: 0;
+            z-index: 45;
+        }
+        header img {
+            vertical-align: middle;
+        }
+
+        /*回頂端top箭頭*/
+        .top svg{ 
+            width: 30px;
+            height:30px;
+            fill:#ffffff;
+            position: fixed;
+            z-index: 100;
+            right: 10px;
+            bottom: 50px;
+            transition: .3s;
+            visibility: hidden;
+            border-radius: 50%;
+            padding: 5px;
+            background-color: #84848496;
+        }
+        /*回頂端top箭頭-滾動顯示事件*/
+        .top.visible svg{  
+            visibility: visible;
+        }
+        /*回頂端top箭頭-動畫*/
+        .top svg:hover{  
+            background-color: #6d9ff4;
+        }
+
+        /*目錄&內容*/
+        .content{
+            display: flex;
+/*            width: 70%;*/
+            margin: 20px auto;
+            max-width: 1080px;
+            flex-grow: 1;
+            background-color:#F8FBFF;
+        }
+
+        /*目錄*/
+        .menu{
+            width: 30%;
+/*            z-index: 50;*/
+        }
+        /*目錄-所有內容*/
+        .main-menu{
+            background-color: #fff;
+            width: 100%;
+            position: sticky;
+            top:80px;
+            box-shadow:0 0 10px 0px rgb(244, 244, 244);
+            border-radius: 10px;
+        }
+        /*目錄-線條*/
+        .main-menu hr{
+            width: 100%;
+            color: #9e9e9e;
+            margin: 0px;
+        }
+        /*目錄-所有超連結*/
+        .main-menu a{
+            font-size:18px;
+            display: block;
+            color:  #6481E0;
+            line-height: 70px;
+            padding:0px 25px;
+            font-weight: bold;
+        }
+        /*目錄-所有超連結-碰到的變化*/
+        .main-menu a:hover{
+            color: #a7c2ff;
+        }
+        /*目錄-當頁目錄換色*/
+        .currentPage a{
+            /* border-left: 5px solid #0088d2; */
+            background: linear-gradient(to left, #80C3FF, #6D9FF4);
+            color: #fff;
+        }
+        /*目錄-當頁目錄-碰到時不做效果*/
+        .currentPage a:hover{
+            color: #fff;
+        }
+
+        /*內容-包裹容器*/
+        .all{
+            background-color: #fff;
+            box-shadow:0 0 10px 0px rgb(244, 244, 244);
+            border-radius: 10px;
+            width:100%;
+            margin-left: 20px;
+            line-height: 1.5;
+        }
+        /*內容-照片與姓名&主要內容*/
+        .photoNameAndMainContent{
+            width: 80%;
+            margin: 40px auto;
+        }
+        /*內容-照片與姓名*/
+        .photoAndName{
+            display:flex;
+            align-items: center;
+            margin: 40px auto;
+        }
+        /*內容-照片與姓名-照片外框*/
+        .photo{
+            width:100px;
+            height:100px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        /*內容-照片與姓名-照片*/
+        .photoAndName img{
+            vertical-align:top;
+            object-fit: cover;
+            object-position: center;
+        }
+        /*內容-照片與姓名-姓名*/
+        .photoAndName .name{
+            color: #6481E0;
+            font-size:23px;
+            padding-left:15px;
+            letter-spacing:5px;
+            margin-bottom: 0px;
+            font-weight: bold;
+        }
+        /*內容-我的活動-標籤*/
+        .tab {
+            margin-top: 20px;
+        }
+        /*內容-我的活動-標籤-文字*/
+        .tab > ul li a:not(.page-link) {
+            font-size: 16px;
+            float: left;
+            padding: 10px 20px;
+            border: 1px solid #4e68e845;
+            color: #6D9FF4;
+            width: 33.33%;
+            text-align: center;
+        }
+        /*內容-我的活動-標籤的內容*/
+        .tabContent {
+            clear: both;
+            height: 0;
+            overflow: hidden;
+            visibility: hidden;
+        }
+        /*內容-我的活動-參加活動預設變色&各標籤被點時變色*/
+        .tabLink ~ .tab > ul li:first-child a,
+        #joined-activities:target ~ .tab > ul li a[href$="#joined-activities"],
+        #liked-activities:target ~ .tab > ul li a[href$="#liked-activities"],
+        #followed-organizers:target ~ .tab > ul li a[href$="#followed-organizers"]{
+            background-color:#6D9FF4;
+            color: #fff;
+        }
+        /*內容-我的活動-當有標籤被點時，預設顯示的參加活動內容隱藏*/
+        .tabLink:target ~ .tab > .tabContent:first-of-type {
+            visibility: hidden;
+            height: 0;
+            border: none
+        }
+        /*內容-我的活動-當有標籤被點時，預設顏色的參加活動，拿掉顏色*/
+        .tabLink:target ~ .tab > ul li:first-child a{
+            background-color:#ffffff;
+            color:#6D9FF4;
+        }
+        /*內容-我的活動-參加活動預設顯示%各標籤被點時，內容顯示*/
+        .tabLink ~ .tab > .tabContent:first-of-type,
+        #joined-activities:target ~ .tab > .joined-activities-content,
+        #liked-activities:target ~ .tab > .liked-activities-content,
+        #followed-organizers:target ~ .tab > .followed-organizers-content{
+            visibility: visible;
+            height: 100%;
+            background: #fff;
+            border-top: 2px solid #6D9FF4;
+        }
+        /*內容-我的活動-標籤連結，平常不顯示*/
+        .tabLink {
+            display: none;
+        }
+        /*內容-卡片清單*/
+        .card-list{
+            display: grid;
+            flex-wrap: nowrap;
+            justify-content:center;
+            margin-top: 30px;
+            gap: 30px;
+            grid-template-columns: repeat(2, 1fr);            
+        }
+
+        /*內容-卡片清單-單張卡片*/
+/*         .card {
+            width: calc(50% - 10px);
+            justify-content: center;
+            margin: 15px 0px;
+            display: flex;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }*/
+/*        .my-card-list .card-img {
+            aspect-ratio: auto;
+        }*/
+    /*內容-卡片-碰到效果*/
+    /*.card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }*/
+        /*內容-卡片-碰到效果*/
+        /*.card:hover .card-header img {
+            transform: scale(1.1);
+        }*/
+        /*內容-卡片-頭部*/
+        /*.card-header {
+            position: relative;
+            padding: 0;
+            height: 170px;
+            overflow: hidden;
+        }*/
+        /*內容-卡片-頭部-圖片*/
+        /*.card-header img {
+            object-fit:cover;
+            object-position: center;
+            vertical-align: middle;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px 10px 0px 0px;            
+            transition: transform .5s;
+        }*/
+        /*內容-卡片-頭部-眼睛圖案&觀看人數*/
+        /*.iconAndView {
+            position: absolute;
+            bottom:5px;
+            right: 5px;
+            background-color: rgba(0, 0, 0, 0.402); 
+            color: #fff;
+            padding: 2px 5px; 
+            border-radius:3px;
+        }
+        .iconEye svg{
+            width: 15px;
+            fill: #fff;
+        }*/
+        /*內容-卡片-頭部-觀看人數*/
+        /*.viewNumber {
+            font-size: 14px;
+        }*/
+        /*內容-卡片-主體*/
+        /*.card-body {
+            padding: 10px 15px;
+            height: auto;
+        }*/
+        /*內容-卡片-主體-標題*/
+        /*.card-body h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display:-webkit-box;
+            -webkit-line-clamp: 1; 
+            -webkit-box-orient: vertical;  
+            overflow: hidden; 
+        }*/
+        /*內容-卡片-主體-簡介*/
+        /*.card-body .introduction {
+            margin: 10px 0px;
+            font-size: 16px;
+            display:-webkit-box;
+            -webkit-line-clamp: 2; 
+            -webkit-box-orient: vertical;  
+            overflow: hidden;    
+        }*/
+        /*內容-卡片-主體-日期*/
+        /*.card-body .date{
+            color: #bdbdbd;
+            font-size: 14px;
+            line-height: 20px;
+            display:-webkit-box;
+            -webkit-line-clamp: 1; 
+            -webkit-box-orient: vertical;  
+            overflow: hidden; 
+        }*/
+        /*內容-卡片-尾部*/
+        /*.card-footer {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }*/
+        /*內容-卡片-尾部-喜歡人數*/
+        /*.card-footer .likeNumber{
+            margin-left: 5px;
+            font-size: 14px;
+        }*/
+        /*內容-卡片-尾部-愛心圖案(按喜歡時)*/
+        /*.iconLikeLove svg {
+            fill: #ff5258;
+            height: 25px;
+            width: 25px;
+            margin:3px;      
+        }*/
+        /*內容-卡片-尾部-愛心圖案(沒按喜歡時)*/
+        /*.iconDisLikeLove svg{
+            fill: #e0e0e0; 
+            margin-right: 6px;
+            height: 25px;
+            width: 25px;
+            margin:3px;        
+        }*/
+        /*內容-卡片-尾部-熱銷標籤*/
+        /*.hotSale{
+            background: linear-gradient(to bottom, #80c3fF, #6d9ff4);
+            color: #fff;
+            font-size: 14px;
+            padding: 5px 15px;
+            border-radius: 10px;
+            margin-left: auto;
+        }*/
+        /*內容-卡片-尾部-已結束標籤*/
+        /*.end{
+            background: linear-gradient(to bottom, #dbdbdb, #aeaeae);
+            color: #fff;
+            font-size: 14px;
+            padding: 5px 15px;
+            border-radius: 10px;
+            margin-left: auto;
+        }*/
+        /*內容-格子-追蹤清單*/
+        .grid-list{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        /*內容-格子-單個追蹤單位*/
+        .grid{
+            display: flex;
+            width: calc(50% - 10px);
+            align-items: center;
+            margin: 15px 0px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+            padding: 10px;
+        }
+        /*內容-格子-單個追蹤單位-碰到效果*/
+        .grid:hover{
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        /*內容-格子-單個追蹤單位-主辦單位照片外框*/
+        .grid-photo{
+            width:40%;
+            overflow: hidden;
+        }
+        /*內容-格子-單個追蹤單位-主辦單位照片*/
+        .grid-photo img{
+            vertical-align: middle;
+            width:100%;
+            object-fit: cover;
+            object-position: center;
+            aspect-ratio:1/1;
+        }
+        /*內容-格子-單個追蹤單位-內文區*/
+        .grid-content{
+            width:60%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0px 10px;
+        }
+        /*內容-格子-單個追蹤單位-標題*/
+        .organizersName h2{
+            font-size: 18px;
+            font-weight: bold;
+            display:-webkit-box;
+            -webkit-line-clamp: 1; 
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
+        /*內容-格子-單個追蹤單位-總活動數&追蹤人數*/
+        .totalActivitiesNumber,.trackNumber{
+            font-size: 16px;
+            margin: 5px 0;
+        }
+        /*內容-格子-單個追蹤單位-追蹤狀態(勾勾+字)*/
+        .trackStatus {
+            font-size: 16px;
+            background: linear-gradient(to bottom, #80c3fF, #6d9ff4);
+            color: #fff;
+            border: none;
+            padding: 8px 10px;
+            border-radius: 5px;
+            line-height: 10px;
+        }
+        /*內容-格子-單個追蹤單位-追蹤狀態(勾勾+字)-碰到效果*/
+        .trackStatus:hover {
+            transform: scale(0.95);
+        }
+        /*內容-格子-單個追蹤單位-追蹤勾勾*/
+        .trackStatus svg {
+            fill:#ffffff;
+            height: 15px;
+            width: 15px;      
+        }
+        /*切換頁碼*/
+        .pageNumber {
+            display: flex;
+
+            justify-content: center;
+        }
+        /*切換頁碼-ul*/
+        .pagination {
+            margin-top:20px;
+        }
+
+        @media screen and (max-width: 768px) {
+           
+            /*內容-包裹容器*/
+
+            html,body{
+                overflow-x: hidden; 
+            }
+            body::-webkit-scrollbar {
+                display: none;
+            }
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(106, 106, 106, 0.213);
+                display: none;
+                z-index: 10;
+            }
+            .card-list {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            nav.sideBar {
+                z-index: 50; /*目錄層級要比header、footer、內容高*/
+                top: 0;
+            }
+        }
+
+        @media screen and (max-width:600px){
+            .grid {
+                width: 100%;
+                margin: 15px auto;
+            }
+        }
+
+        /*視窗小於1200，大於768*/
+        @media screen and (max-width: 1199px) {
+            .menu 
+            {
+                display: none;
+            }
+            .content {
+                width: 100%;
+                margin: 0px auto;
+            }
+            .all {
+                box-shadow: none;
+                border-radius: 0px;
+                margin-left: 0px;
+            }
+            .tab ul li a:not(.page-link) {
+                width: 33.33%;
+                margin-right: 0px;
+                text-align: center;
+                padding: 10px 0px;
+                border-top-right-radius: 0px;
+                border-top-left-radius: 0px;
+            }
+        }

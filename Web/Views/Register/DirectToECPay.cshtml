@@ -1,0 +1,24 @@
+﻿
+@model Web.ViewModels.RegisterViewModel.DirectToEcpayViewModel;
+
+@{
+    ViewData["Title"] = "正在跳轉...";
+    var properties = Model.GetType().GetProperties();
+}
+
+<h1 style="font-size: 30px; height: 100%; font-weight: 900; text-align: center; color: red">正在轉向付款頁面</h1>
+
+<form action="https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5" method="post" id="form">
+    @foreach (var property in properties)
+    {
+        <input type="hidden" name="@property.Name" value="@property.GetValue(Model).ToString()" />
+    }
+</form>
+
+@section endJS {
+    <script>
+        window.onload = () => {
+            document.querySelector("#form").submit();
+        };
+    </script>
+}

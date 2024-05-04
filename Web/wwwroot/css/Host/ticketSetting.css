@@ -1,0 +1,68 @@
+tr input,
+tr button {
+    font-size: 16px;
+    padding: 8px;
+    border-color: #e2e2e2;
+}
+
+tr button {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+}
+
+table {
+    margin: 30px 50px;
+    min-width: 90%;
+}
+
+tr td:nth-child(2) {
+    width: 15%;
+}
+
+tr td:nth-child(3) {
+    width: 15%;
+}
+
+tr td:nth-child(4) {
+    width: 15%;
+}
+
+td input {
+    width: 100%;
+}
+
+tr th {
+    border: 1px black solid;
+    border-bottom: none;
+    color: white;
+    background-color: black;
+    padding: 15px;
+    font-size: 16px;
+}
+
+tr td {
+    padding: 15px;
+}
+
+td p,
+td label {
+    margin: 10px 0 5px;
+}
+
+.ticket-info {
+    outline: #ddd 1px solid;
+    box-sizing: border-box;
+}
+
+.setting-wrap {
+    outline: #ddd 1px solid;
+    background-color: #ddd;
+    padding: 10px 10px;
+}
+
+.add-ticket {
+    outline: #ddd 1px solid;
+    background-color: #f8f8f8;
+    padding: 30px;
+}

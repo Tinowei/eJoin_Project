@@ -1,0 +1,13 @@
+﻿@model int;
+@{
+    ViewData["Title"] = "正在跳轉...";
+}
+<h1 style="font-size: 30px; height: 100%; font-weight: 900; text-align: center; color: red">您有尚未完成的購物車<br/>即將為您重新導向上次的購物車頁面</h1>
+
+<script>
+    window.onload = () => {
+        setTimeout(() => {
+            location = `/Register/FillForm/?cartId=${@Model}`;
+        }, 5000);
+    };
+</script>

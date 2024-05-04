@@ -1,0 +1,228 @@
+﻿@model Web.ViewModels.HomeViewModel.SearchViewModel
+@{
+    ViewData["Title"] = "活動總覽";
+}
+
+<div class="filter-area-overlay"></div>
+<div class="title-area">
+    <div class="title-name">
+        <img src="~/images/search.png">
+        <h2>探索活動</h2>
+    </div>
+    <div class="search-area">
+        <div class="search-bar">
+            <input type="text" placeholder="輸入關鍵字..." id="keyword-input">
+            <label class="filterIcon" onclick="openFilterAreaPopup()"><img src="~/images/filter1.png"></label>
+        </div>
+    </div>
+    <!--
+    <div class="hashtag-area">
+        <div class="tag-bar">
+            <span class="tag-name">戶外體驗</span> <img class="closeIcon" src="~/images/close.png">
+        </div>
+    </div>
+    -->
+</div>
+
+<div class="content">
+
+    <div class="my-card-group">
+        
+        <template v-for="event in events">
+            <div class="my-card-list" :eventId="event.eventId">
+                <a :href="`/Home/Event/`+event.eventId">
+                    @* <img class="card-img" src="https://picsum.photos/300/200/?random=20"> *@
+                    <img class="card-img" :src="event.eventCoverUrl">
+                </a>
+                <div class="card-body">
+                    <p class="date-time">{{event.eventStartDate}} - {{event.eventEndDate}}</p>
+                    <h3 class="card-title"><a :href="`/Home/Event/`+event.eventId">{{event.eventTitle}}</a></h3>
+                    <div class="location">
+                        <img src="~/images/location.png">
+                        <p>{{event.eventCity}}</p>
+                    </div>
+                </div>
+                <div class="tag-bottom-bar">
+                    <div class="tag-bottom-link">
+                        
+                        <a href="#" v-for="theme in event.eventThemes">#{{theme}}</a>
+                    </div>
+                    <div class="tag-like liked" v-if="event.isLike" :eventId="event.eventId" @@click="heartBtnOnclick($event)">
+                        <img class="like-icon-img" src="~/images/like.png" alt="" style="display: none;">
+                        <img class="like-fill-icon" src="~/images/likefill.png" alt="">
+                        <span class="heart-count">{{event.heartCount}}</span>
+                    </div>
+                     
+                    <div class="tag-like" v-else :eventId="event.eventId" @@click="heartBtnOnclick($event)">
+                        <img class="like-icon-img" src="~/images/like.png" alt="">
+                        <img class="like-fill-icon" src="~/images/likefill.png" alt="" style="display: none;">
+                        <span class="heart-count">{{event.heartCount}}</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </template>
+    </div>
+    <div ref="loading" v-if="load" class="hint-word">loading</div>
+    <div v-else-if="events.length==0" class="hint-word">無搜尋結果</div>
+
+    <div class="filter-area" id="filter-area-popup">
+        <div class="filter-area-flex">
+            <div class="filter-border">
+                <div class="filter-title">
+                    <h2>篩選</h2>
+                    <label class="filter-close" onclick="closeFilterAreaPopup()">
+                        <img class="filter-close" src="~/images/close.png" alt="">
+                    </label>
+                </div>
+                <div class="filter-container">
+                    <div class="order-by">
+                        <h3>排序</h3>
+                        <select class="form-select search-border" @@change="orderBySelectOnChange($event)" v-model="queryStringObj.selectedOrderBy">
+                            <option selected value="focus">最相關</option>
+                            <option value="comingSoon">即將舉辦</option>
+                            <option value="popular">最受歡迎</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-style">
+                        <div class="price">
+                            <h3>價格</h3>
+                            <p class="tag-price-free" :class="{ checked : queryStringObj.selectedPrice=='free' }" data-price="free" @@click="priceBtnOnclick($event)">免費</p>
+                            <p class="tag-price-pay" :class="{ checked : queryStringObj.selectedPrice=='pay' }" data-price="pay" @@click="priceBtnOnclick($event)">付費</p>
+                        </div>
+                        <div class="filter-time">
+                            <h3>時間</h3>
+                            <div class="filter-time-item">
+                                <p class="tag-time-today" :class="{ checked : queryStringObj.selectedTime=='today' }" data-time="today" @@click="timeBtnOnclick($event)">今天</p>
+                                <p class="tag-time-tomorrow" :class="{ checked : queryStringObj.selectedTime=='nextday' }" data-time="nextday" @@click="timeBtnOnclick($event)">明天</p>
+                                <p class="tag-time-week" :class="{ checked : queryStringObj.selectedTime=='thisweek' }" data-time="thisweek" @@click="timeBtnOnclick($event)">本週</p>
+                                <p class="tag-time-weekend" :class="{ checked : queryStringObj.selectedTime=='thisweekend' }" data-time="thisweekend" @@click="timeBtnOnclick($event)">本週末</p>
+                                <p class="tag-time-next-week" :class="{ checked : queryStringObj.selectedTime=='nextweek' }" data-time="nextweek" @@click="timeBtnOnclick($event)">下週</p>
+                                <p class="tag-time-next-weekend" :class="{ checked : queryStringObj.selectedTime=='nextweekend' }" data-time="nextweekend" @@click="timeBtnOnclick($event)">下週末</p>
+                                <p class="tag-time-customize" :class="{ checked : queryStringObj.selectedTime=='customize' }" data-time="customize" @@click="timeBtnOnclick($event)">
+                                    <input id="date-range-input" type="text" name="daterange" ref="dateRange" />
+                                </p>
+                                <!--<p class="tag-time-customize" onclick="customizeFilterDateRangeOnClickEvent()">自訂</p>-->
+                            </div>
+                        </div>
+
+                        <div class="theme">
+                            <h3>主題</h3>
+                            <div class="tag-theme-area">
+                                @foreach (var theme in Model.Themes)
+                                {
+                                    <div class="tag-theme-item" data-theme-id="@theme.Id" @@click="themeBtnOnclick($event)">
+                                        <img src="@theme.IconUrl" alt="theme-pic">
+                                        <p>@theme.ThemeName</p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-location">
+                        <h3>地點</h3>
+                        <div class="filter-location-btn" onclick="showLocateArea()">
+                            <label class="filter-location-txt">全部</label>
+                            <!-- <p class="filter-location-txt">全部</p> -->
+                        </div>
+                    </div>
+                    <div class="filter-submit">
+                        <div class="filter-submit-btn">
+                            <p @@click="searchBtnOnclick()">篩選</p>
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <div id="div-show-filter-date-range" class="filter-date-range">
+                    <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+                </div>-->
+            </div>
+
+            <!-- choose locate area -->
+            <div class="choose-locate-area" id="choose-locate-area">
+                <div class="locate-title">
+                    <div class="locate-title-txt">
+                        <label onclick="hideLocateArea()"><span>←</span></label>
+                        <h2>地點</h2>
+                    </div>
+                    <span class="locate-reset">重設</span>
+                </div>
+                <div class="locate-container">
+                    @* <div class="locate-taiwan">
+                    <h3>台灣</h3>
+                    <div class="tag-taiwan">
+
+
+
+                    </div>
+                    </div> *@
+                    <div class="locate-north">
+                        <h3>北部</h3>
+                        <div class="tag-north">
+                            <p class="tag-locate-taipei" data-place="台北市" @@click="placeBtnOnclick($event)">台北</p>
+                            <p class="tag-locate-newTaipei" data-place="新北市" @@click="placeBtnOnclick($event)">新北</p>
+                            <p class="tag-locate-keelung" data-place="基隆市" @@click="placeBtnOnclick($event)">基隆</p>
+                            <p class="tag-locate-taoyuan" data-place="桃園市" @@click="placeBtnOnclick($event)">桃園</p>
+                            <p class="tag-locate-hsinchu" data-place="新竹市" @@click="placeBtnOnclick($event)">新竹</p>
+                        </div>
+                    </div>
+                    <div class="locate-central">
+                        <h3>中部</h3>
+                        <div class="tag-central">
+                            <p class="tag-locate-miaoli" data-place="苗栗縣" @@click="placeBtnOnclick($event)">苗栗</p>
+                            <p class="tag-locate-taichung" data-place="台中市" @@click="placeBtnOnclick($event)">台中</p>
+                            <p class="tag-locate-changhua" data-place="彰化縣" @@click="placeBtnOnclick($event)">彰化</p>
+                            <p class="tag-locate-nantou" data-place="南投縣" @@click="placeBtnOnclick($event)">南投</p>
+                            <p class="tag-locate-yunlin" data-place="雲林縣" @@click="placeBtnOnclick($event)">雲林</p>
+                        </div>
+                    </div>
+                    <div class="locate-south">
+                        <h3>南部</h3>
+                        <div class="tag-south">
+                            <p class="tag-locate-chiayi" data-place="嘉義市" @@click="placeBtnOnclick($event)">嘉義</p>
+                            <p class="tag-locate-tainan" data-place="台南市" @@click="placeBtnOnclick($event)">台南</p>
+                            <p class="tag-locate-kaohsiung" data-place="高雄市" @@click="placeBtnOnclick($event)">高雄</p>
+                            <p class="tag-locate-pingtung" data-place="屏東縣" @@click="placeBtnOnclick($event)">屏東</p>
+                        </div>
+                    </div>
+                    <div class="locate-east">
+                        <h3>東部及離島</h3>
+                        <div class="tag-east">
+                            <p class="tag-locate-yilan" data-place="宜蘭縣" @@click="placeBtnOnclick($event)">宜蘭</p>
+                            <p class="tag-locate-hualien" data-place="花蓮縣" @@click="placeBtnOnclick($event)">花蓮</p>
+                            <p class="tag-locate-taitung" data-place="台東縣" @@click="placeBtnOnclick($event)">台東</p>
+                            <p class="tag-locate-penghu" data-place="澎湖縣" @@click="placeBtnOnclick($event)">澎湖</p>
+                            <p class="tag-locate-kinmen" data-place="金門縣" @@click="placeBtnOnclick($event)">金門</p>
+                            <p class="tag-locate-lianjiang" data-place="連江縣" @@click="placeBtnOnclick($event)">連江</p>
+                        </div>
+                    </div>
+
+                    <div class="choose-locate-submit">
+                        <div class="choose-locate-btn">
+                            <p onclick="hideLocateArea()">確定</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section topCSS {
+    <link rel="stylesheet" href="~/css/Home/DateRangePicker/daterangepicker.css" />
+    <link rel="stylesheet" href="~/css/Shared/_CardPartial.css" />
+    <link rel="stylesheet" href="~/css/Home/Search.css" />
+}
+
+@section endJS {
+    <script src="~/js/Home/DateRangePicker/jquery.min.js"></script>
+    <script src="~/js/Home/DateRangePicker/moment.min.js"></script>
+    <script src="~/js/Home/DateRangePicker/daterangepicker.min.js"></script>
+    <script src="~/js/Home/search.js" charset="utf-8" asp-append-version="true"></script>
+    @* <script src="~/js/Home/searchVue.js" charset="utf-8" asp-append-version="true"></script> *@
+    <script src="~/js/Shared/_CardFavorite.js"></script>
+}
+

@@ -1,0 +1,252 @@
+﻿@using Web.ViewModels.AccountViewModel
+@model SignupViewModel
+@{
+    Layout = "_EmptyLayout";
+    ViewData["Title"] = "Signup";
+}
+
+@section topCSS {
+    @*
+    <link rel="stylesheet" href="~/css/PartialViw/sign-up.css" asp-append-version="true" /> *@
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+            box-sizing: border-box;
+            /*outline: 1px solid slategrey;*/
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            background-color: #cceef7;
+            color: #555;
+            font-size: 10px;
+        }
+
+        .signup-part {
+            padding: 15px;
+            padding-top: 25px;
+        }
+
+        form.signup {
+            width: 100%;
+            height: 100vh;
+            padding: 5vh 5vh;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .one-thirds {
+            width: 50%;
+            background-color: #fff;
+            border-right: 3px solid #D2D2D2;
+            border-radius: 10%;
+        }
+
+        .two-thirds {
+            width: 100%;
+            background-color: #fff;
+            flex: 0 1 auto;
+            display: flex; /*center*/
+        }
+
+        fieldset {
+            max-width: 400px;
+            margin: auto; /*center*/
+            font-size: 20px;
+            border: 1px solid #fff;
+        }
+
+        .username ::-webkit-input-placeholder {
+            font-size: 12px;
+        }
+
+        .lgd {
+            font-size: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+
+        legend, input {
+            padding: 5px;
+            border: 1px solid #D2D2D2;
+        }
+
+            input[type="email"] {
+                width: 100%;
+                height: 38px;
+                margin: 10px 0 5px 0;
+                padding: 10px;
+                font-size: 14px;
+                font-family: monospace;
+            }
+
+            input[type="number"] {
+                width: 100%;
+                height: 38px;
+                margin: 10px 0 5px 0;
+                padding: 10px;
+                font-size: 14px;
+                font-family: monospace;
+            }
+
+            input[type="text"] {
+                width: 100%;
+                height: 38px;
+                margin: 10px 0 5px 0;
+                padding: 10px;
+                font-size: 14px;
+                font-family: monospace;
+            }
+
+            input[type="tel"] {
+                width: 100%;
+                height: 38px;
+                margin: 10px 0 5px 0;
+                padding: 10px;
+                font-size: 14px;
+                font-family: monospace;
+            }
+
+            input[type="password"] {
+                width: 100%;
+                height: 38px;
+                margin: 5px 0 5px 0;
+                padding: 10px;
+                font-size: 14px;
+            }
+
+
+
+            input[class="btn"] {
+                width: 100%;
+                margin: 10px 0 0 0;
+                background: #00A8FF;
+                color: #fff;
+                padding: 10px;
+            }
+
+        .btn {
+            margin: 0 0 10px 0;
+        }
+
+            .btn:hover {
+                opacity: 0.8;
+            }
+
+        #sign a {
+            color: #00A8FF;
+        }
+
+        #rmbr {
+            padding: 3px 10px 5px 0;
+            margin: 0;
+        }
+
+        .member_btn {
+            border-top: 1px solid #D2D2D2;
+            margin: 10px 0 10px 0;
+            padding-top: 10px;
+        }
+
+        .img_btn {
+            width: 100%;
+            display: inline-flex; /*合併在一起*/
+            flex-wrap: wrap; /*合併在一起*/
+            justify-content: center;
+        }
+
+        .already-member {
+            font-size: 14px;
+            font-family: Microsoft JhengHei;
+        }
+
+        .c_btn a img {
+            width: 198px;
+            margin: 0;
+            padding: 0;
+            flex: 0 1 auto; /*合併在一起*/
+        }
+
+        .group-title-img {
+        }
+
+        .go {
+            margin: 0.001vh;
+        }
+    </style>
+}
+
+<form asp-controller="Account" asp-action="Signup" class="signup" method="post">
+    <div id="right" class="two-thirds">
+        <fieldset>
+            <div class="signup-part">
+                <h1 class="lgd">立即註冊</h1>
+                <br>
+                <p>會員可享各項專屬權益： 票券隨身帶著走、即時管理真方便、追蹤主辦方最新動態、掌握第一手活動資訊！</p>
+                <br>
+                <p>輸入以下資訊立即註冊</p>
+                <br>
+                <input type="email" id="useremail" class="username_email" placeholder="註冊信箱" asp-for="Email" required>
+                <button id="sendEmail" class="btn">寄送email獲得驗證碼</button>
+                <div id="showVerification">
+                    <input type="text" id="verificationCodeInput" model="verificationCode" placeholder="請輸入驗證碼" asp-for="verificationCode" required>
+                    <button  class="btn" id="verifyBtn">驗證</button>
+                </div>
+                <div id="verificationSuccess">
+                    <p>驗證狀態</p>
+                </div>
+
+                @* <input type="number" id="verify" class="verify_number" placeholder="驗證碼輸入" asp-for="VerifyNumber" required>  *@
+                <!--2-->
+                <input type="text" id="username" class="username" placeholder="姓名" asp-for="Fullname" required>
+
+                <input type="tel" id="phonenumber" class="phonenumber" placeholder="手機" asp-for="Phonenumber" required>
+
+                <input type="password" id="password" class="password1" placeholder="密碼" asp-for="Password" required>
+                <!--3-->
+                <input type="button" value="註冊" class="btn" id="submit-btn" />
+                <br>
+                <!--4-->
+                <br>
+                <div id="sign">
+                    @* <a href="javascript:;" id="member_btn">忘記密碼?</a>*@
+                    <div class="already-member">
+                    <span class="not-yet">已經是eJoin會員? </span>
+                    <a asp-controller="Account" asp-action="loginView" type="submit" id="saveChanges" class="member">立即登入</a>
+                    </div>
+
+                    </div>
+                    <p class="member_btn">或是透過以下快速註冊成為會員</p>
+                    <div class="img_btn">
+                    @*  <div class="c_btn facebook-btn fb">
+                    <a href="javascript:;"><img src="img/facebook.png" alt=""></a>
+                    </div> *@
+                    <div class="c_btn google-btn go">
+                        <br>
+                        <button id="googlelogin" type="button" class="btn btn-light"> <img class="group-title-img" src="~/images/GoogleIcon.svg"><a class="btn btn-light" asp-controller="Account" asp-action="GoogleLogin">以Google登入</a></button>
+
+                    </div>
+                </div>
+            </div>
+            <!--</div>-->
+        </fieldset>
+    </div>
+
+
+
+   
+
+</form>
+@section endJS {
+    <script>
+        const return_status = @Html.Raw(Model?.Status ?? 0);
+    </script>
+    <script src="~/js/account/signup.js" asp-append-version="true"></script>
+    <script src="~/js/Member/sweetalert2/sweetalert2.all.min.js" asp-append-version="true"></script>
+
+}

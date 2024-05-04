@@ -1,0 +1,25 @@
+﻿<div class="ticket-setting-content nav-page">
+    <table class="ticket-part">
+        <thead>
+            <tr>
+                <th>票券名稱</th>
+                <th>數量</th>
+                <th>價格</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            @await Html.PartialAsync("/Views/Shared/PartialView/EventEditPartial/_TicketUnitPartial.cshtml")
+
+            <tr class="add-tickets">
+                <td colspan="4" class="add-ticket">
+                    <button @@click="addTicket" class="m-auto d-block btn btn-info fs-5 text-white px-4 py-2">
+                        <i class="fa-solid fa-circle-plus"></i> 新增票券
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="save-btn btn rounded-pill w-100 py-2 fw-bolder fs-5" v-on:click="submitSelection3" :disabled="isSubmitting">儲存</button>
+</div>

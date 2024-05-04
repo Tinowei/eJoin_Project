@@ -1,0 +1,25 @@
+﻿@using Web.ViewModels.HostViewModel
+@model ThemeSelectViewModel
+@{
+    ViewData["Title"] = "ThemeSelect";
+}
+<div class="overflow-auto w-100 flex-grow-1">
+    <div class="content">
+        <div class="page-title mb-4">
+            <h2>活動主題</h2>
+            <p class="text-secondary">選擇的主題越精準，感興趣的潛在消費者更容易看見你的活動。</p>
+        </div>
+
+        @await Html.PartialAsync("/Views/Shared/PartialView/EventEditPartial/_ThemeSelectPartial.cshtml")
+    </div>
+</div>
+
+@section topCSS {
+    <link rel="stylesheet" href="~/css/Host/content.css" />
+    <link rel="stylesheet" href="~/css/Host/themeSelect.css" />
+}
+
+@section endJS {
+    <script src="~/js/Host/themeSelect.js"></script>
+    <script src="~/js/Shared/EventEdit/setSelectThemeScript.js"></script>
+}

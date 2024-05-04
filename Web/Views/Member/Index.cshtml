@@ -1,0 +1,139 @@
+﻿@model Web.ViewModels.MemberViewModel.IndexViewModel
+@{
+    ViewData["Title"] = "主辦頁面";
+}
+
+<div class="content" id="memberIndexDiv">
+    <div class="user-detail-page-wrapper">
+        <div class="user-detail-page-inner">
+            <div class="user-banner">
+                <img src="@Model.CoverImage" decoding="async" loading="lazy" alt="">
+            </div>
+            <div class="user-main-info-area">
+                <div class="user-main-info-border">
+                    <div class="avatar-area">
+                        <div class="avatar-border">
+                            <img src="@Model.MemberImage">
+                        </div>
+                    </div>
+                    <div class="main-info-area">
+                        <div class="main-info-name">
+                            <h2 class="main-info-name-txt">@Model.MemberName</h2>
+                        </div>
+                        <div class="main-info-stats-area">
+                            <div class="main-info-stats">
+                                <div class="main-info-stats-txt">
+                                    <p>粉絲數</p>
+                                    <p class="main-info-stats-fans">{{ fansCount }}</p>
+                                </div>
+                            </div>
+                            <div class="main-info-stats">
+                                <div class="main-info-stats-txt">
+                                    <p>活動總數</p>
+                                    <p class="main-info-stats-eventCount">@Model.EventCount</p>
+                                </div>
+                            </div>
+                            <div class="main-info-stats-btn" v-on:click="trackHost" :style="{pointerEvents:isCallTrackHost ? 'none' : '' }">
+                                <div class="main-info-stats-btn-item">
+                                    @if (Model.UserId == Model.MemberId)
+                                    {
+                                        <a asp-controller="Member" asp-action="MyProfile" asp-route-memberId="@Model.MemberId">編輯頁面</a>
+                                    }
+                                    else
+                                    {
+                                        <a v-if="isFollow">已追蹤</a>
+                                        <a v-else>+ 追蹤</a>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-main-container">
+                <div class="user-main-option">
+                    <div class="user-main-option-tabs">
+                        <div class="tabs-list">
+                            <div id="tab-list" class="tabs-list-container">
+                                <!-- <button class="tab-list-about" onclick="showAbout()">關於</button>
+                                <button class="tab-list-event" onclick="showAction()">活動</button> -->
+                                <div id="tab-list-about" class="tab-list-about active" onclick="showAbout()">關於</div>
+                                <div id="tab-list-event" class="tab-list-event" onclick="showAction()">活動</div>
+                            </div>
+                            <!-- <div class="tab-line"></div>  -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- about -->
+                <section class="user-main-about-area-about" id="area-about">
+                    <div class="about">
+                        <h3>簡介</h3>
+                        <p class="about-txt">
+                            @Model.MemberDescription
+                        </p>
+                    </div>
+                    <div class="about-build">
+                        <div class="about-build-img">
+                            <img src="~/images/icon_offline_flag.svg" alt="">
+                        </div>
+                        <p class="about-build-date">建立於 @Model.MemberBuildDate.ToString("yyyy/MM/dd")</p>
+                    </div>
+                    <div class="often-event-area">
+                        <h3>經常舉辦</h3>
+                        <div class="often-event-tag">
+                            @foreach (var tag in Model.MemberEventThemes)
+                            {
+                                <span>@tag</span>
+                            }
+                        </div>
+
+                    </div>
+                </section>
+
+
+
+                <!-- events -->
+
+                <section class="user-main-event-area-event" id="area-event" style="display: none;">
+                    <div class="event-title">
+                        <h3>即將舉行</h3>
+                    </div>
+                    <div class="my-card-group">
+                        @foreach (var card in Model.PersonalCard)
+                        {
+                            @await Html.PartialAsync("PartialView/EventCardPartial/_CardPartial", card)
+                        }
+                    </div>
+
+                    <!-- past events -->
+                    <div class="user-main-past-event-area">
+                        <div class="past-event-title">
+                            <h3>過往活動</h3>
+                        </div>
+                        @await Html.PartialAsync("PartialView/_PastEventPartial", Model.PastEventByYear)
+
+                    </div>
+                </section>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let memberIndexViewModel = @Html.Raw(Json.Serialize(Model));
+</script>
+
+@section topCSS {
+    <link rel="stylesheet" href="~/css/Shared/_CardPartial.css" />
+    <link rel="stylesheet" href="~/css/Member/Index.css" />
+}
+
+@section endJS {
+    <script src="~/js/Member/Index.js"></script>
+    <script src="~/js/Shared/_CardFavorite.js"></script>
+}

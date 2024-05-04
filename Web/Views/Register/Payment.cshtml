@@ -1,0 +1,106 @@
+﻿@model Web.ViewModels.RegisterViewModel.PaymentViewModel;
+@{
+    var totalPrice = Model.Tickets.Sum(dto => dto.SubTotal).ToString("##,###");
+    var cartId = (int)ViewData["CartId"];
+    var orderId =(int)ViewData["OrderId"];
+    ViewData["Title"] = "選擇付款";
+}
+
+@section topCSS{
+    <link rel="stylesheet" href="~/css//Register/Payment.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css//Register/Shared/EventInfoContainer.css" asp-append-version="true" />
+}
+
+@section endJS {
+    <script>
+        let eventId = @Model.EventId;
+        let cartId = @cartId;
+        let orderId = @orderId;
+    </script>
+    <script src="~/js/Register/Payment.js" asp-append-version="true"></script>
+    <script src="~/js/Member/sweetalert2/sweetalert2.all.min.js"></script>
+}
+
+
+<div class="content">
+    @await Html.PartialAsync("_StepWrapPartial")
+    
+    <div class="ticketPayment-page">
+        @await Html.PartialAsync("_EventInfoPartial",Model)
+        <div class="payment-container">
+            <div class="headline-container">
+                <h3 class="headline">您的訂單</h3>
+            </div>
+            <div class="order-detail-card">
+                <input type="checkbox" id="detail-checkbox" class="toggle-checkbox">
+                <div class="order-price">
+                    <div class="card-left">
+                        <span>付款金額</span>
+                        <span class="price">NT$ @Html.Raw(totalPrice)</span>
+                    </div>
+                    <label for="detail-checkbox" class="card-right">
+                        <div class="detail-switch">
+                            <span class="plus">
+                                <i class="fa-solid fa-plus"></i>
+                                <i class="fa-solid fa-minus"></i>
+                            </span>
+                            <span class="">收合訂單明細</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="order-detail-expanding">
+                    <div class="order-detail-header">
+                        <span class="event">項目</span>
+                        <span class="counts">數量</span>
+                        <span class="price">價格</span>
+                        <span class="subtotal">小計</span>
+                    </div>
+                    <div class="order-details-container"></div>
+                    @foreach(var detail in Model.Tickets)
+                    {
+                        @await Html.PartialAsync("_OrderDetailDescriptionPartial", detail)
+                    }
+                    <div class="total-price">
+                        <p>
+                            付款金額
+                            <span class="price totalprice" id="">NT$ @(totalPrice)</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="paymentTypes">
+                <div class="headline-container">
+                    <h3 class="headline">請選擇付款方式</h3>
+                </div>
+                <div class="paymentType-group">
+                    <div class="payment-heading">
+                        <i class="fa-solid fa-globe"></i>
+                        <span class="title">線上付款</span>
+                    </div>
+                    <div class="payment-choose">
+                        <a href="#" class="payment d-none" id="LinePay">
+                            <img src="~/images/LinePay.png" alt="">
+                        </a>
+                        <a href="#" class="payment" id="Ecpay">
+                            <img src="~/images/ECpay200x55.png" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="button-group">
+                <button  class="restart-btn" type="button"><span>重新報名</span></button>
+                <button  class="next-btn" disabled>
+                    <span>前往付款</span>
+                    <span>(NT$ @(totalPrice))</span>
+                        
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+                            

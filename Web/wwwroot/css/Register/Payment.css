@@ -1,0 +1,575 @@
+﻿a {
+    text-decoration: none;
+    color: #3675be
+}
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #eaeaea;
+    position: relative;
+}
+.step-wrap {
+    width: 100%;
+    position: sticky;
+    top: 60px;
+    background-color: #fff;
+    box-shadow: rgb(219 219 219 / 0%) 0px 10px 20px, rgb(160 152 152 / 23%) 0px 6px 6px;
+
+}
+
+.step-wrap .step-bar {
+    /* outline: 1px solid black; */
+    background-color: #fff;
+    display: flex;
+    max-width: 1080px;
+    margin: 0px auto ;
+    line-height: 1.5;
+    z-index: 2;
+}
+
+.step-wrap .step-bar .step-container {
+    display: flex;
+    padding: 10px 10px;
+    /* outline: 1px solid black; */
+    margin-right: 5px;
+}
+.step-container .step {
+    /* outline: 1px solid black; */
+    /* padding: 0 10px; */
+    /* line-height: 1.5; */
+    cursor: default;
+}
+.step-container:first-child .step, .step-container:nth-child(2) .step {
+    cursor: pointer;
+}
+
+.step-container .step span.step-number {
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #36353c;
+    /* margin: 10px; */
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+}
+
+.step-container .step .step-name {
+    font-weight: 700;
+    font-size: 16px;
+    padding-left: 5px;
+}
+
+.step-container span.arrow .fa-angle-right {
+    display: inline-block;
+    color: #aeaeae;
+    /* outline: 1px solid red; */
+    /*padding: 0 10px 0 30px;*/
+    padding: 0 10px 0 20px;
+}
+
+
+.step-container:nth-child(4) {
+    color: #dddddd;
+}
+
+.step-container:nth-child(4) .step span.step-number {
+    background-color: transparent;
+    color: #dddddd;
+    border: 1px solid #dddddd;
+}
+
+.step-container:nth-child(3) span.arrow .fa-angle-right {
+    color: #dddddd;
+}
+
+.content {
+    width: 100%;
+    margin: 0px auto;
+    flex-grow: 1;
+    background-color: #eaeaea;
+}
+
+.content .ticketPayment-page {
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    display: flex;
+    gap: 40px;
+    width: 1080px;
+    margin: 20px auto;
+    padding: 47px 40px 25px 40px;
+    border-radius: 20px;
+
+}
+
+.ticketPayment-page .eventInfo-container {
+    width: 25%;
+    /* outline: 1px solid red; */
+}
+.eventInfo-container img {
+    display: block;
+    border-radius: 10px;
+    width:250px;
+}
+
+.eventInfo-container a.link-to-event {
+    text-decoration: none;
+    color: #000;
+    font-weight: bolder;
+    display: inline-block;
+    padding: 10px 0px;
+    line-height: 1.5;
+}
+.eventInfo-container a.link-to-event:hover {
+    color: #3675be;
+}
+
+.eventInfo-container p.eventTime {
+    color: #aaa;
+    font-size: 14px;
+    margin-top: 20px;
+    line-height: 1.5;
+}
+.eventInfo-container p.eventAddress {
+    color: #aaa;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.eventInfo-container .ruleCard {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    /* outline: 1px solid blue; */
+    /* margin: 10px 0; */
+    margin: 30px 0;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.eventInfo-container .ruleCard .ruleTitle {
+    font-weight: 600;
+}
+
+.ruleCard .description {
+    margin: 0 0 5px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.ruleCard .description a {
+    text-decoration: none;
+    color: #3675be;
+}
+
+.ticketPayment-page .payment-container {
+    width: 75%;
+    /* outline: 1px solid purple; */
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+}
+
+.payment-container h3 {
+    /* outline: 1px solid red; */
+    font-size: 18px;
+    color: #797979;
+    padding: 10px 0;
+    font-weight: 700;
+}
+
+.headline-container {
+    border-bottom: 1px solid #ccc;
+}
+
+.order-detail-card {
+    /* outline: 2px solid blue; */
+    flex-grow: 1;
+}
+
+.order-detail-card .order-price {
+    display: flex;
+    /* outline: 2px solid blue; */
+    margin-top: 20px;
+    padding: 25px 30px;
+    align-items: center;
+    border: solid 1px rgba(151,151,151,.28);
+    border-radius: 4px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.05);
+    font-weight: 600;
+}
+.order-detail-card .order-price .card-left {
+    flex-grow: 1;
+}
+.order-detail-card .order-price .card-left span.price {
+    color: #49d8b9;
+    font-weight: 900;
+    /*font-size: 16px;*/
+    padding-left: 5px;
+}
+
+.order-detail-card .order-price .card-right {
+    color: #00a2f2;
+    cursor: pointer;
+
+}
+.order-detail-card .order-detail-expanding {
+    /* outline: 1px solid blue; */
+    margin-top: 20px;
+    width: 710px;
+}
+
+.order-detail-card .order-detail-expanding .order-detail-header {
+    width: 100%;
+    /* outline: 1px solid blue; */
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #f3f3f3;
+    color: #797979;
+    gap: 10px;
+    
+}
+.order-detail-card .order-detail-expanding .order-detail-header .event {
+    width: 350px;
+}
+.counts,.price,.subtotal {
+    width: 100px;
+    text-align: center;
+    color: #797979;
+    font-size: 15px;
+}
+
+.order-detail-card .order-detail-expanding .order-detail-description {
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px dotted #e1e1e1;
+}
+
+.order-detail-card .order-detail-expanding .order-detail-description .event {
+    width: 350px;
+    color: #474747;
+    font-weight: 500;
+}
+
+.order-detail-card .order-detail-expanding .order-detail-description .event .ticket-name {
+    font-size: 16px;
+}
+.order-detail-card .order-detail-expanding .order-detail-description .event .ticket-time {
+    font-size: 13px;
+    color: #959595;
+    padding: 5px 0;
+}
+.order-detail-description .counts,
+.order-detail-description .price,
+.order-detail-description .subtotal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.order-detail-card .order-detail-expanding .total-price {
+    /* outline: #000 solid 1px; */
+    display: flex;
+    justify-content: end;
+    padding: 10px 20px;
+    font-weight: 600;
+}
+
+.order-detail-card .order-detail-expanding .total-price .price {
+    color: #49d8b9;
+    font-size: 16px;
+    font-weight: 900;
+}
+
+/* 預設隱藏.order-detail-expanding */
+.order-detail-expanding {
+    display: none;
+}
+
+/* 當checkbox被選中時顯示.order-detail-expanding */
+.toggle-checkbox:checked ~ .order-detail-expanding {
+    display: block;
+}
+
+
+.toggle-checkbox {
+    display: none;
+}
+
+/* 隱藏.fa-minus圖標 */
+.fa-minus {
+    display: none;
+    transition: opacity .3s ease;
+}
+
+/* 當checkbox未被選中時，隱藏.fa-minus並顯示.fa-plus */
+.toggle-checkbox:not(:checked) ~ .order-price .fa-minus {
+    display: none;
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+
+.toggle-checkbox:not(:checked) ~ .order-price .fa-plus {
+    display: inline;
+    opacity: 1;
+    transition: opacity .3s ease;
+}
+
+/* 當checkbox被選中時，顯示.fa-minus並隱藏.fa-plus */
+.toggle-checkbox:checked ~ .order-price .fa-minus {
+    display: inline;
+    opacity: 1;
+    transition: opacity .3s ease;
+}
+
+.toggle-checkbox:checked ~ .order-price .fa-plus {
+    display: none;
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+
+
+.paymentTypes {
+    /* outline: 1px solid black; */
+}
+
+.paymentTypes .paymentType-group {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.paymentTypes .paymentType-group .payment-heading {
+    width: 100%;
+    /* width: 720px; */
+    margin-top: 20px;
+    padding: 20px 30px;
+    /* outline: 2px solid blue; */
+    border: 1px solid #aaa;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.paymentTypes .paymentType-group .payment-heading .fa-globe {
+    font-size: 25px;
+    color: #797979;
+} 
+
+.paymentTypes .paymentType-group .payment-heading span {
+    font-size: 16px;
+    color: #797979;
+    margin: auto 0;
+}
+.paymentTypes .paymentType-group {
+    /* margin: 0 10px; */
+}
+
+.paymentTypes .paymentType-group a.payment {
+    /* width: 350px; */
+    width: 100%;
+    /* width: 50%; */
+    box-sizing: border-box;
+    margin: 10px 0px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    cursor: pointer;
+}
+.paymentTypes .paymentType-group a.payment:first-child {
+
+}
+
+.paymentTypes .paymentType-group a.payment img {
+    width:100%;
+    max-width:100px;
+}
+
+.payment-choose {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+}
+
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding-top:20px ;
+    margin-top: 50px;
+    margin: 60px 0 40px;
+    margin-bottom:auto;
+
+}
+
+.button-group button{
+    width: 350px;
+    padding: 20px 0px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    text-align:center;
+}
+.button-group a span {
+    display: inline-block;
+}
+
+.button-group .restart-btn {
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+.next-btn {
+    color: #fff;
+    background-color: #0585ca;
+    cursor: pointer;
+}
+.next-btn:disabled{
+    color:#fff;
+    pointer-events: none;
+    background-color: #d6d6d6;
+}
+.next-btn:hover {
+    transition: .3s;
+    background-color: #07a1f5;
+}
+
+.selected {
+    background-color: #eeeeee;
+}
+
+
+/* header and footer */
+@media screen and (max-width: 767px) {
+    .content .wrap .container {
+
+    }
+    .footer-container p.companyName {
+        /* display: block; */
+        margin-bottom: 0;
+        text-align: center;
+    }
+    .footer-container {
+        display: block;
+        text-align: center;
+        /* justify-content: center; */
+    }
+}
+
+@media screen and (max-width:1199px) {
+    header .step-wrap {
+        width: 100%;
+        /* outline: 1px solid black; */
+        /* margin: 0 auto; */
+    }
+    .step-bar {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .step-wrap .step-bar {
+        width: 100%;
+    }
+    .step-wrap .step-bar .step-container {
+        /* outline: 1px solid black; */
+    }
+    .step-container .step {
+        display: flex;
+
+    }
+
+    .step-container .step span.step-number {
+    }
+    .step-container .step .step-name {
+        display: none;
+
+    }
+/*    .step-container:nth-child(3) .step .step-name {
+        display: inline-block;
+        width: 70px;
+    }*/
+
+    .content {
+        width: 100%;
+    }
+    .content .ticketPayment-page {
+        display: block;
+        background-color: transparent;
+        box-shadow: none;
+        width: 100%;
+        /* height: 100%; */
+        padding: 0;
+        /* margin-top: -20px; */
+    }
+
+   /* .content .ticketPayment-page .eventInfo-container {
+        margin: 0 auto;
+        width: 95%;
+        margin-bottom: 20px;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        border-radius: 20px;
+
+    }
+    .content .ticketPayment-page .eventInfo-container .eventInfo img {
+        display: none;
+    }
+    .eventInfo-container a.link-to-event {
+        font-size: 23px;
+    }*/
+
+    .payment-container h3 {
+        font-size: 23px;
+        color: #797979;
+    }
+
+    .content .ticketPayment-page  .payment-container {
+        margin: 0 auto;
+        width: 95%;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        border-radius: 20px;
+
+    }
+
+    .order-detail-card span,
+    .order-detail-card .price {
+        font-size: 0.8rem;
+    }
+
+    .card-left span.price {
+        /*display:block;*/
+        padding-left:0;
+    }
+
+    .order-detail-card .order-detail-expanding {
+        width: 100%;
+    }
+
+    .button-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: auto;
+        padding: 20px 0;
+    }
+    .button-group .restart-btn {
+        width: 100%;
+        display: block;
+        padding: 10px 0;
+    }
+
+    .button-group .next-btn{
+        width: 100%;
+        display: block;
+        padding: 10px 0;
+    }
+
+}

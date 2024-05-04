@@ -1,0 +1,26 @@
+﻿@model EventInputModel
+@{
+    ViewData["Title"] = "TicketSetting";
+}
+
+<div class="overflow-auto w-100 flex-grow-1">
+    <div class="content">
+        <div class="page-title mb-4">
+            <h2>票券設定</h2>
+            <p class="text-secondary">設定你的活動票券類型，分出不同的價格以及功能。</p>
+        </div>
+        <form action="~/Host/TicketSettingPost" method="post">
+            @Html.HiddenFor(x => x.Id)
+        @await Html.PartialAsync("/Views/Shared/PartialView/EventEditPartial/_TicketSettingPartial.cshtml")
+        </form>
+    </div>
+</div>
+
+@section topCSS {
+    <link rel="stylesheet" href="~/css/Host/content.css" />
+    <link rel="stylesheet" href="~/css/Host/ticketSetting.css" />
+}
+
+@section endJS {
+    <script src="~/js/Host/ticketSetting.js"></script>
+}

@@ -1,0 +1,307 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+/* 全域 border box */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Helvetica", "Arial","LiHei Pro","黑體-繁","微軟正黑 img 體 ", sans-serif;
+    vertical-align: middle;
+}
+
+.overview-content {
+    margin: 30px auto;
+    max-width: 1080px;
+    width: 90%;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 0 10px 0 rgb(0,0,0,0.15);
+    background-color: #fff;
+}
+
+.overview-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.overview-title-name {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.overview-title-name .overview-title-txt {
+    font-size: 28px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*white-space: nowrap;*/
+    margin-bottom: 10px;
+}
+
+.overview-title button {
+    width: 150px;
+    line-height: 1 !important;
+    background-color: #469BFF;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    padding: 0 30px;
+    border-radius: 30px;
+    border: 0;
+    white-space: nowrap;
+}
+
+    .overview-title button.on-sale {
+        background-color: #469BFF;
+    }
+
+    .overview-title button.off-sale {
+        background-color: #dc3545;
+    }
+
+    .overview-title button.ended {
+        background-color: #6c757d;
+    }
+
+    .overview-title button.disabled {
+        background-color: #6c757d;
+    }
+
+.overview-title .build-date {
+    color: #aaa;
+    font-size: 16px;
+}
+
+.overview-event,
+.ticket-state {
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 0 rgb(0,0,0,0.15);
+    background-color: #fff;
+}
+
+.overview-event h3,
+.ticket-state h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.overview-event-container {
+    display: flex;
+}
+
+.event-img img {
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.event-info {
+    margin-left: 30px;
+}
+
+.date-time {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-right: 30px;
+    margin-bottom: 20px;
+}
+
+.event-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.like-event,
+.event-state {
+    width:300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e0e0e0;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    padding: 20px 50px;
+    margin-right: 20px;
+}
+
+.like-event p,
+.event-state p {
+    font-size: 16px;
+    color: #6e6d6d;
+    font-weight: 600;
+    padding-right: 10px;
+}
+
+.like-event-num,
+.event-state-push {
+    font-size: 30px;
+    color: #4f4f4f;
+    font-weight: bold;
+}
+
+.event-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.event-btn button {
+    font-size: 16px;
+    background-color: #7D7D7D;
+    color: #fff;
+    border-radius: 20px;
+    width: 190px;
+    height: 40px;
+    border: 0;
+    margin-right: 30px;
+}
+
+.fa-solid {
+    display: inline;
+    margin-right: 10px;
+}
+
+.canvas-container {
+    /*display: flex;
+    flex-wrap: wrap;*/ /* 讓元素在必要時可以換行 */
+}
+
+.round {
+    /*max-width: 33% !important;
+    height: 300px !important;
+    object-fit: cover;*/
+    margin-bottom: 30px !important;
+}
+
+.ticket-state {
+    margin: 0 10px;
+}
+
+.ticket-area {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width:768px) {
+    .overview-event-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .date-time {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .event-img {
+        text-align: center;
+    }
+
+    .event-data {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .like-event,
+    .event-state {
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #e0e0e0;
+        border-radius: 20px;
+        margin-bottom: 20px;
+        padding: 20px 30px;
+        width: 200px;
+    }
+
+        .like-event p,
+        .event-state p {
+            padding-right: 0;
+            line-height: 1.5;
+        }
+
+    .event-btn {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .event-btn :first-child {
+            margin-bottom: 10px;
+        }
+
+        .event-btn button {
+            margin-right: 20px;
+        }
+
+    .ticket-state {
+        width: calc(100% - 20px);
+        margin-bottom: 20px;
+    }
+
+        .ticket-state .round {
+            margin: auto;
+            width: 200px;
+            height: 200px;
+        }
+}
+
+@media screen and (min-width: 768px) {
+    .overview-event-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .event-data {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .event-img {
+        text-align: center;
+    }
+
+    .date-time {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .like-event,
+    .event-state {
+        width: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #e0e0e0;
+        border-radius: 20px;
+        margin-bottom: 20px;
+        padding: 20px 30px;
+        margin-right: 20px;
+    }
+
+    .ticket-state .round {
+        margin: auto;
+        width: 300px;
+        height:300px;
+    }
+
+    .ticket-state {
+        width: calc(50% - 20px);
+    }
+}

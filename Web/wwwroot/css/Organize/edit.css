@@ -1,0 +1,289 @@
+.content {
+    margin: 30px auto;
+    max-width: 1080px;
+    width: 90%;
+    min-width: 600px;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+    background-color: white;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+h3 {
+    margin: 5px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+h4 {
+    font-weight: 900;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    margin: 5px 0;
+}
+/* 設定主題區塊 */
+.popover {
+    font-size: 12px;
+}
+
+.icon {
+    transform: translate(2px, -2px);
+}
+
+.select-icon {
+    margin: 20px auto 50px;
+    width: 100%;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+.theme-card {
+    padding: 5px;
+    text-align: center;
+    position: relative;
+}
+
+.theme-card i {
+    display: none;
+    position: absolute;
+    top: 0;
+    outline: 2px rgb(0, 207, 0) solid;
+    left: 50%;
+    translate: -50% -100%;
+    width: 100%;
+    background-color: rgb(0, 207, 0);
+}
+
+.theme-card img {
+    width :65px;
+}
+
+.theme-card img:hover {
+    transform: scale(1.2);
+}
+
+.selected {
+    outline: 2px rgb(0, 207, 0) solid;
+}
+
+.selected i {
+    display: block;
+}
+
+/* 基本內容區塊 */
+.update-pic {
+    position: relative;
+    overflow: hidden;
+    margin: 10px 50px;
+    border: #aaa 1px dashed;
+}
+
+    .update-pic img {
+        vertical-align: bottom;
+        width: 100%;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+        object-position: center;
+        transition: 1s;
+    }
+
+.update-pic img:hover {
+    scale: 1.1;
+}
+
+.update-input {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 28px;
+    border-radius: 50px;
+    background-color: #0fccc2;
+    color: white;
+    box-shadow: 0 6px 12px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+    .update-input:hover {
+        background-color: #85ddd8;
+    }
+
+#image-input {
+    position: absolute;
+    opacity: 0;
+    inset: 0 0 0 0;
+}
+
+#form {
+    margin: 30px 50px;
+}
+
+.time-interval {
+    display: flex;
+    gap: 10px;
+}
+
+.switch-p {
+    margin-top: 10px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.switch-btn {
+    margin-left: 10px;
+    border: none;
+    background-color: #0fccc2;
+    color: white;
+    box-shadow: 0 2px 12px 1px rgba(0, 0, 0, 0.2);
+}
+
+    .switch-btn:hover {
+        background-color: #85ddd8;
+        color: white;
+    }
+
+form > div {
+    margin-bottom: 30px;
+}
+
+.map-container {
+    margin-top: 20px;
+    height: 400px;
+    width: 100%;
+    border: 1px #ccc solid;
+}
+/* 活動內容區塊 */
+.event-description-content section {
+    margin: 10px auto 30px;
+    padding: 0 50px;
+}
+
+.event-description-content textarea {
+    width: 100%;
+    height: 500px;
+    font-size: 14px;
+    padding: 10px;
+    resize: none;
+}
+
+.event-description-content section p {
+    color: #aaaaaa;
+    font-size: 12px;
+}
+.ck-editor__editable_inline {
+    /* 設定最低高度 */
+    min-height: 500px;
+}
+
+/* 票券設定區塊 */
+tr input,
+tr button {
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 11px;
+    /* border-color: #e2e2e2; */
+    border: 1px solid #828282;
+}
+
+tr button {
+    border: none;
+    background-color: transparent;
+}
+
+table {
+
+    margin: 30px 50px;
+}
+
+tr td:nth-child(2) {
+    width: 15%;
+}
+
+tr td:nth-child(3) {
+    width: 15%;
+}
+
+tr td:nth-child(4) {
+    width: 15%;
+}
+
+td input {
+    width: 100%;
+}
+
+tr th {
+    /*border: 1px black solid;*/
+    border-bottom: none;
+    color: white;
+    background-color: #5d98ee;
+    padding: 15px;
+    font-size: 16px;
+}
+
+tr td {
+    padding: 15px;
+}
+
+td p,
+td label {
+    margin: 10px 0 5px;
+}
+
+.ticket-info {
+    outline: #ddd 1px solid;
+    box-sizing: border-box;
+}
+
+.setting-wrap {
+    outline: #ddd 1px solid;
+    background-color: #e7f5fc;
+    padding: 10px 10px;
+}
+
+.add-ticket {
+    outline: #ddd 1px solid;
+    background-color: #f8f8f8;
+    padding: 30px;
+}
+
+/* 設定儲存鈕 */
+.save-btn {
+    background-color: #009ce6;
+    color: white;
+}
+
+    .save-btn.off {
+        background-color: #eeeeee;
+        color: #b5bac1;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    .save-btn:hover {
+        background-color: #28b7f7;
+        color: white;
+    }
+
+.fa-gear:before {
+    color: #828282 !important;
+}
+
+.fa-trash:before {
+    color: #828282 !important;
+}

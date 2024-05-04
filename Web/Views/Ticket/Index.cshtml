@@ -1,0 +1,132 @@
+﻿@using Web.ViewModels.TicketViewModel
+
+@model IndexViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <!-- 所有內容 -->
+    <div class="content" id="app">
+        <!-- 內容容器 -->
+        <div class="all">
+
+                <!-- 上半部(手風琴外) -->
+            <div class="h2AndAddressAndQrCode">
+                @* <h2>第一波 免費住宿抽獎活動</h2> *@
+                <h2>{{ticketInfo.eventName}}</h2>
+                <i class="fa-solid fa-circle-check" style="color:#f00"></i><span class="useNember"> 使用張數： {{ticketInfo.quantities}}</span>
+@*                 <div class="address">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="#d36546" viewBox="0 0 384 512"><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>
+                    <a href="#">台北市大安區</a>
+                </div> *@
+
+                <!-- overTimeQrCodeImg、qrCodeImg &overTimePostMark、postMark -->
+                <div class="qrCode">
+                    <div class="qrCodeImgOuter">
+                        <img class="qrCodeImg" src="" alt="">
+                        <img class="postMark" src="~/images/postmark-14.png" alt="">
+                    </div>
+
+                    <p class="participant">參加人：{{ticketInfo.participantName}}</p>
+                    @* <p class="ticketNumber">票號： 2401310739245745410350</p> *@
+                </div>
+            </div>
+
+             <!-- 下半部(手風琴) -->
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+                <!-- 區塊一、活動資訊 -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" fill="#fff"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                        活動資訊
+                    </button>
+                    </h3>
+                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                    <div class="accordion-body">
+                        <h4>活動名稱</h4>
+                        @* <p><a href="#">第一波 免費住宿抽獎活動</a></p> *@
+                        <p><a :href="'/Home/Event/' + ticketInfo.eventId">{{ticketInfo.eventName}}</a></p>
+                        <h4>活動到期日</h4>
+                        @* <p>2024-03-01 19:00</p> *@
+                        <p>{{new Date(ticketInfo.expireTime).toLocaleString()}}</p>
+                        
+                    </div>
+                    </div>
+                </div>
+                <!-- 區塊二、票劵明細 -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="panelsStayOpen-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="20" height="20" fill="#fff"><path d="M64 64C28.7 64 0 92.7 0 128v64c0 8.8 7.4 15.7 15.7 18.6C34.5 217.1 48 235 48 256s-13.5 38.9-32.3 45.4C7.4 304.3 0 311.2 0 320v64c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V320c0-8.8-7.4-15.7-15.7-18.6C541.5 294.9 528 277 528 256s13.5-38.9 32.3-45.4c8.3-2.9 15.7-9.8 15.7-18.6V128c0-35.3-28.7-64-64-64H64zm64 112l0 160c0 8.8 7.2 16 16 16H432c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H144c-8.8 0-16 7.2-16 16zM96 160c0-17.7 14.3-32 32-32H448c17.7 0 32 14.3 32 32V352c0 17.7-14.3 32-32 32H128c-17.7 0-32-14.3-32-32V160z"/></svg>
+                        票劵明細
+                    </button>
+                    </h3>
+                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                    <div class="accordion-body">
+                        <h4>票種 :</h4>
+                        @* <p>一般票</p> *@
+                        <p>{{ticketInfo.ticketTypeName}}</p>
+                    </div>
+                    </div>
+                </div>
+                <!-- 區塊三、參加者資訊 -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="panelsStayOpen-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="20" height="20" fill="#fff"><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm80 256h64c44.2 0 80 35.8 80 80c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16c0-44.2 35.8-80 80-80zm-32-96a64 64 0 1 1 128 0 64 64 0 1 1 -128 0zm256-32H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
+                        參加者資訊
+                    </button>
+                    </h3>
+                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                    <div class="accordion-body">
+                        <h4>基本資料</h4>
+                        <p>姓名：{{ticketInfo.participantName}}</p>
+                        <p>電子郵件：{{ticketInfo.participantEmail}}</p>
+                        <p>行動電話：{{ticketInfo.participantPhone}}</p>
+                        <hr>
+                        <p class="note">如果您的參加者資訊有誤，請聯繫【主辦單位】。</p>
+                    </div>
+                    </div>
+                </div>
+                
+                @* <!-- 區塊四、聯絡主辦單位 --> *@
+                @* <div class="accordion-item"> *@
+                @*     <h3 class="accordion-header" id="panelsStayOpen-headingFour"> *@
+                @*     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour"> *@
+                @*         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20" fill="#fff"><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm90.7 96.7c9.7-2.6 19.9 2.3 23.7 11.6l20 48c3.4 8.2 1 17.6-5.8 23.2L168 231.7c16.6 35.2 45.1 63.7 80.3 80.3l20.2-24.7c5.6-6.8 15-9.2 23.2-5.8l48 20c9.3 3.9 14.2 14 11.6 23.7l-12 44C336.9 378 329 384 320 384C196.3 384 96 283.7 96 160c0-9 6-16.9 14.7-19.3l44-12z"/></svg> *@
+                @*         聯絡主辦單位 *@
+                @*     </button> *@
+                @*     </h3> *@
+                @*     <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour"> *@
+                @*     <div class="accordion-body"> *@
+                @*         <h4>主辦單位</h4> *@
+                @*         <p>名稱：工藝社</p> *@
+                @*         <p>電子郵件：520520@gmail.com</p> *@
+                @*         <p>行動電話：0909520520</p> *@
+                @*     </div> *@
+                @*     </div> *@
+                @* </div> *@
+            </div> 
+                        
+        </div>
+            <!-- 回頂端 -->
+    <a href="#" class="top">
+        <?xml version="1.0" ?><svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg"><title/><path d="M82.6074,62.1072,52.6057,26.1052a6.2028,6.2028,0,0,0-9.2114,0L13.3926,62.1072a5.999,5.999,0,1,0,9.2114,7.6879L48,39.3246,73.396,69.7951a5.999,5.999,0,1,0,9.2114-7.6879Z"/></svg>
+    </a>
+    </div>
+
+
+@section topCSS {
+
+    <link rel="stylesheet" href="~/css/Ticket/getTicket.css" asp-append-version="true" />
+}
+
+@section endJS {
+
+    <script src="~/js/Ticket/getTicket.js"></script>
+
+}
+
+
+

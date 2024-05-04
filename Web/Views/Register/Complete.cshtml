@@ -1,0 +1,36 @@
+﻿@model Web.ViewModels.RegisterViewModel.PaymentViewModel
+@{
+    ViewData["Title"] = "報名成功";
+    var eventId = ViewData["EventId"];
+}
+
+@section topCSS {
+    <link rel="stylesheet" href="~/css/Register/complete.css" asp-append-version="true" />
+}
+
+@section endJS {
+    <script>
+        var eventId = @eventId
+    </script>
+    <script src="~/js/Register/Complete.js"></script>
+}
+
+@* <h1>測試用的QR Code，data=Example</h1>
+
+<img style="width:150px; height:150px" src="https://api.qrserver.com/v1/create-qr-code/?data=Example" alt="Alternate Text" /> *@
+
+<div class="main-container">
+    <div class="content-container">
+        <div class="regist-sucess">
+            <div class="text-area">
+                <h1>- 報名成功 -</h1>
+            </div>
+        </div>
+        <div class="check-ticket">
+            <div class="check-ticket-content">
+                <p>前往我的票券查看</p>
+                <a asp-controller="Member" asp-action="MyTicket" class="my-ticket-btn">我的票券</a>
+            </div>
+        </div>
+    </div>
+</div>

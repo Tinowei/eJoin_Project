@@ -1,0 +1,24 @@
+﻿<div class="w-100 flex-grow-1" v-if="currentStep === 1">
+    <div class="page-title mb-4">
+        <h2>活動主題</h2>
+        <p class="text-secondary">選擇的主題越精準，感興趣的潛在消費者更容易看見你的活動。</p>
+    </div>
+
+    <div class="select-theme-content nav-page">
+        <h3 class="text-center">
+            最多選兩個
+        </h3>
+        <div class="select-icon">
+            <div v-for="theme in eventItem.themes"
+                 :key="theme.Id"
+                 class="theme-card"
+                 :class="{ 'selected': theme.selected }"
+                 v-on:click="toggleThemeSelection(theme)">
+                <i class="fa-solid fa-check"></i>
+                <img :src="`../..${theme.Image}`" :alt="theme.Name" />
+                <p class="theme-name">{{ theme.Name }}</p>
+            </div>
+        </div>
+        <button class="save-btn btn rounded-pill w-100 py-2 fw-bolder fs-5" @@click="nextStep" :disabled="isSaveBtnDisabled">下一步</button>
+    </div>
+</div>

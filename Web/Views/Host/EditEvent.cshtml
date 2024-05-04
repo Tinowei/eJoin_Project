@@ -1,0 +1,50 @@
+﻿@using Web.ViewModels.HostViewModel
+@using Newtonsoft.Json
+@model ThemeSelectViewModel
+@{
+    var eventVM = Model;
+    string json = JsonConvert.SerializeObject(eventVM);
+}
+@{
+    ViewData["Title"] = "活動設定";
+}
+
+<div class="content">
+
+    @await Html.PartialAsync("/Views/Shared/PartialView/EventEditPartial/_ThemeSelectPartial.cshtml")
+
+    @await Html.PartialAsync("/Views/Shared/PartialView/EventEditPartial/_BasicInfoPartial.cshtml")
+
+    @await Html.PartialAsync("/Views/Shared/PartialView/EventEditPartial/_DescriptionPartialForCreate.cshtml")
+
+    @await Html.PartialAsync("/Views/Shared/PartialView/EventEditPartial/_TicketSettingPartialForCreate.cshtml")
+
+</div>
+
+@section topCSS {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+    <link href="~/css/Organize/edit.css" rel="stylesheet" />
+    <style>
+        body {
+            overflow-x: unset !important;
+        }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin="" />
+}
+
+@section topJS {
+    <script src="~/lib/ckeditor/ckeditor5-build-classic/build/ckeditor.js"></script>
+}
+
+@section endJS {
+    <script src="~/js/Member/sweetalert2/sweetalert2.all.min.js"></script>
+    <script>
+        const jsObj = @Html.Raw(json);
+    </script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    <script src="~/js/Host/VueHost.js"></script>
+}

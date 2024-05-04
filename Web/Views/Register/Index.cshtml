@@ -1,0 +1,63 @@
+﻿@model Web.ViewModels.RegisterViewModel.SelectTicketViewModel;
+
+@{
+    ViewData["Title"] = "選擇票券";
+    var vm = Model;
+    var eventId = vm.EventId;
+}
+
+@section topCSS {
+    <link rel="stylesheet" href="~/css/Register/SelectTicket.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Register/Shared/EventInfoContainer.css" asp-append-version="true" />
+}
+
+@section endJS {
+    <script>
+        let ticketType = [
+            @foreach(var ticketType in vm.Tickets){
+            @:{ id: @ticketType.TicketId , eventId: @eventId, ticketName: "@(Html.Raw(ticketType.TicketName))", stock: @ticketType.Stock, maxPurchase: @ticketType.MaxPurchase},
+            }
+        ]
+
+    </script>
+    <script src="~/js/Register/SelectTicket.js" asp-append-version="true"></script>
+}
+
+<div class="content">
+    @await Html.PartialAsync("_StepWrapPartial")
+    
+    <div class="ticketSelect-page">
+        @await Html.PartialAsync("_EventInfoPartial",Model)
+        
+        <div class="ticketSelect-container">
+            <h3 class="headline">請選擇票券</h3>
+            @foreach(var ticketCard in Model.Tickets)
+            {
+                @await Html.PartialAsync("_TicketCardPartial",ticketCard)
+            }
+        </div>
+    </div>
+</div>
+@* <form asp-action="FillForm" asp-controller="Register" asp-route-EventId="@Model.EventId" method="post" class="signUp-container">
+
+    之後會放隱藏input tag來存使用者購買的票券資訊  (by Adam:先暫時把整個form註解喔)
+    <input type="hidden" asp-for="@Model.TotalTickets" id="totalTickets" value="0">
+    <input type="hidden" asp-for="@Model.TotalPrice" id="totalPrice" value="0"> 
+
+    <p class="price">
+        <span class="totalCount">0</span>
+        張，共
+        <span class="totalPrice"> 0</span>
+    </p>
+    <button type="submit" class="sign-up" disabled>立即報名</button>
+
+</form> *@
+
+<div class="signUp-container">
+    <p class="price">
+        <span class="totalCount">0</span>
+        張，共
+        <span class="totalPrice"> 0</span>
+    </p>
+    <button type="submit" id="submit" class="sign-up" disabled>立即報名</button>
+</div>

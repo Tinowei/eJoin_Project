@@ -1,0 +1,85 @@
+﻿@using Web.ViewModels.OrganizeViewModel
+@model IndexViewModel
+
+@{
+    ViewData["Title"] = "主辦中心";
+    var events = Model;
+}
+
+<div class="main-container">
+    <div class="content-container">
+        <h2>活動列表</h2>
+        <span>你的所有活動都可以透過此頁進入編輯或管理
+            <a asp-controller="Organize" asp-action="Validate" class="btn btn-primary">前往核銷票券</a></span>
+        <div class="list-title">
+            <div class="list-item-name">
+                <h3>活動名稱</h3>
+            </div>
+            <div class="list-item-img">
+                <span>活動封面</span>
+            </div>
+            <div class="list-item-date">
+                <span>活動起訖時間</span>
+            </div>
+            <div class="list-item-sign">
+                <span>售出/總數</span>
+            </div>
+            <div class="list-item-status">
+                <span>活動狀態</span>
+            </div>
+        </div>
+        <ul class="activity-list">
+            @foreach (var item in events.EventList)
+            {
+                <a asp-controller="Organize" asp-action="Overview" asp-route-eventId="@item.Id" class="list-item">
+                <li class="list-container">
+                    <div class="list-item-name">
+                        <h3>@(item.Name)</h3>
+                        <span>建立於@(item.CreatedDate.ToString("d"))</span>
+                    </div>
+                    <div class="list-item-img">
+                        <img src="@(item.PictureUrl)" alt="">
+                    </div>
+                    <div class="list-item-date">
+                        <span>@(item.StartTime.ToString("yyyy-MM-dd HH:mm"))</span>
+                        <span>@(item.EndTime.ToString("yyyy-MM-dd HH:mm"))</span>
+                    </div>
+                    <div class="list-item-sign">
+                        <span>@(item.SoldTicketsCount)/@(item.TotalTicketsCount)</span>
+                    </div>
+                    <div class="list-item-status">
+                        <span>@(item.Status)</span>
+                    </div>
+                </li>
+                </a>
+            }
+        </ul>
+        <nav class="nav-pagination">
+            <ul class="pagination">
+                <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                    <a class="page-link" asp-route-page="@(Model.CurrentPage - 1)" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                @for (var i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <!-- Highlight the current page-->
+                        <a class="page-link" asp-route-page="@i">@i</a>
+                    </li>
+                }
+
+                <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                    <a class="page-link" asp-route-page="@(Model.CurrentPage + 1)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+@section topCSS {
+    <link href="~/css/Organize/index.css" rel="stylesheet" />
+}

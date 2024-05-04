@@ -1,0 +1,94 @@
+﻿@using Web.Services.AccountService;
+@inject InjectToViewService InjectToViewService;
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/css/Shared/_LayoutForOrganize.css">
+    <link rel="shortcut icon" href="~/images/logo_icon.svg" /> <!--頁籤圖示-->
+
+    @await RenderSectionAsync("topCSS", required: false)
+    @await RenderSectionAsync("topJS", required: false)
+</head>
+
+<body>
+    <input type="checkbox" name="" id="menu-switch">
+    <input type="checkbox" name="" id="profile-container-switch">
+    <input type="checkbox" name="" id="activity-switch">
+    <input type="checkbox" name="" id="memberCenter-switch">
+    <header class="header">
+        <div class="header-container">
+            <a asp-controller="Home" asp-action="Index" class="back-page">
+                <span><i class="fa-solid fa-arrow-left"></i> 回首頁</span>
+            </a>
+            <a asp-controller="Organize" asp-action="Index" class="logo-image">
+                <img class="logo" src="~/images/organizerLOGO.png" alt="">
+            </a>
+            <div class="createEvent-container">
+                <label for="profile-container-switch" style="margin: auto 0; display: flex; align-items: center;">
+                    <div class="photo-container">
+                        <img src="@InjectToViewService.GetAccountInfoForLayout().AvatarUrl" />
+                        @* <img src="~/images/profilePicture.png" alt=""> *@
+                    </div>
+                </label>
+                <a href="~/Host/Index"><button class="createBtn">辦活動</button> </a>
+            </div>
+            <div class="profile-container">
+                <ul class="editor">
+                    <li>
+                        <a href="#" class="">
+                            <i class="fa-solid fa-magnifying-glass"></i>探索活動
+                        </a>
+                        <ul class="">
+                            <li><a asp-controller="Home" asp-action="Search">戶外體驗</a></li>
+                            <li><a asp-controller="Home" asp-action="Search">公益講座</a></li>
+                            <li><a asp-controller="Home" asp-action="Search">學習課程</a></li>
+                            <li><a asp-controller="Home" asp-action="Search">查看更多</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class=""><i class="fa-solid fa-id-card"></i>會員中心</a>
+                        <ul class="">
+                            <li><a asp-controller="Member" asp-action="MyProfile">關於自己</a></li>
+                            <li><a asp-controller="Member" asp-action="MyTicket">我的票券</a></li>
+                            <li><a asp-controller="Member" asp-action="MyEvent">我的活動</a></li>
+                            <li><a asp-controller="Member" asp-action="MyAccount">變更密碼</a></li>
+                        </ul>
+                    </li>
+                    <li><a asp-controller="Organize" asp-action="Index" class=""><i class="fa-solid fa-user-pen"></i>主辦中心</a></li>
+                </ul>
+                <div class="logout">
+                    <a asp-controller="Account" asp-action="Logout">登出</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main role="main" class="overflow-auto">
+         @RenderBody()
+     </main>
+
+    <div class="footer">
+        <div class="footer-container">
+            <p class="companyName">eJoin Inc</p>
+            <span> 你揪你股份有限公司 © eJoin Inc. All Rights Reserved.</span>
+        </div>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/Shared/_LayoutForOrganize.js"></script>
+    <script src="~/js/Member/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="~/lib/vue.global.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("endJS", required: false)
+</body>
+
+</html>

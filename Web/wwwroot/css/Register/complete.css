@@ -1,0 +1,129 @@
+﻿.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-grow: 1;
+    background-color: #f5fbff;
+    background-image: url("../../images/complete_page_background.svg");
+    /* padding: 10px 0; */
+}
+
+.content-container {
+    display: flex;
+    justify-content: center;
+    margin: 30px auto;
+    box-sizing: border-box;
+    overflow: hidden;
+    /* background: #6d9ff4; */
+    box-shadow: 3px 3px 10px 3px #dedede;
+    border-radius: 30px;
+    /* padding: 30px; */
+}
+
+.regist-sucess {
+    width: 65%;
+    background: #6d9ff4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.check-ticket {
+    background-color: #fff;
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* padding: 50px; */
+}
+
+.text-area {
+    text-align: center;
+    background: #6481e0;
+    padding: 40px 90px;
+    border-radius: 20px;
+}
+
+    .text-area h1 {
+        font-size: 32px;
+        color: #fff;
+        font-weight: 1000;
+    }
+
+.check-ticket-content {
+    border: 1px solid #6481e0;
+    padding: 70px 10px;
+    text-align: center;
+}
+
+    .check-ticket-content p {
+        font-size: 18px;
+        color: #78b1ef;
+        font-weight: 700;
+    }
+
+.my-ticket-btn {
+    display: inline-block;
+    border: none;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    background-color: #78b1ef;
+    border-radius: 10px;
+    color: #fff;
+    padding: 10px 30px;
+    margin: 10px 0;
+}
+
+
+
+@media screen and (max-width: 767px) {
+    .content-container {
+        width: 300px;
+        height: 500px;
+        flex-direction: column;
+    }
+
+    .regist-sucess {
+        height: 60%;
+        width: 100%;
+    }
+
+    .check-ticket {
+        height: 40%;
+        width: 100%;
+        /* padding: 10px 30px; */
+    }
+
+    .check-ticket-content {
+        padding: 30px 50px;
+    }
+
+    .text-area {
+        padding: 30px 50px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .content-container {
+        width: 600px;
+        height: 300px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .content-container {
+        width: 200px;
+    }
+
+    .text-area {
+        padding: 30px 5px;
+    }
+
+    .check-ticket-content {
+        padding: 40px 5px;
+    }
+}

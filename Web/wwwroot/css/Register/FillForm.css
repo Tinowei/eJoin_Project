@@ -1,0 +1,463 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800&family=Noto+Serif+TC:wght@200&display=swap");
+
+* {
+    /* color: #; */
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    /* line-height: 1.5; */
+}
+
+a {
+    text-decoration: none;
+    color: #3675be
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #eaeaea;
+}
+/* body::-webkit-scrollbar {
+    display: none;
+} */
+
+.content {
+    width: 100%;
+    margin: 0px auto;
+    flex-grow: 1;
+    background-color: #eaeaea;
+}
+
+
+.step-wrap {
+    width: 100%;
+    position: sticky;
+    top: 60px;
+    background-color: #fff;
+    /* box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px; */
+    box-shadow: rgb(219 219 219 / 0%) 0px 10px 20px, rgb(160 152 152 / 23%) 0px 6px 6px;
+    z-index: 2;
+}
+
+    .step-wrap .step-bar {
+        /* outline: 1px solid black; */
+        background-color: #fff;
+        display: flex;
+        width: 95%;
+        max-width: 1080px;
+        margin: 0px auto;
+        z-index: 5;
+        line-height: 1.5;
+    }
+
+        .step-wrap .step-bar .step-container {
+            display: flex;
+            padding: 10px 10px;
+            /* outline: 1px solid black; */
+            margin-right: 5px;
+        }
+
+.step-container .step {
+    /* outline: 1px solid black; */
+    /* padding: 0 10px; */
+    cursor: default;
+}
+.step-container:first-child .step {
+    cursor: pointer;
+}
+
+    .step-container .step span.step-number {
+        display: inline-block;
+        border-radius: 50%;
+        background-color: #36353c;
+        /* margin: 10px; */
+        color: #fff;
+        width: 25px;
+        height: 25px;
+        text-align: center;
+    }
+
+    .step-container .step .step-name {
+        font-weight: 700;
+        font-size: 16px;
+        padding-left: 5px;
+    }
+
+.step-container span.arrow .fa-angle-right {
+    display: inline-block;
+    color: #aeaeae;
+    /* outline: 1px solid red; */
+    /* padding: 0 10px; */
+    padding: 0 10px 0 20px;
+}
+
+.step-container:nth-child(3),
+.step-container:nth-child(4) {
+    color: #dddddd;
+}
+
+    .step-container:nth-child(3) .step span.step-number,
+    .step-container:nth-child(4) .step span.step-number {
+        background-color: transparent;
+        color: #dddddd;
+        border: 1px solid #dddddd;
+    }
+
+    .step-container:nth-child(2) span.arrow .fa-angle-right,
+    .step-container:nth-child(3) span.arrow .fa-angle-right {
+        color: #dddddd;
+    }
+
+
+
+    .content .ticketSelect-page {
+        background-color: #fff;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        display: flex;
+        gap: 40px;
+        /* width: 90%; */
+        width: 1080px;
+        /* width: 70%; */
+        /* height: 100%; */
+        margin: 20px auto;
+        /* margin-bottom:20px; */
+        /* outline: 1px solid black; */
+        padding: 47px 40px 25px 40px;
+        /* min-height: calc(100vh - 120px ); */
+        /* height: 100vh; */
+        border-radius: 20px;
+    }
+
+
+
+.ticketSelect-page .registration-container {
+    width: 75%;
+    line-height: 1.5;
+    /* outline: 1px solid purple; */
+}
+
+.registration-container h3 {
+    font-size: 18px;
+    color: #797979;
+    font-weight: 700;
+}
+
+.headline-container {
+    border-bottom: 1px solid #ccc;
+}
+
+    .headline-container p {
+        font-size: 14px;
+    }
+
+.headline-container p a {
+    text-decoration: none;
+}
+
+
+
+
+.registration-container .form-page .field {
+    /* outline: 1px solid black; */
+    margin: 20px 0;
+}
+
+    .registration-container .form-page .field .label {
+        font-size: 16px;
+        font-weight: 600;
+        padding: 0 0 10px;
+    }
+
+        .registration-container .form-page .field .label .required {
+            padding-left: 5px;
+            color: red;
+        }
+
+    .registration-container .form-page .field input {
+        width: 100%;
+        background-color: #f1f1f1;
+        border: none;
+        padding: 10px;
+    }
+
+.phone-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+
+    .phone-container select {
+        width: 25%;
+        /* margin-right: 10px; */
+        border: none;
+        background-color: #f1f1f1;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+
+.registration-container .form-page .field.phone input {
+    width: 100%;
+}
+
+.button-group, .button-group a.restart-btn {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding-top: 20px;
+    text-decoration: none;
+}
+
+    .button-group button,
+    a.restart-btn {
+        width: 360px;
+        padding: 20px 0px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+.button-group button.restart-btn {
+       background-color: #fff;
+       border: 1px solid #ccc;
+}
+
+.restart-btn {
+    color: #000;
+}
+
+button.next-btn {
+    color: #fff;
+    background-color: #0585ca;
+    cursor: pointer;
+}
+
+    button.next-btn:disabled {
+        color: #fff;
+        pointer-events: none;
+        background-color: #d6d6d6;
+    }
+
+.next-btn:hover {
+    transition: .3s;
+    background-color: #07a1f5;
+}
+
+.checkbox-label {
+    margin: 0 0 20px;
+}
+
+input.form-check-input {
+    display: inline;
+    outline: 1px solid black;
+}
+
+label.form-check-label {
+    /* border-color: #000; */
+    position: relative;
+    padding-left: 35px;
+}
+
+    label.form-check-label::before {
+        content: "";
+        position: absolute;
+        width: 11px;
+        height: 17px;
+        /* background-color: #fefefe; */
+        border-right: 3px solid #fff;
+        border-bottom: 3px solid #fff;
+        rotate: 45deg;
+        right: 7px;
+        top: 2px;
+        left: 8px;
+        z-index: 1;
+        display: none;
+    }
+
+    label.form-check-label::after {
+        content: "";
+        position: absolute;
+        display: inline-block;
+        width: 27px;
+        height: 27px;
+        border-radius: 3px;
+        /* border: 1px solid #aaa; */
+        background-color: #f1f1f1;
+        left: 0;
+    }
+
+#Check1:checked + label.form-check-label::after,
+#Check2:checked + label.form-check-label::after,
+#Check3:checked + label.form-check-label::after,
+#agree-btn:checked + label.form-check-label::after {
+    background-color: #00a8fb;
+}
+
+#Check1:checked + label.form-check-label::before,
+#Check2:checked + label.form-check-label::before,
+#Check3:checked + label.form-check-label::before,
+#agree-btn:checked + label.form-check-label::before {
+    display: block;
+}
+
+input.form-check-input {
+    display: none;
+}
+
+.event-source {
+    /* outline: 1px solid black; */
+    border-bottom: 1px solid #ccc;
+}
+
+#agree-btn:checked ~ label + .button-group .next-btn {
+    background-color: #00a8fb;
+}
+
+.error-message {
+    display: inline-block;
+    font-size: 14px;
+    color: red;
+    margin: 5px 0;
+}
+
+.remind, .remind2 {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+
+/* header and footer */
+@media screen and (max-width: 767px) {
+    .content .wrap .container {
+    }
+
+    .footer-container p.companyName {
+        /* display: block; */
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    .footer-container {
+        display: block;
+        text-align: center;
+        /* justify-content: center; */
+    }
+}
+
+@media screen and (max-width:1199px) {
+    header .step-wrap {
+        width: 100%;
+        /* outline: 1px solid black; */
+        /* margin: 0 auto; */
+    }
+
+    .step-bar {
+        width: 100%;
+        justify-content: center;
+        /* justify-content: space-around; */
+    }
+
+    .step-wrap .step-bar {
+        width: 95%;
+    }
+
+        .step-wrap .step-bar .step-container {
+            /* outline: 1px solid black; */
+        }
+
+    .step-container .step {
+        display: flex;
+    }
+
+        .step-container .step span.step-number {
+        }
+
+        .step-container .step .step-name {
+            display: none;
+        }
+
+/*    .step-container:nth-child(2) .step .step-name {
+        display: inline-block;
+        width: 70px;
+    }*/
+
+    .content {
+        width: 100%;
+    }
+
+.content .ticketSelect-page {
+    display: block;
+    background-color: transparent;
+    box-shadow: none;
+    width: 100%;
+    /* height: 100%; */
+    padding: 0px 0;
+    /* margin-top: -20px; */
+}
+
+
+    .registration-container h3 {
+        font-size: 23px;
+        color: #797979;
+    }
+
+    .content .ticketSelect-page .registration-container {
+        /* width: 100%; */
+        width: 95%;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        border-radius: 20px;
+    }
+
+    .phone-container {
+        display: block;
+    }
+
+    .phone select {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .registration-container .form-page .field.phone input {
+        width: 100%;
+    }
+
+
+    .button-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+        .button-group .restart-btn {
+            width: 100%;
+            display: block;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .button-group button.next-btn {
+            width: 100%;
+            display: block;
+            padding: 10px 0;
+        }
+
+    .agree .checkbox-label label span {
+        display: block;
+    }
+
+    label.form-check-label::after {
+        top: 0;
+    }
+}

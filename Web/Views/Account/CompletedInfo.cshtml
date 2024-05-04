@@ -1,0 +1,54 @@
+﻿@using Web.ViewModels.AccountViewModel;
+@model CompletedInfoViewModel;
+@{
+    ViewData["Title"] = "填寫資料";
+}
+
+<!-- 目錄+內容 -->
+<div class="content">
+    <!-- 內容 -->
+    <div class="all">
+        <!-- 照片與名字&主要內容 -->
+        <form class="photoNameAndMainContent" method="post" asp-action="CompletedInfo" asp-controller="Account">
+            <!-- 關於自己 -->
+
+            <div class="aboutMe">
+                <div class="h2AndBrowse">
+                    <h2>透過Google登入請先完成必填資料</h2>
+                </div>
+                <label>帳號/Gmail<span class="noChange"> &nbsp; ※不可變更</span></label>
+                <input class="accountEmail" type="email" disabled placeholder="@Model.Gmail">
+
+                <label>名稱<span class="requiredSymbols">*</span></label>
+                <input name="name" class="realName" type="text" maxlength="50" placeholder="請輸入您的名字(最大長度為50字元，可輸入大小寫英文與中文，文字之間可含空白)" value="@Model.Name">
+
+                <label>手機號碼<span class="requiredSymbols">*</span></label>
+                <input name="phone" class="phone" type="tel" maxlength="12" placeholder="請輸入您的手機號碼(長度為10~12字元，需要以09開頭，可輸入數字與減號，例如：09xxxxxxxx、09xx-xxx-xxx、09xx-xxxxxx)">
+
+                <label>密碼<span class="requiredSymbols">*</span></label>
+                <input name="password" class="newPassword" type="password" placeholder="請輸入您要設定的密碼">
+            </div>
+            <div class="button-list">
+                <input type="button" value="捨棄變更" class="button button1">
+                <input type="submit" id="saveChanges" value="儲存變更" class="button button2">
+            </div>
+        </form>
+    </div>
+
+</div>
+
+@section topCSS {
+
+    <link rel="stylesheet" href="~/css/Member/MyProfile.css" asp-append-version="true" />
+}
+
+@section endJS {
+
+    <script src="~/js/account/completedinfo.js" asp-append-version="true"></script>
+    <script src="~/js/Member/sweetalert2/sweetalert2.all.min.js" asp-append-version="true"></script>
+
+}
+
+
+
+

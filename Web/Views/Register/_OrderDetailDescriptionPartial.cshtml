@@ -1,0 +1,13 @@
+﻿
+
+
+<div class="order-detail-description">
+    <span class="event">
+        @* <div class="ticket-name">@Model.TicketName</div> *@
+        <div class="ticket-name">@Model.TicketName</div>
+        <div class="ticket-time">活動日期: @Model.StartValidTime.ToString("yyyy/M/d tt h:mm")</div>
+    </span>
+    <span class="counts" id="">@Model.Count</span>
+    <span class="price" id="">NT$ @Model.Price.ToString("##,###")</span>
+    <span class="subtotal" id="">NT$ @Model.SubTotal.ToString("##,###")</span>
+</div>

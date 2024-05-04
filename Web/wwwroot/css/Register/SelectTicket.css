@@ -1,0 +1,472 @@
+﻿.content {
+    width: 100%;
+    margin: 0px auto;
+    flex-grow: 1;
+    background-color: #eaeaea;
+    cursor: default;
+}
+
+
+
+.content .ticketSelect-page {
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    display: flex;
+    gap: 40px;
+    width: 1080px;
+    height: 100%;
+    margin: 20px auto;
+    /* outline: 1px solid black; */
+    padding: 47px 40px 25px 40px;
+    /* min-height: calc(100vh - 120px ); */
+    /* height: 100vh; */
+    border-radius: 20px;
+
+}
+
+.eventInfo-container img {
+    display: block;
+    border-radius: 10px;
+    width: 250px;
+}
+
+
+.step-wrap {
+    width: 100%;
+    position: sticky;
+    top: 60px;
+    background-color: #fff;
+    /* box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px; */
+    box-shadow: rgb(219 219 219 / 0%) 0px 10px 20px, rgb(160 152 152 / 23%) 0px 6px 6px;
+    z-index: 2;
+}
+
+.step-wrap .step-bar {
+    /* outline: 1px solid black; */
+    background-color: #fff;
+    display: flex;
+    /* justify-content: center; */
+    /* width: 100%; */
+    max-width: 1080px;
+    margin: 0px auto ;
+    line-height: 1.5;
+    /* position: sticky;
+    top: 60px; */
+}
+
+.step-wrap .step-bar .step-container {
+    display: flex;
+    padding: 10px 10px;
+    /* outline: 1px solid black; */
+    margin-right: 5px;
+}
+.step-container .step {
+    /* outline: 1px solid black; */
+    /* padding: 0 10px; */
+    /* line-height: 1.5; */
+}
+
+.step-container .step span.step-number {
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #36353c;
+    /* margin: 10px; */
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+}
+
+.step-container .step .step-name {
+    font-weight: 700;
+    font-size: 16px;
+    padding-left: 5px;
+}
+
+.step-container span.arrow .fa-angle-right {
+    display: inline-block;
+    color: #aeaeae;
+    /* outline: 1px solid red; */
+    padding: 0 10px 0 20px;
+}
+.step-container:nth-child(2),
+.step-container:nth-child(3),
+.step-container:nth-child(4) {
+    color: #dddddd;
+}
+
+.step-container:nth-child(2) .step span.step-number,
+.step-container:nth-child(3) .step span.step-number,
+.step-container:nth-child(4) .step span.step-number {
+    background-color: transparent;
+    color: #dddddd;
+    border: 1px solid #dddddd;
+}
+
+.step-container:nth-child(2) span.arrow .fa-angle-right,
+.step-container:nth-child(3) span.arrow .fa-angle-right {
+    color: #dddddd;
+}
+
+
+/*.ticketSelect-page .eventInfo-container {
+    width: 25%;*/
+    /* padding: 10px; */
+    /* outline: 1px solid red; */
+/*}
+.eventInfo-container img {
+    display: block;*/
+    /* margin: 0 auto; */
+
+/*}
+
+.eventInfo-container a.link-to-event {
+    text-decoration: none;
+    color: #000;
+    font-weight: bolder;
+    display: inline-block;
+    padding: 10px 0px;
+    line-height: 1.5;
+}
+.eventInfo-container a.link-to-event:hover {
+    color: #3675be;
+}
+
+.eventInfo-container p.eventTime {
+    color: #aaa;
+    font-size: 14px;
+    margin-top: 20px;
+    line-height: 1.5;
+}
+.eventInfo-container p.eventAddress {
+    color: #aaa;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.eventInfo-container .ruleCard {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;*/
+    /* outline: 1px solid blue; */
+    /* margin: 10px 0; */
+    /*margin: 30px 0;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.eventInfo-container .ruleCard .ruleTitle {
+    font-weight: 600;
+}
+
+.ruleCard .description {
+    margin: 0 0 5px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.ruleCard .description a {
+    text-decoration: none;
+    color: #3675be;
+}*/
+
+.ticketSelect-page .ticketSelect-container {
+    width: 75%;
+    line-height: 1.5;
+    /* outline: 1px solid purple; */
+}
+
+.ticketSelect-container h3 {
+    font-size: 18px;
+    color: #797979;
+    font-weight:700;
+}
+
+.ticketSelect-container .ticketCard {
+    position:relative;
+    display: flex;
+    /* outline: 1px solid green; */
+    padding: 25px 35px 27px 27px;
+    gap: 20px;
+    border: 1px solid #ccc;
+    /* margin-bottom: 20px; */
+    margin-top: 10px;
+    font-weight: 700;
+}
+
+.ticketSelect-container .ticketCard.active::before {
+    display: block; /* 當添加 active 類時，顯示 ::before */
+    animation: slideIn .3s forwards;
+}
+
+.ticketSelect-container .ticketCard::before {
+    content: "";
+    height: 100%;
+    border: 4px solid #54abf3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+
+    
+}
+@keyframes slideIn {
+    from {
+        left: -2px; 
+    }
+    to {
+        left: 0px; 
+    }
+}
+
+
+.ticketCard .left {
+    flex-grow: 1;
+}
+
+.ticketCard .left .ticketName {
+    font-size: 18px;
+    padding: 10px 0;
+    line-height: 1.5;
+}
+
+.ticketCard .left .ticketName span {
+    font-size: 18px;
+    display: block;
+    font-weight: 600;
+}
+.ticketCard .left .ticketName span.count {
+
+}
+
+.ticketCard .left .ticketDetail {
+    cursor: pointer;
+    color: #3675be;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.showTicketDetail-card {
+    border: 1px solid #ccc;
+    border-top: 1px dashed #3675be;
+    padding: 20px 35px 20px 27px;
+    background-color: #afe7ff7d;
+    color: #3675be;
+    display: none; /* 默認隱藏 */
+}
+.showTicketDetail-card p {
+    margin-bottom: 0;
+    letter-spacing: 1px;
+    line-height: 1.5;
+}
+
+.showTicketDetail-card {
+    
+}
+
+.showTicketDetail-card.active {
+    display: block; /* 當添加 active 類時顯示 */
+}
+
+.showTicketDetail-card p.vaildTime {
+    padding-top: 10px;
+}
+.ticketCard .right {
+    border-radius:26px ;
+    /* background-color: #54abf3; */
+    background-color: transparent;
+}
+
+.ticketCard .right {
+    border-radius: 26px;
+    background-color: transparent;
+    transition: background-color .3s linear; /* 添加背景顏色過渡效果 */
+}
+
+.ticketCard .right.active {
+    background-color: #54abf3; /* 當.active類被添加時改變背景顏色 */
+}
+
+.ticketCard .right span {
+    position: relative;
+    cursor: pointer;
+    display: block;
+    color: #ededed;
+    /* border:1px solid #2b5b90; */
+    width: 52px;
+    height: 52px;
+    border-radius: 26px;
+    text-align: center;
+    cursor: auto;
+}
+
+.ticketCard .right span:first-child {
+    background-color: #2ea4f2;
+    box-shadow: 0 2px 4px 0 #1285cf;
+}
+.ticketCard .right span i.fa-solid {
+    position: absolute;
+    display: block;
+    line-height: 52px;
+    left: 14px;
+    font-size: 26px;
+    cursor:pointer;
+}
+
+.ticketCard .right span i.fa-minus {
+    color: #fff;
+    display: none;
+}
+
+.ticketCard .right span.active i.fa-minus {
+display: inline; /* 當.active類被添加時顯示.fa-minus */
+}
+
+/* .ticketCard .right span::before {
+    height: 100%;
+    content: "";
+    position: absolute;
+    outline: 1px solid black;
+    height: 100%;
+    width: 52px;
+    left: -1px;
+    border-radius: 26px;
+    background-color: #5d91d0;
+    z-index: 0;
+} */
+
+
+.ticketCard:hover {
+    background-color: #f4f7fd;
+}
+
+/* 隱藏 checkbox */
+.detail-checkbox {
+display: none;
+}
+
+/* 預設隱藏詳情卡片 */
+.showTicketDetail-card {
+display: none;
+}
+
+/* 當 checkbox 被選中時，顯示詳情卡片 */
+.detail-checkbox:checked + .showTicketDetail-card {
+display: block;
+}
+
+
+
+.signUp-container {
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 -1px 4px 0 rgba(0,0,0,.05);
+    position: sticky;
+    bottom: 0;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signUp-container p.price {
+    width: 70%;
+    display: flex;
+    line-height: 2;
+    justify-content: end;
+}
+    .signUp-container button:disabled {
+        background-color: #ccc;
+        pointer-events: none;
+    }
+
+    .signUp-container button {
+        border: none;
+        background-color: #409cec;
+        color: #fff;
+        padding: 10px;
+        width: 70%;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+.signUp-container button:hover {
+    background-color: #60b1f8;
+}
+
+@media screen and (max-width:1199px) {
+    /* .content {
+        width: 100%;
+    } */
+    .content .ticketSelect-page {
+        display: block;
+        background-color: transparent;
+        box-shadow: none;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin-top: -20px;
+        
+    }
+
+    .step-bar {
+        width: 100%;
+        justify-content: center;
+        /* justify-content: space-around; */
+    }
+    .step-wrap .step-bar {
+        width: 95%;
+
+    }
+    .step-wrap .step-bar .step-container {
+        /* outline: 1px solid black; */
+    }
+    .step-container .step {
+        display: flex;
+
+    }
+
+    .step-container .step span.step-number {
+    }
+    .step-container .step .step-name {
+        display: none;
+
+    }
+/*    .step-container:nth-child(1) .step .step-name {
+        display: inline-block;
+        width: 70px;
+    }*/
+
+
+
+
+/*    .content .ticketSelect-page .eventInfo-container {
+        margin: 40px auto;
+        width: 95%;
+        margin-bottom: 20px;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        border-radius: 20px;
+
+    }
+    .content .ticketSelect-page .eventInfo-container .eventInfo img {
+        display: none;
+    }
+    .eventInfo-container a.link-to-event {
+        font-size: 23px;
+    }*/
+
+    .ticketSelect-container h3 {
+        font-size: 23px;
+        color: #797979;
+    }
+
+    .content .ticketSelect-page  .ticketSelect-container {
+        margin: 0 auto;
+        width: 95%;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        border-radius: 20px;
+    }
+}

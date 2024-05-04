@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewData["Title"] = "訂單管理";
+}
+
+
+<div class="container-fluid px-4">
+    @* <h1 class="mt-4" style="margin-bottom:15px">訂單管理</h1> *@
+    @*     <h1 class="mt-4">Tables</h1> *@
+    @*     <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="/Dashboard/Index">Dashboard</a></li>
+    <li class="breadcrumb-item active">Tables</li> *@
+    @* </ol> *@
+
+    <div class="container" id="app">
+        <h1 class="mt-2 py-3">訂單管理</h1>
+        <div class="col-3">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" v-model="filterText" placeholder="訂單編號">
+                <span class="input-group-text">Search</span>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="">
+            @* <div class="col-12 d-flex "> *@
+            @*     <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#create-modal"> *@
+            @*     新增 *@
+            @*     <i class="fa-solid fa-circle-plus"></i> *@
+            @*     </button>  *@
+            @* </div> *@
+
+            <easy-data-table @* v-model:server-options="serverOptions" *@ @* v-model:items-selected="itemsSelected" *@ 
+                @* show-index *@
+                buttons-pagination @* :server-items-length="serverItemsLength" *@ 
+                alternating :headers="headers"
+                :items="filteredEvents" 
+                :loading="loading" >
+                <!-- 使用 slot render 選項自訂 "operation" 欄位的內容 -->
+                <template #item-detail="item">
+                    <div class="p-2">
+                        <button  @@click="showOrderDetails(item)" class="btn btn-sm btn-primary me-0" data-bs-toggle="modal" data-bs-target="#detail-modal">
+                            明細
+                        </button>
+                    </div>
+                </template>
+            </easy-data-table>
+            
+            <!-- Detail Modal -->
+            <div class="modal fade" id="detail-modal" tabindex="-1" aria-labelledby="detail-modal-label" aria-hidden="true" ref="detailModal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="detail-modal-label">訂購明細</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <ul class="list-group" v-if="selectedOrder">
+                      <li class="list-group-item" v-for="ticket in selectedOrder.tickets" :key="ticket.ticketTypeId">
+                        <p>票券名稱 : {{ ticket.ticketTypeName }}</p>
+                        <p>單價 : NT$ {{ ticket.unitPrice }}</p>
+                        <p>數量 : {{ ticket.purchaseQuantity }}</p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts
+{
+    @* <script> *@
+    @*     const App = Vue.createApp({ *@
+    @*         components: { *@
+    @*             EasyDataTable: window['vue3-easy-data-table'], *@
+    @*         }, *@
+    @*         data() { *@
+    @*             return { *@
+    @*                 createData: { *@
+    @*                     OrderId: '', *@
+    @*                     EventTitle: '', *@
+    @*                     ParticipantName: '', *@
+    @*                     ParticipantEmail: '', *@
+    @*                     ParticipantPhone: '', *@
+    @*                     TotalMoney: '', *@
+    @*                     CreateTime: 0, *@
+    @*                     DetailsButton: '', *@
+    @*                 }, *@
+    @*                 currentData: { *@
+    @*                     OrderId: '', *@
+    @*                     EventTitle: '', *@
+    @*                     ParticipantName: '', *@
+    @*                     ParticipantEmail: '', *@
+    @*                     ParticipantPhone: '', *@
+    @*                     TotalMoney: '', *@
+    @*                     CreateTime: 0, *@
+    @*                     DetailsButton: '', *@
+    @*                 }, *@
+    @*                 headers: [ *@
+    @*                     { text: "訂單編號", value: "OrderId", sortable: true }, *@
+    @*                     { text: "活動名稱", value: "EventTitle" }, *@
+    @*                     { text: "參加者姓名", value: "ParticipantName"}, *@
+    @*                     { text: "參加者電子郵件", value: "ParticipantEmail"}, *@
+    @*                     { text: "參加者手機", value: "ParticipantPhone" }, *@
+    @*                     { text: "總金額", value: "TotalMoney" }, *@
+    @*                     { text: "購入時間", value: "CreateTime", sortable: true }, *@
+    @*                 ], *@
+    @*                 items: *@
+    @*                 [ *@
+    @*                         { *@
+    @*                             OrderId: "1001", *@
+    @*                             EventTitle: "活動1", *@
+    @*                             ParticipantName: "參加者1", *@
+    @*                             ParticipantEmail: "participant1@example.com", *@
+    @*                             ParticipantPhone: "123456789", *@
+    @*                             TotalMoney: 1000, *@
+    @*                             CreateTime: "2024-04-11", *@
+    @*                              *@
+    @*                         }, *@
+    @*                         { *@
+    @*                             OrderId: "1002", *@
+    @*                             EventTitle: "活動2", *@
+    @*                             ParticipantName: "參加者2", *@
+    @*                             ParticipantEmail: "participant2@example.com", *@
+    @*                             ParticipantPhone: "987654321", *@
+    @*                             TotalMoney: 2000, *@
+    @*                             CreateTime: "2024-04-12", *@
+    @*                              *@
+    @*                         }, *@
+    @*                         { *@
+    @*                             OrderId: "1003", *@
+    @*                             EventTitle: "活動3", *@
+    @*                             ParticipantName: "參加者3", *@
+    @*                             ParticipantEmail: "participant3@example.com", *@
+    @*                             ParticipantPhone: "135792468", *@
+    @*                             TotalMoney: 3000, *@
+    @*                             CreateTime: "2024-04-13", *@
+    @*                              *@
+    @*                         } *@
+    @*                 ], *@
+    @*             } *@
+    @*         }, *@
+    @* *@
+    @*     }).mount('#app'); *@
+    @* </script> *@
+    @* <script type="text/x-template" id="order-detail-modal-template"> *@
+    @*   <div class="modal" v-if="showModal"> *@
+    @*       <div class="modal-content"> *@
+    @*         <span class="close" @@click="$emit('close')">&times;</span> *@
+    @*         <h3>Tickets for Order No: {{ order.orderNo }}</h3> *@
+    @*         <ul> *@
+    @*           <li v-for="ticket in order.tickets" :key="ticket.ticketId"> *@
+    @*             Ticket ID: {{ ticket.ticketId }}, *@
+    @*             Type: {{ ticket.ticketTypeName }}, *@
+    @*             Price: {{ ticket.unitPrice }}, *@
+    @*             Quantity: {{ ticket.purchaseQuantity }} *@
+    @*           </li> *@
+    @*         </ul> *@
+    @*       </div> *@
+    @*     </div> *@
+    @*   </div> *@
+    @* </script> *@
+    <script src="~/js/Order/Order.js" asp-append-version="true"></script>
+
+}
+
+

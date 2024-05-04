@@ -1,0 +1,34 @@
+@model dynamic
+
+@{
+    ViewBag.Title = "票券核銷";
+}
+
+<div class="main-container">
+    <div class="content-container qrcode-container">
+        <div id="qr-reader" style="width:80%;"></div>
+        <div id="qr-reader-results"></div>
+        <div class="qrcode-description">
+                <span class="ticketId">票券編號 : </span>
+                <input type="text" class="ticketInput" value="" readonly>
+                <a type="button" class="btn btn-primary verifyButton"> 確認核銷</a>
+            </div>
+    </div>
+    
+</div>
+
+@section topCSS
+{
+    <link rel="stylesheet" href="~/css/Organize/Validate.css">
+}
+
+@section Scripts
+{
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="~/js/Member/sweetalert2/sweetalert2.all.min.js"></script>
+}
+
+@section endJS
+{
+    <script src="~/js/Organize/Validate.js"></script>
+}

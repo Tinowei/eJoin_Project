@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Web.ViewModels.MemberViewModel.PastEventYear>
+
+@foreach (var item in Model)
+{
+    <div class="past-event-grid-container">
+        <div class="past-event-grid-item-year">
+            <h4 class="past-event-year">@item.EventYear</h4>
+
+            @foreach (var eventItem in item.Events)
+            {
+                <div class="past-event-grid-item-area">
+                    <a asp-controller="Home" asp-action="Event" asp-route-eventId="@eventItem.EventId">
+                        <div class="past-event-item">
+                            @if (@eventItem.IsShowDate)
+                            {
+                                <div class="past-event-item-date">
+                                    <p class="past-event-item-date-month">@eventItem.EventBeginMonth</p>
+                                    <p class="past-event-item-date-day">@eventItem.EventBeginDate.Day</p>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="past-event-item-date" style="background-color: #fff">
+                                </div>
+                            }
+
+                            <div class="past-event-item-line"></div>
+                            <div class="past-event-item-main">
+                                <div class="past-event-item-main-img">
+
+                                    <img src="@eventItem.PastEventImage" alt="" loading="lazy"
+                                         decoding="async">
+                                </div>
+                                <div class="past-event-content">
+                                    <p class="past-event-name">@eventItem.EventName</p>
+                                    <div class="past-event-locate-content">
+                                        <p class="past-event-locate">
+                                            <div class="past-event-locate-img">
+                                                <img src="~/images/location.png" alt="">
+                                            </div>
+                                            @eventItem.EventLocate
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+}

@@ -1,0 +1,40 @@
+﻿@model Web.ViewModels.SharedVIewModel.Card
+
+<div class="my-card-list" eventId="@Model.EventId">
+    <a asp-controller="Home" asp-action="Event" asp-route-eventId="@Model.EventId">
+        @* <img class="card-img" src="https://picsum.photos/300/200/?random=20"> *@
+         <img class="card-img" src="@Model.EventCoverUrl">
+    </a>
+    <div class="card-body">
+        <p class="date-time">@Model.EventStartDate.ToString("yyyy.MM.dd HH:mm") - @Model.EventEndDate.ToString("yyyy.MM.dd HH:mm")</p>
+        <h3 class="card-title"><a asp-controller="Home" asp-action="Event" asp-route-eventId="@Model.EventId">@Model.EventTitle</a></h3>
+        <div class="location">
+            <img src="~/images/location.png">
+            <p>@Model.EventCity</p>
+        </div>
+    </div>
+    <div class="tag-bottom-bar">
+        <div class="tag-bottom-link">
+            @foreach (var category in Model.EventThemes)
+            {
+                <a href="#">#@category</a>
+            }
+        </div>
+        @if(Model.IsLike)
+        {
+            <div class="tag-like liked" eventId="@Model.EventId">
+                <img class="like-icon-img" src="~/images/like.png" alt="" style="display: none;">
+                <img class="like-fill-icon" src="~/images/likefill.png" alt="">
+                <span class="heart-count">@Model.HeartCount</span>
+            </div>
+        }
+        else
+        {
+            <div class="tag-like" eventId="@Model.EventId">
+                <img class="like-icon-img" src="~/images/like.png" alt="">
+                <img class="like-fill-icon" src="~/images/likefill.png" alt="" style="display: none;">
+                <span class="heart-count">@Model.HeartCount</span>
+            </div>
+        }
+    </div>
+</div>

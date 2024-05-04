@@ -1,0 +1,16 @@
+﻿@model List<int>;
+@{
+    ViewData["Title"] = "View";
+    int cartId = Model[0];
+    int orderId = Model[1];
+}
+
+<h1 style="font-size: 30px; height: 100%; font-weight: 900; text-align: center; color: red">交易失敗，即將導向付款頁面<br/>請重新執行付款動作</h1>
+
+<script>
+    window.onload = () => {
+        setTimeout(() => {
+            location = `/Register/Payment/?cartId=${@cartId}&orderId=${@orderId}`;
+        }, 1);
+    };
+</script>

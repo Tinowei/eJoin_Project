@@ -1,0 +1,191 @@
+﻿@model Web.ViewModels.HomeViewModel.EventViewModel
+
+@{
+    ViewData["Title"] = "活動介紹";
+    var data = (string)ViewData["ViewData"];
+    var lat=Model.Latitude;
+    var lng = Model.Longitude;
+    var city = Model.City;
+    var address = Model.Address;
+}
+
+<div class="content">
+    <section>
+        <div class="activity-border">
+            <div class="activity-img">
+                <img src="@Model.EventCoverUrl" alt="">
+            </div>
+
+            <div class="activity-container">
+                <div class="activity-main">
+                    <div class="activity-tag-main">
+                        @foreach (var item in Model.EventThemes)
+                        {
+                            <span>@item</span>
+                        }
+
+                    </div>
+                    <h2>@Model.EventTitle</h2>
+                    <div class="activity-info">
+                        <div class="activity-time">
+                            <img src="~/images/icon_time.svg"><p>@Model.EventStartDate.ToString("yyyy.MM.dd HH:mm") - @Model.EventEndDate.ToString("yyyy.MM.dd HH:mm")</p>
+                        </div>
+                        <div class="activity-location">
+                            <img src="~/images/icon_map.svg" alt="">
+                            <div class="location-address">
+                                <p>@Model.City@Model.Address</p>
+                                <p>@Model.AddressDetail</p>
+                            </div>
+                        </div>
+
+                        <div class="activity-info-txt">
+                            <p>@Model.EventSummary</p>
+                        </div>
+                    </div>
+                    <div class="activity-introduction">
+                        <div class="introduction-title">
+                            <h3>活動簡介</h3>
+                        </div>
+                        <div class="introduction-container">
+                            @Html.Raw(@Model.EventIntroduction)
+                        </div>
+                    </div>
+                </div>
+                <!-- organizer -->
+                <div class="activity-organizer">
+                    <div class="activity-organizer-border">
+                        <div class="activity-organizer-container">
+                            <div class="organizer-title">
+                                <img class="organizer-img" src="@Model.MemberImages">
+                                <a asp-controller="Member" asp-action="Index" asp-route-memberId="@Model.MemberID" class="organizer-name"><h4>@Model.MemberName</h4></a>
+                                @if (Model.IsLike)
+                                {
+                                    <div class="tag-like liked" eventId="@Model.EventId">
+                                        <img class="like-icon-img" src="~/images/like_none.png" alt="" style="display: none;">
+                                        <img class="like-fill-icon" src="~/images/likefill.png" alt="">
+                                        @* <span class="heart-count">@Model.HeartCount</span> *@
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="tag-like" eventId="@Model.EventId">
+                                        <img class="like-icon-img" src="~/images/like_none.png" alt="">
+                                        <img class="like-fill-icon" src="~/images/likefill.png" alt="" style="display: none;">
+                                        @* <span class="heart-count">@Model.HeartCount</span> *@
+                                    </div>
+                                }
+                            </div>
+                            <div class="organizer-details">
+                                <h4 class="organizer-details-txt">@Model.EventTitle</h4>
+                                <p class="organizer-details-time">@Model.EventStartDate.ToString("yyyy.MM.dd HH:mm") - @Model.EventEndDate.ToString("yyyy.MM.dd HH:mm")</p>
+                            </div>
+                            <div class="organizer-tetails-sign-up">
+                                @if (Model.EventStatus == 3)
+                                {
+                                    <div class="stop-sign-up-btn">
+                                        <span>截止報名</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <a class="sign-up-btn" asp-controller="Register" asp-action="Index" asp-route-eventId="@Model.EventId">立即報名 <span> ></span></a>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="activity-map-area">
+                <div class="activity-map-title">
+                    <h3>活動地圖</h3>
+                </div>
+                <div class="activity-map-border">
+                    @* <img src="~/images/map_ex.png" alt=""> *@
+                    <div id='map' class='' style="width:100%; height:500px; position:relative !important;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;"></div>
+                </div>
+                <div class="activity-map-txt">
+                    <img src="~/images/icon_offline_flag.svg" alt="">
+                    <p>@Model.AddressDetail</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- would-like-area -->
+    <div class="would-like-area">
+        <div class="would-like-title">
+            <h2>你可能會喜歡這些活動</h2>
+        </div>
+        <div class="my-card-group">
+            <div class="owl-carousel owl-theme">
+                @foreach (var card in Model.PreferredLikeEvents)
+                {
+                    @await Html.PartialAsync("PartialView/EventCardPartial/_CardPartial", card)
+                }
+
+            </div>
+        </div>
+    </div>
+    <!-- organizer for mobile-->
+    <div class="organizer-mobile">
+        <div class="organizer-border">
+            <a class="organizer-icon" asp-controller="Member" asp-action="Index" asp-route-memberId="@Model.MemberID">
+                <i><img src="~/images/fixed_btn_organizer.svg" alt=""></i>
+                主辦
+            </a>
+
+            @if (Model.IsLike)
+            {
+
+                <a class="tag-like like-icon liked" href="#" eventId="@Model.EventId">
+                    <i class="like-icon-img" style="display: none;"><img src="~/images/like_none.png" alt=""></i>
+                    <i class="like-fill-icon"><img src="~/images/likefill.png" alt=""></i>
+                    喜歡
+                </a>
+            }
+            else
+            {
+                <a class="tag-like like-icon" href="#" eventId="@Model.EventId">
+                    <i class="like-icon-img"><img src="~/images/like_none.png" alt=""></i>
+                    <i class="like-fill-icon" style="display: none;"><img src="~/images/likefill.png" alt=""></i>
+                    喜歡
+                </a>
+            }
+            <a asp-controller="Register" asp-action="Index" asp-route-eventId="@Model.EventId" class="sign-up-btn-mobile">
+                <p>立即報名</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+@section topCSS {
+
+    <link rel="stylesheet" href="~/css/Home/OwlCarousel/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/css/Home/OwlCarousel/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="~/css/Home/Event.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin="" />
+}
+
+@section endJS {
+    <script>
+        let viewData = "@(Html.Raw(data))";
+        console.log(viewData);
+        let lat = "@(Html.Raw(lat))"
+        let lng = "@(Html.Raw(lng))"
+        let city = "@(Html.Raw(city))"
+        let address = "@(Html.Raw(address))"
+        
+    </script>
+    <script src="~/js/Home/OwlCarousel/jquery-3.5.1.js"></script>
+    <script src="~/js/Home/OwlCarousel/owl.carousel.min.js"></script>
+    <script src="~/js/Home/OwlCarousel/owl.carousel_2.3.4.min.js"></script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    <script src="~/js/Home/Event.js"></script>
+    <script src="~/js/Shared/_CardFavorite.js"></script>
+}

@@ -1,0 +1,20 @@
+﻿<div class="w-100 flex-grow-1" v-show="currentStep === 3">
+    <div class="page-title mb-4">
+        <h2>活動簡介</h2>
+        <p class="text-secondary">請充分介紹你的活動，使消費者更加了解。</p>
+    </div>
+    <div class="event-description-content nav-page">
+        <section>
+            <h4>活動摘要</h4>
+            <p>請充分描繪活動亮點，包括「活動關鍵詞」。以提高 Google 搜尋的曝光成效。</p>
+            <textarea name="summary" id="" v-model="eventItem.Summary"></textarea>
+        </section>
+        <section>
+            <h4>活動簡介</h4>
+            <p>若你的活動為收費活動，為避免消費爭議，請於活動內容中加上主辦是否開立發票之相關說明。</p>
+            <textarea name="introduction" id="editor">{{ eventItem.Intro }}</textarea>
+        </section>
+        <button class="btn-secondary btn rounded-pill w-100 py-2 fw-bolder fs-5 mb-3" @@click="prevStep">上一步</button>
+        <button class="save-btn btn rounded-pill w-100 py-2 fw-bolder fs-5" @@click="validateAndNextForDesc">下一步</button>
+    </div>
+</div>

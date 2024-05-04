@@ -1,0 +1,219 @@
+﻿@{
+    ViewData["Title"] = "活動管理";
+}
+
+<div class="container-fluid px-4">
+    @*     <h1 class="mt-4">Tables</h1> *@
+    @*     <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="/Dashboard/Index">Dashboard</a></li>
+    <li class="breadcrumb-item active">Tables</li> *@
+    @* </ol> *@
+
+    <div class="container" id="app">
+        <h1 class="mt-2 py-3">活動管理</h1>
+        @* <div> *@
+        @*     <label class="" for="keywordSearch">關鍵字搜尋</label> *@
+        @*     <input type="search" id="keywordSearch" v-model="searchKeyword" /> *@
+        @*     <button type="submit">搜尋</button> *@
+        @* </div> *@
+        <div class="row">
+            <div class="col-3">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" v-model="filterText">
+                    <span class="input-group-text">Search</span>
+                </div>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-primary" @@click="downloadEventsToJsonFile">DownLoad Events</button>
+            </div>
+        </div>
+        
+
+        <hr/>
+
+        <div  class="">
+            <div class="col-12 d-flex ">
+                @*                 <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#create-modal">
+                新增
+                <i class="fa-solid fa-circle-plus"></i>
+                </button> *@
+            </div>
+
+            <easy-data-table @* v-model:server-options="serverOptions" *@ @* v-model:items-selected="itemsSelected" *@ @*show-index*@
+                                                                                                                       buttons-pagination @* :server-items-length="serverItemsLength" *@ 
+                                                                                                                       alternating 
+                                                                                                                       :headers="headers"
+                                                                                                                       :items="filteredEvents"
+                                                                                                                       :loading="loading">
+                <!-- 使用 slot render 選項自訂 "operation" 欄位的內容 -->
+                <template #item-status="{status}">
+                    <span class="badge text-bg-success" v-if="status==='草稿'">草稿</span>
+                    <span class="badge text-bg-primary" v-else-if="status === '上架'">上架</span>
+                    <span class="badge text-bg-warning" v-else-if="status === '結束'">結束</span>
+                    <span class="badge text-bg-danger" v-else>下架</span>
+                </template>
+                
+                <template #item-operation="item">
+                    <div class="p-2">
+                        <button v-on:click="editEventModal(item.eventId)" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#edit-modal">
+                            編輯
+                        </button>
+                        @* <button class="btn btn-sm btn-danger" V-on:click="" data-bs-toggle="modal" data-bs-target="#delete-modal"> *@
+                        @*     刪除 *@
+                        @* </button> *@
+                    </div>
+                </template>
+                @* <template #item-operation="item"> *@
+                @*      *@
+                @*     $1$ <div class="operation-wrapper"> #1# *@
+                @*     $1$     $1$                         <button v-on:click="handleEdit(item)" class="btn btn-primary me-2" data-bs-toggle="modal" #1# *@
+                @*     $1$     data-bs-target="#edit-modal"> #1# *@
+                @*     $1$     Edit #1# *@
+                @*     $1$     </button> #1# *@
+                @*     $1$ #1# *@
+                @*     $1$     <button v-on:click="handleDelete(item)" class="btn btn-danger"> #1# *@
+                @*     $1$     Delete #1# *@
+                @*     $1$     </button> #1#  *@
+                @*     $1$ </div> #1# *@
+                @* </template> *@
+            </easy-data-table>
+            
+              <!-- Edit Modal -->
+                <div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="edit-modal" aria-hidden="true" ref="eventEditModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                 <h1 class="modal-title fs-5">活動編輯</h1>
+                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Event Name -->
+                                <div class="row mb-3">
+                                    <div class="col-12">
+                                        <label for="eventName" class="form-label">活動名稱</label>
+                                        <input type="text" id="title" class="form-control" v-model="editEvent.title" >
+                                    </div>
+                                </div>
+                                <!-- Event Status -->
+                                <div class="row mb-3">
+                                    <div class="col-12">
+                                        <p>活動狀態</p>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="status" id="statusDraft" value="草稿" v-model="editEvent.status" :disabled="editEvent.status !== '草稿'">
+                                            <label class="form-check-label" for="statusDraft">草稿</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="status" id="statusPublished" value="上架" v-model="editEvent.status">
+                                            <label class="form-check-label" for="statusPublished">上架</label>
+                                        </div>
+                                        @* <div class="form-check form-check-inline"> *@
+                                        @*     <input class="form-check-input" type="radio" name="status" id="statusEnded" value="結束" v-model="editEvent.status"> *@
+                                        @*     <label class="form-check-label" for="statusEnded">結束</label> *@
+                                        @* </div> *@
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="status" id="statusUnpublished" value="下架" v-model="editEvent.status">
+                                            <label class="form-check-label" for="statusUnpublished">下架</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary" v-on:click="updateEventAsync()" >更新</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    
+    <!-- Delete Modal -->
+    <div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="delete-modal" aria-hidden="true" ref="Modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="delete-modal-label">確認刪除</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    確定要刪除這個項目嗎？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-danger" @@click="confirmDelete">確認刪除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@section Scripts
+{
+    @* <script> *@
+    @*     const App = Vue.createApp({ *@
+    @*         components: { *@
+    @*             EasyDataTable: window['vue3-easy-data-table'], *@
+    @*         }, *@
+    @*         data() { *@
+    @*             return {                    *@
+    @*                 headers: [ *@
+    @*                     { text: "活動編號", value: "EventsId", sortable: true }, *@
+    @*                     { text: "標題", value: "Title" }, *@
+    @*                     { text: "活動開始時間", value: "StartTime", sortable: true }, *@
+    @*                     { text: "活動結束時間", value: "EndTime", sortable: true }, *@
+    @*                     { text: "舉辦城市", value: "City" }, *@
+    @*                     { text: "狀態", value: "Status" }, *@
+    @*                     { text: "主辦人編號", value: "MemberId", sortable: true }, *@
+    @*                     { text: "建立時間", value: "CreateTime", sortable: true }, *@
+    @*                     { text: "修改時間", value: "LastEditTime", sortable: true }, *@
+    @*                 ], *@
+    @*                 items: *@
+    @*                     [ *@
+    @*                         { EventsId: 1, Title: "Event 1", StartTime: "2024-04-01 10:00:00", EndTime: "2024-04-01 12:00:00", City: "Taipei", Status: "Active", MemberId: 1, CreateTime: "2024-04-01 08:00:00", LastEditTime: "2024-04-01 08:30:00" }, *@
+    @*                         { EventsId: 2, Title: "Event 2", StartTime: "2024-04-02 10:00:00", EndTime: "2024-04-02 12:00:00", City: "New York", Status: "Active", MemberId: 2, CreateTime: "2024-04-02 08:00:00", LastEditTime: "2024-04-02 08:30:00" }, *@
+    @*                         { EventsId: 3, Title: "Event 3", StartTime: "2024-04-03 10:00:00", EndTime: "2024-04-03 12:00:00", City: "London", Status: "Active", MemberId: 3, CreateTime: "2024-04-03 08:00:00", LastEditTime: "2024-04-03 08:30:00" }, *@
+    @*                         { EventsId: 4, Title: "Event 4", StartTime: "2024-04-04 10:00:00", EndTime: "2024-04-04 12:00:00", City: "Paris", Status: "Active", MemberId: 4, CreateTime: "2024-04-04 08:00:00", LastEditTime: "2024-04-04 08:30:00" }, *@
+    @*                         { EventsId: 5, Title: "Event 5", StartTime: "2024-04-05 10:00:00", EndTime: "2024-04-05 12:00:00", City: "Tokyo", Status: "Active", MemberId: 5, CreateTime: "2024-04-05 08:00:00", LastEditTime: "2024-04-05 08:30:00" }, *@
+    @*                         { EventsId: 6, Title: "Event 6", StartTime: "2024-04-06 10:00:00", EndTime: "2024-04-06 12:00:00", City: "Berlin", Status: "Active", MemberId: 6, CreateTime: "2024-04-06 08:00:00", LastEditTime: "2024-04-06 08:30:00" }, *@
+    @*                         { EventsId: 7, Title: "Event 7", StartTime: "2024-04-07 10:00:00", EndTime: "2024-04-07 12:00:00", City: "Sydney", Status: "Active", MemberId: 7, CreateTime: "2024-04-07 08:00:00", LastEditTime: "2024-04-07 08:30:00" }, *@
+    @*                         { EventsId: 8, Title: "Event 8", StartTime: "2024-04-08 10:00:00", EndTime: "2024-04-08 12:00:00", City: "Seoul", Status: "Active", MemberId: 8, CreateTime: "2024-04-08 08:00:00", LastEditTime: "2024-04-08 08:30:00" }, *@
+    @*                         { EventsId: 9, Title: "Event 9", StartTime: "2024-04-09 10:00:00", EndTime: "2024-04-09 12:00:00", City: "Moscow", Status: "Active", MemberId: 9, CreateTime: "2024-04-09 08:00:00", LastEditTime: "2024-04-09 08:30:00" }, *@
+    @*                         { EventsId: 10, Title: "Event 10", StartTime: "2024-04-10 10:00:00", EndTime: "2024-04-10 12:00:00", City: "Beijing", Status: "Active", MemberId: 10, CreateTime: "2024-04-10 08:00:00", LastEditTime: "2024-04-10 08:30:00" }, *@
+    @*                         { EventsId: 11, Title: "Event 11", StartTime: "2024-04-11 10:00:00", EndTime: "2024-04-11 12:00:00", City: "Madrid", Status: "Active", MemberId: 11, CreateTime: "2024-04-11 08:00:00", LastEditTime: "2024-04-11 08:30:00" }, *@
+    @*                         { EventsId: 12, Title: "Event 12", StartTime: "2024-04-12 10:00:00", EndTime: "2024-04-12 12:00:00", City: "Rome", Status: "Active", MemberId: 12, CreateTime: "2024-04-12 08:00:00", LastEditTime: "2024-04-12 08:30:00" }, *@
+    @*                         { EventsId: 13, Title: "Event 13", StartTime: "2024-04-13 10:00:00", EndTime: "2024-04-13 12:00:00", City: "Cairo", Status: "Active", MemberId: 13, CreateTime: "2024-04-13 08:00:00", LastEditTime: "2024-04-13 08:30:00" }, *@
+    @*                         { EventsId: 14, Title: "Event 14", StartTime: "2024-04-14 10:00:00", EndTime: "2024-04-14 12:00:00", City: "Athens", Status: "Active", MemberId: 14, CreateTime: "2024-04-14 08:00:00", LastEditTime: "2024-04-14 08:30:00" }, *@
+    @*                         { EventsId: 15, Title: "Event 15", StartTime: "2024-04-15 10:00:00", EndTime: "2024-04-15 12:00:00", City: "Dubai", Status: "Active", MemberId: 15, CreateTime: "2024-04-15 08:00:00", LastEditTime: "2024-04-15 08:30:00" }, *@
+    @*                         { EventsId: 16, Title: "Event 16", StartTime: "2024-04-16 10:00:00", EndTime: "2024-04-16 12:00:00", City: "Bangkok", Status: "Active", MemberId: 16, CreateTime: "2024-04-16 08:00:00", LastEditTime: "2024-04-16 08:30:00" }, *@
+    @*                         { EventsId: 17, Title: "Event 17", StartTime: "2024-04-17 10:00:00", EndTime: "2024-04-17 12:00:00", City: "Singapore", Status: "Active", MemberId: 17, CreateTime: "2024-04-17 08:00:00", LastEditTime: "2024-04-17 08:30:00" }, *@
+    @*                         { EventsId: 18, Title: "Event 18", StartTime: "2024-04-18 10:00:00", EndTime: "2024-04-18 12:00:00", City: "Istanbul", Status: "Active", MemberId: 18, CreateTime: "2024-04-18 08:00:00", LastEditTime: "2024-04-18 08:30:00" }, *@
+    @*                         { EventsId: 19, Title: "Event 19", StartTime: "2024-04-19 10:00:00", EndTime: "2024-04-19 12:00:00", City: "Berlin", Status: "Active", MemberId: 19, CreateTime: "2024-04-19 08:00:00", LastEditTime: "2024-04-19 08:30:00" }, *@
+    @*                         { EventsId: 20, Title: "Event 20", StartTime: "2024-04-20 10:00:00", EndTime: "2024-04-20 12:00:00", City: "Paris", Status: "Active", MemberId: 20, CreateTime: "2024-04-20 08:00:00", LastEditTime: "2024-04-20 08:30:00" }, *@
+    @*                         { EventsId: 21, Title: "Event 21", StartTime: "2024-04-21 10:00:00", EndTime: "2024-04-21 12:00:00", City: "London", Status: "Active", MemberId: 21, CreateTime: "2024-04-21 08:00:00", LastEditTime: "2024-04-21 08:30:00" }, *@
+    @*                         { EventsId: 22, Title: "Event 22", StartTime: "2024-04-22 10:00:00", EndTime: "2024-04-22 12:00:00", City: "Tokyo", Status: "Active", MemberId: 22, CreateTime: "2024-04-22 08:00:00", LastEditTime: "2024-04-22 08:30:00" }, *@
+    @*                         { EventsId: 23, Title: "Event 23", StartTime: "2024-04-23 10:00:00", EndTime: "2024-04-23 12:00:00", City: "New York", Status: "Active", MemberId: 23, CreateTime: "2024-04-23 08:00:00", LastEditTime: "2024-04-23 08:30:00" }, *@
+    @*                         { EventsId: 24, Title: "Event 24", StartTime: "2024-04-24 10:00:00", EndTime: "2024-04-24 12:00:00", City: "Los Angeles", Status: "Active", MemberId: 24, CreateTime: "2024-04-24 08:00:00", LastEditTime: "2024-04-24 08:30:00" }, *@
+    @*                         { EventsId: 25, Title: "Event 25", StartTime: "2024-04-25 10:00:00", EndTime: "2024-04-25 12:00:00", City: "Hong Kong", Status: "Active", MemberId: 25, CreateTime: "2024-04-25 08:00:00", LastEditTime: "2024-04-25 08:30:00" }, *@
+    @*                         { EventsId: 26, Title: "Event 26", StartTime: "2024-04-26 10:00:00", EndTime: "2024-04-26 12:00:00", City: "Shanghai", Status: "Active", MemberId: 26, CreateTime: "2024-04-26 08:00:00", LastEditTime: "2024-04-26 08:30:00" }, *@
+    @*                         { EventsId: 27, Title: "Event 27", StartTime: "2024-04-27 10:00:00", EndTime: "2024-04-27 12:00:00", City: "Singapore", Status: "Active", MemberId: 27, CreateTime: "2024-04-27 08:00:00", LastEditTime: "2024-04-27 08:30:00" }, *@
+    @*                         { EventsId: 28, Title: "Event 28", StartTime: "2024-04-28 10:00:00", EndTime: "2024-04-28 12:00:00", City: "Seoul", Status: "Active", MemberId: 28, CreateTime: "2024-04-28 08:00:00", LastEditTime: "2024-04-28 08:30:00" }, *@
+    @*                         { EventsId: 29, Title: "Event 29", StartTime: "2024-04-29 10:00:00", EndTime: "2024-04-29 12:00:00", City: "Bangkok", Status: "Active", MemberId: 29, CreateTime: "2024-04-29 08:00:00", LastEditTime: "2024-04-29 08:30:00" }, *@
+    @*                         { EventsId: 30, Title: "Event 30", StartTime: "2024-04-30 10:00:00", EndTime: "2024-04-30 12:00:00", City: "Beijing", Status: "Active", MemberId: 30, CreateTime: "2024-04 - 29 08:00:00", LastEditTime: "2024-04 - 29 08: 30:00" }, *@
+    @*                     ], *@
+    @*                  *@
+    @*             } *@
+    @*         }, *@
+    @*         method:{ *@
+    @*             getEventList(){ *@
+    @*                  *@
+    @*             }, *@
+    @*         }, *@
+    @*     }).mount('#app'); *@
+    @* </script> *@
+    <script src="~/js/Event/Event.js" asp-append-version="true"></script>
+
+}
+

@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/css/Shared/_LayoutForLogout.css">
+    <link rel="shortcut icon" href="~/images/logo_icon.svg" /> <!--頁籤圖示-->
+    @await RenderSectionAsync("topCSS", required: false)
+    @await RenderSectionAsync("topJS", required: false)
+</head>
+<body>
+    <input type="checkbox" name="" id="menu-switch">
+    <input type="checkbox" name="" id="profile-container-switch">
+    <input type="checkbox" name="" id="activity-switch">
+    <input type="checkbox" name="" id="memberCenter-switch">
+
+    <header class="header ">
+        <div class="header-container">
+            <label for="menu-switch" class="hamburger-btn">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+
+            <a asp-controller="Home" asp-action="Index" class="logo-image">
+                <img class="logo" src="~/images/indexlogo.png" alt="">
+            </a>
+
+            <div class="search">
+                <input id="latout-search-input" type="text" class="searchTerm" placeholder="">
+                <button id="layout-search-btn" class="searchButton">
+                    <i class="fa fa-search"></i><span>探索</span>
+                </button>
+            </div>
+
+            <div class="createEvent-container login-register-container">
+                <a asp-controller="Account" asp-action="LoginView" type="button">登入</a>
+                <p style="position: relative;top:-2px;">|</p>
+                <a asp-controller="Account" asp-action="SignupView" type="button">註冊</a>
+            </div>
+        </div>
+    </header>
+
+    <nav class="sideBar">
+        <div class="top-section">
+            <div class="cross">
+                <label for="menu-switch">
+                    <i class="fa-solid fa-xmark"></i>
+                </label>
+            </div>
+            <img src="~/images/logn_banner-15.png" alt="用戶背景圖片">
+        </div>
+
+        <div class="sideMenu middle-section">
+            <ul class="side-menu">
+                <li class="menu-item menu-item1">
+                    <label for="activity-switch" style="display: block;width: 100%;">
+                        <p>
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            探索活動
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </p>
+                    </label>
+                    <ul class="sub-menu sub-menu1">
+                        <li><a asp-controller="Home" asp-action="Search">戶外體驗</a></li>
+                        <li><a asp-controller="Home" asp-action="Search">公益講座</a></li>
+                        <li><a asp-controller="Home" asp-action="Search">學習課程</a></li>
+                        <li><a asp-controller="Home" asp-action="Search">查看更多</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item hostCenter">
+                    <a asp-controller="Organize" asp-action="Index"><i class="fa-solid fa-user-pen"></i>主辦中心</a>
+                </li>
+            </ul>
+            <div class="bottom-section">
+                <a asp-controller="Account" asp-action="LoginView" type="button" >
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    登入
+                </a>
+                <p>|</p>
+                <a asp-controller="Account" asp-action="Signup" type="button" >註冊</a>
+                <div class="socialMedia">
+                    <p class="news">最新消息</p>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-line"></i></a>
+                </div>
+            </div>
+        </div>
+
+        
+    </nav>
+    <div class="overlay"></div>
+
+    @RenderBody()
+
+    <div class="footer">
+        <div class="footer-container">
+            <p class="companyName">eJoin Inc</p>
+            <span> 你揪你股份有限公司 © eJoin Inc. All Rights Reserved.</span>
+        </div>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/vue.global.js"></script>
+    <script src="~/js/Shared/_LayoutForLogin.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("endCSS", required: false)
+    @await RenderSectionAsync("endJS", required: false)
+
+</body>
+</html>

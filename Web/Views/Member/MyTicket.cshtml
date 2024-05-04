@@ -1,0 +1,518 @@
+﻿@using Web.ViewModels.MemberViewModel
+
+@model MyTicketViewModel
+@{
+    ViewData["Title"] = "我的票券";
+}
+
+<!-- 目錄+內容 -->
+<div id="app" class="content">
+
+    <!-- 目錄 -->
+    <div class="menu" >
+        <ul class="main-menu">
+            <li><a asp-controller="Member" asp-action="MyProfile" class="menu-aboutMe">關於自己</a></li>
+            
+            <li class="currentPage"><a asp-controller="Member" asp-action="MyTicket" class="menu-myTicket">我的票券</a></li>
+            
+            <li><a asp-controller="Member" asp-action="MyEvent" class="menu-myActivities">我的活動</a></li>
+            
+            <li><a asp-controller="Member" asp-action="MyAccount" class="menu-changePassword">變更密碼</a></li>
+
+
+        </ul>
+    </div>
+
+    <!-- 內容 --> 
+    <div class="all">
+        <!-- 照片與名字&主要內容 -->
+        <div class="photoNameAndMainContent">
+            <!-- 照片與名字 -->
+            <div class="photoAndName">
+                <img src="@Model.AvatarUrl" class="photo">
+                <p class="name">@Model.DisplayName</p>
+            </div>
+
+            <!-- 我的票劵 -->
+            <div class="myTicket">
+                <!-- 我的票劵-標籤連結-->
+                <span id="registered" class="registered-link tabLink">我的票劵</span>
+                <span id="useTicket" class="useTicket-link tabLink">使用紀錄</span>
+                <span id="buyTicket" class="buyTicket-link tabLink">購票紀錄</span>
+@*                 <span id="returnTicketHistory" class="returnTicketHistory-link tabLink">退票紀錄</span> *@
+
+                <!-- 我的票劵-標籤-->
+                <div class="tab" id="releaseTickets">
+                    <!-- 我的票劵-標籤本身-->
+                    <ul>
+                        <li><a href="#registered" class="registered-tab" @@click="SetCurrentTab('releaseTickets'); CallGetMemberTicketsApi()">我的票劵</a></li>
+                        <li><a href="#useTicket" class="useTicket-tab" @@click="SetCurrentTab('usedRecords'); CallGetUsedTicketsCountApi(); CallUsedTicketsApi();">使用紀錄</a></li>
+                        <li><a href="#buyTicket" class="buyTicket-tab" @@click="CallGetMemberOrdersApi();">購票紀錄</a></li>
+                        <li><a href="#returnTicketHistory" class="returnTicketHistory-tab" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target=#notOpen>分票紀錄</a></li>  @* 把data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target=#notOpen拿掉，可正常運作 *@
+                    </ul>
+
+                    <!-- 我的票劵-標籤內容-已報名(改名：我的票劵)-->
+                    <div class="registered-content tabContent" >
+                          <!-- 格子清單 -->
+                          <div class="grid-list">
+                              <!-- 使用 v-for 指令迭代 releaseTickets 數據 -->
+                              <div class="grid" v-for="ticket in releaseTickets" :key="ticket.eventId">
+                                  <div class="grid-content">
+                                      <a :href="'/Home/Event/' + ticket.eventId" target="_blank"><h2>{{ticket.eventName}} : {{ ticket.ticketTypeName }} </h2></a>
+                                      <p class="date">到期日： {{ new Date(ticket.expireTime).toLocaleString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' ,hour12:true}) }}</p>
+                                      <p>票種： {{ ticket.ticketTypeName }} x {{ ticket.quantity }}</p>                                                                         
+                                  </div>
+                                  <div class="grid-operate">
+                                      <div class="operate-header">
+                                          <button @@click="selectTicket(ticket)" class="getTicket button" data-bs-toggle="modal" data-bs-target="#getTicketQuantityModal">取票</button>
+                                      </div>
+                                      <div class="operate-footer">
+                                          <a href="#" class="returnTicket" data-bs-toggle="modal" data-bs-target="#notOpen">分票</a>
+                                          <a href="#" class="details" data-bs-toggle="modal"  :data-bs-target="'#detailsModal-' + ticket.ticketTypeId">明細</a>
+                                      </div>
+                                  </div>
+                                  <!-- 已報名(改名：我的票劵)-明細- -->
+                                  <div class="modal" tabindex="-1"  :id="'detailsModal-' + ticket.ticketTypeId" >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">票劵明細</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div>
+                                                    <a :href="'/Home/Event/'+ ticket.eventId" target="_blank"><h3><i class="fa-solid fa-arrow-up-right-from-square"></i> {{ticket.ticketTypeName}}</h3></a> 
+                                                    <p>票種: {{ticket.ticketTypeName}}</p>
+                                                    @* <p>票號: 2401310739245745410350</p> *@
+                                                    <p>剩餘張數: {{ticket.quantity}}</p>
+                                                    @* <p>單價: $350</p> *@
+                                                    <p>到期日: {{ new Date(ticket.expireTime).toLocaleString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' ,hour12:true}) }}</p>
+                                                </div>
+                                                <hr>
+                                                <div>
+                                                    <h3><i class="fa-solid fa-address-card"></i> 參加人資訊</h3>
+                                                    <p>姓名: {{ticket.participantName}}</p>
+                                                    <p>電子郵件: {{ticket.participantEmail}}</p>
+                                                    <p>行動電話: {{ticket.participantPhone}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer RegisteredMF">
+                                                <a :href="'/Home/Event/'+ ticket.eventId" target="_blank" type="button" class="btn btn-primary">前往活動頁</a>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                          </div>
+                          
+                        @* <!-- 格子清單 --> *@
+                        @* <div class="grid-list"> *@
+                        @*     <!-- 單個格子 --> *@
+                        @*     <div class="grid"> *@
+                        @*         <div class="grid-content"> *@
+                        @*             <a asp-controller="Home" asp-action="Event" target="_blank"><h2>第一波 免費住宿抽獎活動</h2></a> *@
+                        @*             <p class="date">到期日： 2024-03-01 19:00</p> *@
+                        @*             <p >票種： 抽獎劵x2</p>                                                                          *@
+                        @*         </div> *@
+                        @*         <div class="grid-operate"> *@
+                        @*             <div class="operate-header"> *@
+                        @*                 <button class="getTicket button" data-bs-toggle="modal" data-bs-target="#getTicketQuantityModal">取票</button> *@
+                        @*             </div> *@
+                        @*             <div class="operate-footer"> *@
+                        @*                 <a href="#" class="returnTicket" data-bs-toggle="modal" data-bs-target=#notOpen>退票</a> $1$ notOpen換成Registered_returnTicketData，重新生效 #1# *@
+                        @*                 <a href="#" class="details" data-bs-toggle="modal" data-bs-target=#Registered_detailsModal>明細</a> *@
+                        @*             </div> *@
+                        @*         </div> *@
+                        @*     </div> *@
+                        @* </div> *@
+                        <!-- 切換頁碼 -->
+                        <nav aria-label="Page navigation example" class="pageNumber">
+                          <ul class="pagination">
+                            <!-- 上一頁按鈕 -->
+                            <li class="page-item" :class="{disabled: pageList[currentTab].currentPage === 1}">
+                              <a class="page-link" href="#" aria-label="Previous" @@click.prevent="ChangePage(pageList[currentTab].currentPage - 1)">
+                                <span aria-hidden="true">&laquo;</span>
+                              </a>
+                            </li>
+
+                            <!-- 頁碼列表 -->
+                            <li class="page-item" :class="{disabled: pageList[currentTab].currentPage === 1}" v-if="pageList[currentTab].totalPages > 3 && pageList[currentTab].currentPage > 2">
+                              <a class="page-link" href="#" @@click.prevent="ChangePage(1)">...</a>
+                            </li>
+                            <li class="page-item" v-for="page in PagesToShow" :key="page" :class="{ active: page === pageList[currentTab].currentPage }">
+                              <a class="page-link" :href="`/MyTicket#useTicket?page=${page}&pageSize=${pageList[currentTab].pageSize}`" @@click.prevent="ChangePage(page)">{{ page }}</a>
+                            </li>
+                            <li class="page-item" :class="{disabled: pageList[currentTab].currentPage === pageList[currentTab].totalPages}" v-if="pageList[currentTab].totalPages > 3 && pageList[currentTab].currentPage < pageList[currentTab].totalPages - 1">
+                              <a class="page-link" href="#" @@click.prevent="ChangePage(pageList[currentTab].totalPages)">...</a>
+                            </li>
+
+                            <!-- 下一頁按鈕 -->
+                            <li class="page-item" :class="{ disabled: pageList[currentTab].currentPage === pageList[currentTab].totalPages }">
+                              <a class="page-link" href="#" aria-label="Next" @@click.prevent="ChangePage(pageList[currentTab].currentPage + 1)">
+                                <span aria-hidden="true">&raquo;</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </nav>
+                    </div>
+                    
+
+                    <!-- 我的票劵-標籤內容-使用紀錄-->
+                    <div class="useTicket-content tabContent">
+                        <!-- 格子清單 -->
+                        <div class="grid-list">
+
+                            <!-- 單個格子 -->
+                            <div class="grid" v-for="usedTicket in usedTickets" :key="usedTicket.eventId">
+                                <div class="grid-content-noBtn">
+                                    <a :href="'/Home/Event/' + usedTicket.eventId"><h2>{{ usedTicket.eventName }}</h2></a>
+                                    <p class="date">票券名稱： {{usedTicket.ticketTypeName}}</p>
+                                    <p >使用數量：{{usedTicket.quantity}}</p> 
+                                        
+                                </div>
+                                <div class="grid-operate-noBtn">
+                                    <a href="#" class="details" data-bs-toggle="modal" :data-bs-target="'#useTicket_detailsModal-' + usedTicket.ticketTypeId">
+                                        <span style="display: block;">使用日期</span>{{ new Date(usedTicket.changedTime).toLocaleString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' ,hour12:true}) }}
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- 使用紀錄-明細 -->
+                            @* <div class="modal" tabindex="-1" id="useTicket_detailsModal"> *@
+                            @*     <div class="modal-dialog"> *@
+                            @*         <div class="modal-content"> *@
+                            @*             <div class="modal-header"> *@
+                            @*                 <h5 class="modal-title">票劵明細</h5> *@
+                            @*                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> *@
+                            @*             </div> *@
+                            @*             <div class="modal-body"> *@
+                            @*                 <div> *@
+                            @*                     <a asp-controller="Home" asp-action="Event" target="_blank"><h3><i class="fa-solid fa-arrow-up-right-from-square"></i> 美學旅行：走進歐洲藝術博物館</h3></a> *@
+                            @*                     <p>票種: 六講套票</p> *@
+                            @*                     <p>票號: 2402122007561782024220</p> *@
+                            @*                     <p>使用張數: 1</p> *@
+                            @*                     <p>使用時間: 2024-02-28 19:00</p> *@
+                            @*                 </div> *@
+                            @*             </div> *@
+                            @*             <div class="modal-footer"> *@
+                            @*                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button> *@
+                            @*             </div> *@
+                            @*         </div> *@
+                            @*     </div> *@
+                            @* </div> *@
+                        <!-- 切換頁碼 -->
+                        <nav aria-label="Page navigation example" class="pageNumber">
+                          <ul class="pagination">
+                            <!-- 上一頁按鈕 -->
+                            <li class="page-item" :class="{disabled: pageList[currentTab].currentPage === 1}">
+                              <a class="page-link" href="#" aria-label="Previous" @@click.prevent="ChangePage(pageList[currentTab].currentPage - 1)">
+                                <span aria-hidden="true">&laquo;</span>
+                              </a>
+                            </li>
+
+                            <!-- 頁碼列表 -->
+                            <li class="page-item" :class="{disabled: pageList[currentTab].currentPage === 1}" v-if="pageList[currentTab].totalPages > 3 && pageList[currentTab].currentPage > 2">
+                              <a class="page-link" href="#" @@click.prevent="ChangePage(1)">...</a>
+                            </li>
+                            <li class="page-item" v-for="page in PagesToShow" :key="page" :class="{ active: page === pageList[currentTab].currentPage }">
+                              <a class="page-link" href="#" @@click.prevent="ChangePage(page)">{{ page }}</a>
+                            </li>
+                            <li class="page-item" :class="{disabled: pageList[currentTab].currentPage === pageList[currentTab].totalPages}" v-if="pageList[currentTab].totalPages > 3 && pageList[currentTab].currentPage < pageList[currentTab].totalPages - 1">
+                              <a class="page-link" href="#" @@click.prevent="ChangePage(pageList[currentTab].totalPages)">...</a>
+                            </li>
+
+                            <!-- 下一頁按鈕 -->
+                            <li class="page-item" :class="{ disabled: pageList[currentTab].currentPage === pageList[currentTab].totalPages }">
+                              <a class="page-link" href="#" aria-label="Next" @@click.prevent="ChangePage(pageList[currentTab].currentPage + 1)">
+                                <span aria-hidden="true">&raquo;</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </nav>
+                    </div>
+
+                    <!-- 我的票劵-標籤內容-購票紀錄-->
+                    <div class="buyTicket-content tabContent">
+                        <!-- 格子清單 -->
+                        <div class="grid-list">
+
+                                <!-- 單個格子 -->
+                                @* <div class="grid"> *@
+                                @*     <div class="grid-content-noBtn"> *@
+                                @*         <a asp-controller="Home" asp-action="Event"><h2>美學旅行：走進歐洲藝術博物館</h2></a> *@
+                                @*         <p class="date">購入時間： 2024-02-27 14:00</p> *@
+                                @*         <p class="orderNumber">訂單編號： 2401310739245645659000</p> *@
+                                @*     </div> *@
+                                @*     <div class="grid-operate-noBtn"> *@
+                                @*         <a href="#" class="details" data-bs-toggle="modal" data-bs-target=#buyTicket_detailsModal>明細</a> *@
+                                @*     </div> *@
+                                @* </div> *@
+                                
+                                <div class="grid"  v-for="order in orderList.orders" :key="order.orderDetailId">
+                                    <div class="grid-content-noBtn">
+                                        <a :href="'/Home/Event/' + order.eventId"><h2>{{order.eventName}}</h2></a>
+                                        <p class="date">購入時間：{{ new Date(order.createTime).toLocaleString('default', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) }}</p>
+                                        <p class="orderNumber">訂單編號： {{order.orderNo}}</p>
+                                    </div>
+                                    <div class="grid-operate-noBtn">
+                                        <a href="#" class="details" data-bs-toggle="modal" :data-bs-target="'#buyTicket_detailsModal-'+ order.orderDetailId">明細</a>
+                                    </div>
+                                     <!-- 購票紀錄-明細 -->
+                                    <div class="modal" tabindex="-1" :id="'buyTicket_detailsModal-' + order.orderDetailId">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">購票明細</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @* <div> *@
+                                                    @*     <h3><i class="fa-solid fa-file-lines"></i> 明細內容</h3> *@
+                                                    @*     <p class="orderNumber">訂單編號： 2401310739245645659000</p> *@
+                                                    @*     <p>購入時間： 2024-02-27 14:00</p> *@
+                                                    @*     <p>活動名稱： <a asp-controller="Home" asp-action="Event">美學旅行：走進歐洲藝術博物館</a></p> *@
+                                                    @*     <p>姓名: 譚舒舒</p> *@
+                                                    @*     <p>電子郵件: 123456@gmail.com</p> *@
+                                                    @*     <p>行動電話: 0909090090</p> *@
+                                                    @* </div> *@
+                                                    @* <hr> *@
+                                                    <div class="buyTicket_details_content" v-for="ticket in order.tickets" :key="ticket.ticketTypeId">
+                                                        @* <h3><i class="fa-solid fa-ticket"></i> 票券內容</h3> *@
+                                                        <p class="TicketTypeTitle"><i class="fa-solid fa-check fa-sm"></i> {{ticket.ticketTypeName}}</p>
+                                                        @* <p>票號: 2402122007561782024220</p> *@
+                                                        <p>購入張數： {{ticket.purchaseQuantity}}</p>
+                                                        <p>單價: NT$ {{ticket.unitPrice}}</p>
+                                                        <p>小計: NT$ {{(ticket.unitPrice * ticket.purchaseQuantity)}}</p>
+                                                    </div>
+                                                    @* <div class="buyTicket_details_content"> *@
+                                                    @*     <p class="TicketTypeTitle"><i class="fa-solid fa-check fa-sm"></i> 一般票</p> *@
+                                                    @*     <p>票號: 2402122007561782024221</p> *@
+                                                    @*     <p>購入張數： 1</p> *@
+                                                    @*     <p>單價: $500</p> *@
+                                                    @* </div>                                                 *@
+                                                </div>
+                                                <div class="modal-footer buyTicketMF">
+                                                    @* <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target=#notOpen>退票</button> *@
+                                                    <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">關閉</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                               
+                                
+                        </div>
+                        <!-- 切換頁碼 -->
+                        <nav aria-label="Page navigation example" class="pageNumber">
+                          <ul class="pagination">
+                            <!-- 上一页按钮 -->
+                            <li class="page-item" :class="{disabled: orderList.currentPage === 1}">
+                              <a class="page-link" href="#" aria-label="Previous" @@click.prevent="ChangePageForOrderDetail(orderList.currentPage - 1)">
+                                <span aria-hidden="true">&laquo;</span>
+                              </a>
+                            </li>
+                        
+                            <!-- 页码列表 -->
+                            <li class="page-item" :class="{disabled: orderList.currentPage === 1}" v-if="orderList.totalPage > 3 && orderList.currentPage > 2">
+                              <a class="page-link" href="#" @@click.prevent="ChangePageForOrderDetail(1)">...</a>
+                            </li>
+                            <li class="page-item" v-for="page in PagesToShowForOrderDetail" :key="page" :class="{ active: page === orderList.currentPage }">
+                                <a class="page-link" href="#" @@click.prevent="ChangePageForOrderDetail(page)">{{ page }}</a>
+                            </li>
+                            <li class="page-item" :class="{disabled: orderList.currentPage === orderList.totalPage}" v-if="orderList.totalPage > 3 && orderList.currentPage < orderList.totalPage - 1">
+                              <a class="page-link" href="#" @@click.prevent="ChangePageForOrderDetail(orderList.totalPage)">...</a>
+                            </li>
+                        
+                            <!-- 下一页按钮 -->
+                            <li class="page-item" :class="{disabled: orderList.currentPage === orderList.totalPage}">
+                              <a class="page-link" href="#" aria-label="Next" @@click.prevent="ChangePageForOrderDetail(orderList.currentPage + 1)">
+                                <span aria-hidden="true">&raquo;</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </nav>
+                    </div>
+
+                    <!-- 我的票劵-標籤內容-退票紀錄-->
+                    <div class="returnTicketHistory-content tabContent">
+                        <!-- 格子清單 -->
+                        <div class="grid-list">
+                                <!-- 單個格子 -->
+                                <div class="grid">
+                                    <div class="grid-content-noBtn">
+                                        <a asp-controller="Home" asp-action="Event"><h2>美學旅行：走進歐洲藝術博物館</h2></a>
+                                        <p class="date">退票時間： 2024-03-10 14:00</p>
+                                    </div>
+                                    <div class="grid-operate-noBtn">
+                                        <a href="#" class="details" data-bs-toggle="modal" data-bs-target=#RefundHistory_detailsModal>明細</a>
+                                    </div>
+                                </div>
+                        </div>
+                        <!-- 切換頁碼 -->
+                        <nav aria-label="Page navigation example" class="pageNumber" >
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                     <!-- 取票-選擇數量 -->
+                        <div class="modal fade" id="getTicketQuantityModal" tabindex="-1" aria-labelledby="quantityModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="quantityModalLabel">選擇數量</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <span>請選擇您要使用的票劵數量：</span>
+                                <input type="number" id="quantityInput" class="form-control" min="1" :max="selectedTicket ? selectedTicket.quantity : 1" value="1" v-model="selectedNumber.number">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                <button  type="button" class="btn btn-primary" id="confirmQuantityBtn" @@click="confirmQuantity" >確定 </button>
+                            </div>
+                            </div>
+                        </div>
+                </div>
+            </div> 
+        </div> 
+    </div>
+
+     <!-- 回頂端 -->
+    <a href="#" class="top">
+    <?xml version="1.0" ?><svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg"><title/><path d="M82.6074,62.1072,52.6057,26.1052a6.2028,6.2028,0,0,0-9.2114,0L13.3926,62.1072a5.999,5.999,0,1,0,9.2114,7.6879L48,39.3246,73.396,69.7951a5.999,5.999,0,1,0,9.2114-7.6879Z"/></svg>
+    </a>
+
+</div>
+
+<!-- tbootstrap-modal彈跳視窗 -->
+     
+   
+    </div>
+    
+    <!-- 不開放-已報名(改名：我的票劵)-退票(第一個) -->
+    <div class="modal" tabindex="-1" id=Registered_returnTicketData>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">進行退票</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <h3>票券資訊</h3>
+                        <p>票號: 2401310739245745410350</p>
+                        <p>票種: 一般票</p>
+                        <p>單價: $350</p>
+                        <p>有效期限: 2024-03-01 19:00 ~ 2024-03-01 19:00</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target=#Registered_returnTicketOK>確認退票</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 不開放-已報名(改名：我的票劵)-退票(第二個) -->
+    <div class="modal fade" id=Registered_returnTicketOK tabindex="-1" aria-labelledby="secondModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="secondModalLabel">退票成功</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <p class="returnTicketOKWord"><span class="returnTicketOKEffect">已成功退票!</span><br>若為付費票，退款作業時間約為14～21個工作天，敬請耐心等候。</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- 退票相關功能，不開放提示訊息 -->
+    <div class="modal fade" id=notOpen tabindex="-1" aria-labelledby="secondModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="secondModalLabel">分票功能</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               <span class="returnTicketOKEffect">分票相關功能維護中，暫不提供使用與查看，謝謝!</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+
+    <!-- 退票紀錄-明細 -->
+    <div class="modal" tabindex="-1" id="RefundHistory_detailsModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">退票明細</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <h3><i class="fa-solid fa-file-lines"></i> 明細內容</h3>
+                        <p class="orderNumber">訂單編號： 2401310739245645659000</p>
+                        <p>退票時間： 2024-02-27 14:00</p>
+                        <p>活動名稱： <a asp-controller="Home" asp-action="Event">美學旅行：走進歐洲藝術博物館</a></p>
+                        <p>姓名: 譚舒舒</p>
+                        <p>電子郵件: 123456@gmail.com</p>
+                        <p>行動電話: 0909090090</p>
+                    </div>
+                    <hr>
+                    <div>
+                        <h3><i class="fa-solid fa-ticket"></i> 票券內容</h3>
+                        <p class="TicketTypeTitle">票種: 六講套票</p>
+                        <p>票號: 2402122007561782024220</p>
+                        <p>購入張數： 1</p>
+                        <p>單價: $2,000</p>
+                                                    
+                        <p class="TicketTypeTitle">票種: 一般票</p>
+                        <p>票號: 2402122007561782024221</p>
+                        <p>購入張數： 1</p>
+                        <p>單價: $500</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                      
+
+@section topCSS {
+
+    <link rel="stylesheet" href="~/css/Member/MyTicket.css" asp-append-version="true" />
+
+}
+
+@section endJS {
+
+    <script src="~/js/Member/MyTicket.js"></script>
+    <script src="~/js/Member/sweetalert2/sweetalert2.all.min.js"></script>
+}
+

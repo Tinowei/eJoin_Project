@@ -1,0 +1,86 @@
+.update-pic {
+    position: relative;
+    overflow: hidden;
+    margin: 10px 50px;
+    border: #aaa 1px dashed;
+}
+
+.update-pic img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    object-position: center;
+    transition: 1s;
+    vertical-align: middle;
+}
+
+.update-pic img:hover {
+    scale: 1.1;
+}
+
+.update-input {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 28px;
+    border-radius: 50px;
+    background-color: #0fccc2;
+    color: white;
+    box-shadow: 0 6px 12px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: 0.2s;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+.update-input:hover {
+    background-color: #85ddd8;
+}
+
+#image-input {
+    position: absolute;
+    opacity: 0;
+    inset: 0 0 0 0;
+}
+
+#form {
+    margin: 30px 50px;
+}
+
+.time-interval {
+    display: flex;
+    gap: 10px;
+}
+
+.switch-p {
+    margin-top: 10px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.switch-btn {
+    margin-left: 10px;
+    border: none;
+    background-color: #0fccc2;
+    color: white;
+    box-shadow: 0 2px 12px 1px rgba(0, 0, 0, 0.2);
+}
+
+.switch-btn:hover {
+    background-color: #85ddd8;
+    color: white;
+}
+
+form > div {
+    margin-bottom: 30px;
+}
+
+.map-container {
+    margin-top: 20px;
+    height: 400px;
+    width: 100%;
+    border: 1px #ccc solid;
+}

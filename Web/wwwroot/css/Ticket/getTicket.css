@@ -1,0 +1,273 @@
+
+        a{
+            text-decoration: none;
+        }
+        html,body {
+            width: 100%;
+            height: 100%;
+            font-family: "Helvetica", "Arial","LiHei Pro","黑體-繁","微軟正黑體", sans-serif;
+        }
+        body{/*上方預留導覽列的寬度*/
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-top: 60px;/*預留空間*/
+            background-color: #F8FBFF;
+        }
+
+        /* ↓↓↓↓↓↓header */
+        header {
+            position: relative;
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(to top,#B5d7ff,#8caef7);
+            box-shadow: rgba(180, 180, 180, 0.598) 0px 3px 6px;
+            position: fixed; 
+            top: 0;
+            z-index: 45;
+        }  
+
+
+        /*回頂端top箭頭*/
+        .top svg{ 
+            width: 30px;
+            height:30px;
+            fill:#ffffff;
+            position: fixed;
+            z-index: 100;
+            right: 10px;
+            bottom: 50px;
+            transition: .3s;
+            visibility: hidden;
+            border-radius: 50%;
+            padding: 5px;
+            background-color: #84848496;
+        }
+        /*回頂端top箭頭-滾動顯示事件*/
+        .top.visible svg{  
+            visibility: visible;
+        }
+        /*回頂端top箭頭-動畫*/
+        .top svg:hover{  
+            background-color: #6d9ff4;
+        }
+        
+        /*所有內容*/
+        .content{
+            display: flex;
+            width: 70%;
+            margin: 20px auto;
+            max-width: 1080px;
+            flex-grow: 1;
+        }
+        /*內容-包裹容器*/
+        .all{
+            background-color: #fff;
+            box-shadow:0 0 10px 0px rgb(244, 244, 244);
+            border-radius: 10px;
+            width:100%;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+        /*上、下半內容*/
+        .h2AndAddressAndQrCode,.accordion{
+            width: 80%;
+            margin: 0px auto;
+        }
+        /*上半部-標題*/
+        .h2AndAddressAndQrCode h2{
+            font-size: 23px;
+            line-height: 25px;
+            padding: 40px 0px 10px;
+            font-weight: bold;
+            color:#278aff;
+        }
+        /*上半部-地址-超連結*/
+        .address a{
+            font-size: 14px;
+            font-weight: bold;
+            color: #6481e0;
+        }
+        /*上半部-地址-超連結，碰到效果*/
+        .address a:hover{
+            color: #85d7ff;
+        }
+        /*上半部-QrCode區塊*/
+        .qrCode{
+            border: 1px solid #c4c4c480;
+            text-align: center;
+            margin: 20px auto 50px;
+            width: 300px;
+            box-shadow:0 0 10px 0px rgb(244, 244, 244);
+            position: relative;
+        }
+        .qrCodeImgOuter {
+            height: 250px;
+            width: 250px;
+            margin:0px auto;
+        }
+        /*上半部-QrCode區塊-圖片(未過期版)*/
+        .qrCode .qrCodeImg {
+            vertical-align: middle;
+            height: 250px;
+            width: 250px;
+            padding: 20px;
+        }
+        /*上半部-QrCode區塊-圖片(過期版)*/
+        .qrCode .overTimeQrCodeImg{
+            vertical-align: middle;
+            height: 250px;
+            width: 250px;
+            padding: 20px;
+            opacity:0.2;
+        }
+        /*上半部-QrCode區塊-過期標章(未過期版)*/
+        .postMark{ 
+            display: none;
+        }
+        /*上半部-QrCode區塊-過期標章(過期版)*/
+        .overTimePostMark{  
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            margin: 0px auto;
+        }
+        /*上半部-QrCode區塊-參加人&票劵編號&使用張數*/
+        .participant,.ticketNumber{
+            margin-bottom: 0px;
+            color: #fff;
+            font-size: 16px;
+            line-height: 30px;
+        }
+        /*上半部-QrCode區塊-參加人*/
+        .participant{
+            background-color:#6d9ff4;
+        }
+        /*上半部-QrCode區塊-票劵編號*/
+        .ticketNumber{
+            background-color: #868686c9;
+        }
+        /*使用張數*/
+        .useNember{
+            color:#df1919;
+            font-size: 18px;
+            font-weight:bold;
+            line-height: 30px;
+
+        }
+        /*下半部-風琴區-單個*/
+        .accordion-item{
+            margin-bottom: 20px;
+            box-shadow:0 0 10px 0px rgb(244, 244, 244);
+        }
+        /*下半部-風琴區-標題區域*/
+        .accordion .accordion-button{
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background:linear-gradient(to bottom, #80c3ff, #6d9ff4);
+            letter-spacing: 2px;
+        }
+        /*下半部-風琴區-標題區域-箭頭*/
+        .accordion-button::after {
+            filter: brightness(0) invert(1);
+        }
+        /*下半部-風琴區-標題區域-圖示*/    
+        .accordion-button svg{
+            margin-right: 10px;
+        }
+        /*下半部-風琴區-內容-超連結*/  
+        .accordion a{
+            color: #6481e0;
+            font-size: 18px;
+        }
+        /*下半部-風琴區-內容-超連結，碰到效果*/  
+        .accordion a:hover{
+            color: #85d7ff;
+        }
+        /*下半部-風琴區-內容-小標題*/  
+        .accordion h4{
+            font-size: 16px;
+            line-height: 20px;
+            color:#868686;
+            font-weight: bold;
+            margin: 20px 0px 15px;
+        }
+        /*下半部-風琴區-內容-文字*/  
+        .accordion p{
+            padding-left: 20px;
+            font-size: 16px;
+            color:#868686;
+        }
+        /*下半部-風琴區-內容-附註文字*/  
+        .accordion .note{
+            padding-left: 0px;
+            font-weight: bold;
+            background-color: #fff9b5a8;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        /*視窗小於768*/
+        @media screen and (max-width: 768px) {
+            /*所有內容*/
+            .content{
+                width: 100%;
+                margin: 0px auto;
+            }
+            /*內容-包裹容器*/
+            .all{
+                box-shadow:none;
+                border-radius: 0px;
+            }
+            html,body{
+                overflow-x: hidden; 
+            }
+            body::-webkit-scrollbar {
+                display: none;
+            }
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(106, 106, 106, 0.213);
+                display: none;
+                z-index: 10;
+            }
+            /*上半部-QrCode區塊*/
+            .qrCode{
+                width: 250px;
+            }
+            .qrCodeImgOuter {
+                height: 200px;
+                width: 200px;
+            }
+            /*上半部-QrCode區塊-圖片*/
+            .qrCode .qrCodeImg{
+                height: 200px;
+                width: 200px;
+            }
+            /*上半部-QrCode區塊-圖片(過期版)*/
+            .qrCode .overTimeQrCodeImg{
+                height: 200px;
+                width: 200px;
+            }
+            /*上半部-QrCode區塊-過期標章(過期版)*/
+            .overTimePostMark{ 
+                width: 200px;
+                height: 200px;
+            }
+            nav.sideBar{              
+                z-index: 50;  /*目錄層級要比header、footer、內容高*/              
+                top:0;
+            }
+
+        }
+        @media screen and (min-width:768px){
+
+    }

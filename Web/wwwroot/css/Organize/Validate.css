@@ -1,0 +1,39 @@
+.content-container {
+    width: 90%;
+    max-width: 1080px;
+    margin: 30px auto;
+    background: #fff;
+    box-shadow: 0px -1px 16px rgba(0, 0, 0, .05);
+    border-radius: 36px;
+    padding: 30px;
+}
+.qrcode-container {
+    width: 100%;
+    max-width: 500px;
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;*/
+}
+#qr-reader {
+    margin: 0 auto;
+}
+.qrcode-description {
+    margin: 10px;
+}
+.ticketId {
+    display: flex;
+    justify-content: center;
+}
+.ticketInput {
+    width: 100%;
+    margin: 10px 0;
+    max-width: 1080px;
+}
+.verifyButton {
+    width: 100%;
+    max-width: 1080px;
+
+}
